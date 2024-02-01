@@ -2,6 +2,13 @@
 
 slogan - we will remember so you don't have to
 
+## Prograss
+
+### User Authentication:
+
+- User registration and login. Note: should I add google login?
+- Password recovery/reset functionality.
+
 ## add-ons for flask
 
 ### WTForms-Alchemy
