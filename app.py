@@ -8,7 +8,7 @@ app.config.from_object('config.Config')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-# from models import Result
+# from models import User
 
 @app.route('/')
 def index():

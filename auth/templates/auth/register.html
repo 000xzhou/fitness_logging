@@ -1,17 +1,23 @@
-{% extends 'base.html' %} {% block title %}Register{% endblock %}
-<!-- main clock content starts here -->
-{% block content %}
-<div>Register</div>
-<form method="POST" action="{{ action_url }}">
-  {{ form.hidden_tag() }}
-  <!-- form  -->
-  {% for field in form if field.widget.input_type != 'hidden' %} {% if
-  field.type != 'SubmitField' %} {{ field.label }} {{ field }} {% for error in
-  field.errors %} {{ error }} {% endfor %} {% else %} {{ field }}
-  <!-- Display the submit button without its label -->
-  {% if error %}{{error}}{% endif %} {% endif %} {% endfor %}
-</form>
-<div>
-  Already have an account? <span><a href="">Login</a></span>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+  <body>
+    <h2>Register</h2>
+    <form method="POST" action="/register">
+      {{ form.hidden_tag() }}
+      <!-- form  -->
+      {% for field in form if field.widget.input_type != 'hidden' %} {% if
+      field.type != 'SubmitField' %} {{ field.label }} {{ field }} {% for error
+      in field.errors %} {{ error }} {% endfor %} {% else %} {{ field }}
+      <!-- Display the submit button without its label -->
+      {% if error %}{{error}}{% endif %} {% endif %} {% endfor %}
+    </form>
+    <div>
+      Already have an account? <span><a href="">SIGN IN</a></span>
+    </div>
+  </body>
+</html>

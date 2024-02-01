@@ -11,7 +11,7 @@ def connect_db(app):
 class User(db.Model):
     __tablename__ = "users"
 
-    email = db.Column(db.Text, unique=True, nullable=False)
+    email = db.Column(db.Text, unique=True, primary_key=True)
     password = db.Column(db.Text, nullable=False)
     
     def __init__(self, email, password):
