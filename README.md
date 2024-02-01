@@ -4,10 +4,17 @@ slogan - we will remember so you don't have to
 
 ## Prograss
 
-### User Authentication:
-
-- User registration and login. Note: should I add google login?
-- Password recovery/reset functionality.
+1. User Authentication:
+   []User registration and login. <sub>Note: should I add google login?</sub>
+   - Password recovery/reset functionality.
+2. Dashboard:
+   - Personalized dashboard for each user.
+   - Overview of recent workouts and achievements.
+   - Progress tracking charts or graphs.
+3. Exercise Library:
+   - Browse and search functionality for a comprehensive exercise database.
+   - Filter exercises by muscle group, equipment, or difficulty level.
+   - Detailed exercise descriptions, including proper form and tips. <sub>I will use w.e there is </sub>
 
 ## add-ons for flask
 
