@@ -5,8 +5,8 @@ slogan - we will remember so you don't have to
 ## Prograss
 
 1. User Authentication:
-   - [] User registration and login. <sub>Note: should I add google login?</sub>
-   - [] Password recovery/reset functionality.
+   - [x] User registration and login. <sub>Note: should I add google login?</sub>
+   - [ ] Password recovery/reset functionality.
 2. Dashboard:
    - Personalized dashboard for each user.
    - Overview of recent workouts and achievements.
