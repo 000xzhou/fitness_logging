@@ -3,10 +3,6 @@ from flask_bcrypt import Bcrypt
 
 bcrypt = Bcrypt()
 db = SQLAlchemy()
-
-def connect_db(app):
-    db.app = app
-    db.init_app(app)
     
 class User(db.Model):
     __tablename__ = "users"
@@ -22,14 +18,21 @@ class User(db.Model):
         return '<id {}>'.format(self.id)
     
     @classmethod
-    def authenticate(cls, username, password):
+    def is_authenticated(cls, email, password):
         """Validate that user exists & password is correct.
         Return user if valid; else return False.
         """
-        u = User.query.filter_by(username=username).first()
+        u = User.query.filter_by(email=email).first()
         if not u:
             return None, "User does not exist" 
         if bcrypt.check_password_hash(u.password, password):
             return u, None
         else:
             return None, "Wrong password"
+        
+    @classmethod
+    def register(cls, email, password):
+        """Register user w/hashed password & return user."""
+        hashed = bcrypt.generate_password_hash(password)
+        hashed_utf8 = hashed.decode("utf8")
+        return cls(email=email, password=hashed_utf8)

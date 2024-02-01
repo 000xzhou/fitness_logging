@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session, redirect, url_for
 from auth.forms import LoginForm, RegisterForm
-from models import User
+from models import db, User
+from sqlalchemy.exc import IntegrityError
 
 
 auth_blueprint = Blueprint('auth_blueprint', __name__,
@@ -17,5 +18,19 @@ def login():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        return "reg"
+        email = form.email.data
+        password = form.password.data
+        new_user = User.register(email, password)
+        db.session.add(new_user)
+        try:
+            db.session.commit()
+        except IntegrityError:
+            # Add an error message to the form
+            form.email.errors.append('email is taken, please login or pick another')
+            return render_template("auth/register.html", form=form)
+
+        session['user'] = new_user.email
+        return "you login"
+        # return redirect(url_for('index'))
+
     return render_template("auth/register.html", form=form)

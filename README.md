@@ -4,8 +4,6 @@ slogan - we will remember so you don't have to
 https://realpython.com/flask-blueprint/
 https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
 
-maybe: https://realpython.com/lessons/structuring-python-application/
-
 ## Prograss
 
 1. User Authentication:
@@ -37,7 +35,7 @@ maybe: https://realpython.com/lessons/structuring-python-application/
 8. Workout History:
    - [ ] Access a complete history of logged workouts.
 
-## add-ons for flask
+## add-ons for flask that I might or might not use
 
 ### WTForms-Alchemy
 
