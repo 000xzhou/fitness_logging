@@ -37,6 +37,11 @@ https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
 8. Workout History:
    - [ ] Access a complete history of logged workouts.
 
+## Thoughts
+
+For the dashboard:
+I really don't want to use js so I try to use flask only. Then I though, why not just return the HTML block I wanted with the classes and everything already included. Then I can just use the div_id.textcontent = the return html I got from the server. Without having to create a bunch of elements and stuff.
+
 ## add-ons for flask that I might or might not use
 
 ### WTForms-Alchemy
