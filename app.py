@@ -3,7 +3,7 @@ from models import db
 from auth import auth
 from general import general
 from dashboard import dashboard
-from api import api
+from exercises import exercises
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('config.Config')
@@ -16,7 +16,7 @@ db.init_app(app)
 app.register_blueprint(auth.auth_bp)
 app.register_blueprint(general.general_bp)
 app.register_blueprint(dashboard.dashboard_bp)
-# app.register_blueprint(api.api_bp, url_prefix='/api')
+app.register_blueprint(exercises.exercises_bp, url_prefix='/exercises')
 
 if __name__ == "__main__":
     app.run(debug=True)
