@@ -1,6 +1,10 @@
 # fitness_logging
 
 slogan - we will remember so you don't have to
+https://realpython.com/flask-blueprint/
+https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
+
+maybe: https://realpython.com/lessons/structuring-python-application/
 
 ## Prograss
 
