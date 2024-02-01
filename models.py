@@ -24,11 +24,11 @@ class User(db.Model):
         """
         u = User.query.filter_by(email=email).first()
         if not u:
-            return None, "User does not exist" 
+            return "User does not exist" 
         if bcrypt.check_password_hash(u.password, password):
-            return u, None
+            return u
         else:
-            return None, "Wrong password"
+            return "Wrong password"
         
     @classmethod
     def register(cls, email, password):

@@ -11,6 +11,20 @@ auth_blueprint = Blueprint('auth_blueprint', __name__,
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
+        
+        user = User.is_authenticated(email, password)
+        
+        if user == "User does not exist":
+            form.email.errors.append("User does not exist.")
+            return render_template("auth/login.html", form=form)
+
+        if user == "Wrong password":
+            form.email.errors.append("Wrong password")
+            return render_template("auth/login.html", form=form)
+        
+        session['user'] = user.email
         return "login"
     return render_template("auth/login.html", form=form)
 
