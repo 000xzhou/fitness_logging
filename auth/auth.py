@@ -4,10 +4,10 @@ from models import db, User
 from sqlalchemy.exc import IntegrityError
 
 
-auth_blueprint = Blueprint('auth_blueprint', __name__,
-    template_folder='templates',)
+auth_bp = Blueprint('auth_bp', __name__,
+    template_folder='templates', static_folder='static')
 
-@auth_blueprint.route('/login', methods=['GET', 'POST'])
+@auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -28,7 +28,7 @@ def login():
         return "login"
     return render_template("auth/login.html", form=form)
 
-@auth_blueprint.route('/register', methods=['GET', 'POST'])
+@auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():

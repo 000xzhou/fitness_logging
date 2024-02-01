@@ -1,6 +1,8 @@
 from flask import Flask
 from models import db
 from auth import auth
+from general import general
+from api import api
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('config.Config')
@@ -13,7 +15,9 @@ db.init_app(app)
 def index():
     return "This is an example app" 
 
-app.register_blueprint(auth.auth_blueprint)
+app.register_blueprint(auth.auth_bp)
+app.register_blueprint(general.general_bp)
+app.register_blueprint(api.api_bp, url_prefix='/api')
 
 if __name__ == "__main__":
     app.run(debug=True)

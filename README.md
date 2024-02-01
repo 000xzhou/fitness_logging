@@ -1,13 +1,15 @@
 # fitness_logging
 
 slogan - we will remember so you don't have to
+
+using as reference:
 https://realpython.com/flask-blueprint/
 https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
 
 ## Prograss
 
 1. User Authentication:
-   - [ ] User registration and login. <sub>Note: should I add google login?</sub>
+   - [x] User registration and login. <sub>Note: should I add google login?</sub>
    - [ ] Password recovery/reset functionality.
 2. Dashboard:
    - [ ] Personalized dashboard for each user.
@@ -50,10 +52,6 @@ https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
 
 - from flask_mail import Message
 - send reminder email or password reset
-
-### Flask-Admin
-
-- just in case I need admin
 
 ### Flask-Restless
 
