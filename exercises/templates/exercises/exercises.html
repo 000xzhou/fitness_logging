@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% for item in data %}
+    <!-- start for loop -->
+    <div>
+      <p>Exerice: {{item.name}}</p>
+      <p>Difficulty: {{item.difficulty}}</p>
+      <p>Trageted Muscle: {{item.muscle}}</p>
+      <p>Type of Training: {{item.type}}</p>
+      <p>Equipment: {{item.equipment}}</p>
+      <p>How to lift: {{item.instructions}}</p>
+    </div>
+    <a href="">Add Exerice</a>
+    <a href="">Add Exerice for (pick day)</a>
+    <!-- end for loop  -->
+    {% endfor %}
+  </body>
+</html>

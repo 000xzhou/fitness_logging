@@ -36,3 +36,14 @@ class User(db.Model):
         hashed = bcrypt.generate_password_hash(password)
         hashed_utf8 = hashed.decode("utf8")
         return cls(email=email, password=hashed_utf8)
+    
+    
+class Exercisecategory(db.Model):
+    __tablename__ = "exercisecategories"
+
+    id = db.Column(db.Integer, unique=True, primary_key=True)
+    name = db.Column(db.Text, unique=True, nullable=False)
+    
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
