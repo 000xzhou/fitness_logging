@@ -6,19 +6,100 @@
     <title>Document</title>
   </head>
   <body>
-    {% for item in data %}
-    <!-- start for loop -->
-    <div>
-      <p>Exerice: {{item.name}}</p>
-      <p>Difficulty: {{item.difficulty}}</p>
-      <p>Trageted Muscle: {{item.muscle}}</p>
-      <p>Type of Training: {{item.type}}</p>
-      <p>Equipment: {{item.equipment}}</p>
-      <p>How to lift: {{item.instructions}}</p>
+    <!-- sidebar  -->
+<div class="sidebar">
+  <div class="searchbar">
+    <label for="name">Have a workout in mind?</label>
+    <input type="text" id="name" placeholder="search">
+  </div>
+  <div class="form-group">
+    <!-- filter muscle  -->
+    <div class="form-group">
+      <label for="muscle">muscle</label>
+      <select class="form-control" id="muscle">
+        <!-- Options for muscle -->
+        <option value="">all</option>
+        <option value="abdominals">abdominals</option>
+        <option value="abductors">abductors</option>
+        <option value="adductors">adductors</option>
+        <option value="biceps">biceps</option>
+        <option value="calves">calves</option>
+        <option value="chest">chest</option>
+        <option value="forearms">forearms</option>
+        <option value="glutes">glutes</option>
+        <option value="hamstrings">hamstrings</option>
+        <option value="lats">lats</option>
+        <option value="lower_back">lower back</option>
+        <option value="middle_back">middle back</option>
+        <option value="neck">neck</option>
+        <option value="quadriceps">quadriceps</option>
+        <option value="traps">traps</option>
+        <option value="triceps">triceps</option>
+
+      </select>
     </div>
-    <a href="">Add Exerice</a>
-    <a href="">Add Exerice for (pick day)</a>
-    <!-- end for loop  -->
-    {% endfor %}
+          <!-- filter equipment   -->
+          <div class="form-group">
+            <label for="equipment">equipment</label>
+            <select class="form-control" id="equipment">
+              <!-- Options for equipment -->
+        <option value="">all</option>
+        <option value="body_only">body Weight</option>
+        <option value="dumbbell">dumbbell</option>
+        <option value="cable">cable</option>
+        <option value="e-z_curl_bar">e-z curl bar</option>
+        <option value="barbell">barbell</option>
+        <!-- !no idea if the below is in api or not  -->
+        <option value="bench">bench</option>
+        <option value="gym_mat">gym mat</option>
+        <option value="kettlebell">kettlebell</option>
+        <option value="other">other</option>
+            </select>
+                  <!-- filter type  -->
+    <div class="form-group">
+      <label for="type">type</label>
+      <select class="form-control" id="type">
+        <!-- Options for type -->
+        <option value="">all</option>
+        <option value="cardio">cardio</option>
+        <option value="olympic_weightlifting">olympic weightlifting</option>
+        <option value="plyometrics">plyometrics</option>
+        <option value="powerlifting">powerlifting</option>
+        <option value="strength">strength</option>
+        <option value="stretching">stretching</option>
+        <option value="strongman">strongman</option>
+      </select>
+    </div>
+    <!-- filter difficulty   -->
+    <div class="form-group">
+      <label for="difficulty">difficulty</label>
+      <select class="form-control" id="difficulty">
+        <!-- Options for difficulty -->
+        <option value="">all</option>
+        <option value="beginner">beginner</option>
+        <option value="intermediate">intermediate</option>
+        <option value="expert">expert</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- main content  -->
+    <main>
+      {% for item in data %}
+      <!-- start for loop -->
+      <div>
+        <p>Exerice: {{item.name}}</p>
+        <p>Difficulty: {{item.difficulty}}</p>
+        <p>Trageted Muscle: {{item.muscle}}</p>
+        <p>Type of Training: {{item.type}}</p>
+        <p>Equipment: {{item.equipment}}</p>
+        <p>How to lift: {{item.instructions}}</p>
+      </div>
+      <a href="">Add Exerice</a>
+      <a href="">Add Exerice for (pick day)</a>
+      <!-- end for loop  -->
+      {% endfor %}
+    </main>
   </body>
 </html>
