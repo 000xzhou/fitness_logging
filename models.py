@@ -35,7 +35,7 @@ class User(db.Model):
         hashed_utf8 = hashed.decode("utf8")
         return cls(email=email, password=hashed_utf8)
     
-# log for exericise + date + amount    
+# log for exericise + date + amount   (added after finish working out 1 exerice) 
 class ExerciseLog(db.Model):
     __tablename__ = "exerciseLogs"
 
@@ -67,27 +67,38 @@ class WorkoutPlan(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, default=datetime.now().day)
     description = db.Column(db.Text, nullable=True)
+    user_id = db.Column(db.Text, db.ForeignKey('users.email'))
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     day = db.Column(db.Text, default=datetime.now().day)
     is_weekly = db.Column(db.Text, default=False)
     
-    def __init__(self, id, name, description, created_at, day, is_weekly):
+    def __init__(self, id, name, description, user_id, created_at, day, is_weekly):
         self.id = id
         self.name = name
         self.description = description
+        self.user_id = user_id
         self.created_at = created_at
         self.day = day
         self.is_weekly = is_weekly
 
-# list of workout for the day => list of exerices for the day between folder and exerices name.. I'm confsued here.. need to rethink this one
+# exericed details in the workoutplan
 class ExerciseInPlan(db.Model):
     __tablename__ = "exerciseinplans"
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
     exercise_name = db.Column(db.Text, nullable=False)    
+    sets = db.Column(db.Integer, nullable=True)
+    repetitions = db.Column(db.Integer, nullable=True)
+    weight = db.Column(db.Integer, nullable=True)
+    cardio = db.Column(db.Integer, nullable=True)
     
-    def __init__(self, id, plan_id, exercise_name):
+    def __init__(self, id, plan_id, exercise_name,sets, repetitions, weight, cardio):
         self.id = id
         self.plan_id = plan_id
         self.exercise_name = exercise_name
+        self.sets = sets
+        self.repetitions = repetitions
+        self.weight = weight
+        self.cardio = cardio
+        
