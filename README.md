@@ -1,10 +1,9 @@
 # fitness_logging
 
-slogan - we will remember so you don't have to
-
-using as reference:
-https://realpython.com/flask-blueprint/
-https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
+Table
+[Prograss](#Prograss)
+[Thoughts](#Thoughts)
+[using as reference](#using-as-reference)
 
 ## Prograss
 
@@ -41,6 +40,11 @@ https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
 
 For the dashboard:
 I really don't want to use js so I try to use flask only. Then I though, why not just return the HTML block I wanted with the classes and everything already included. Then I can just use the div_id.textcontent = the return html I got from the server. Without having to create a bunch of elements and stuff.
+
+## using as reference:
+
+[Blueprint](https://realpython.com/flask-blueprint/)
+[setting up postgres with config](https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/)
 
 ## add-ons for flask that I might or might not use
 
