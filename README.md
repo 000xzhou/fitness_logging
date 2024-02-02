@@ -18,7 +18,7 @@
 3. Exercise Library:
    - [ ] Browse and search functionality for a comprehensive exercise database.
    - [ ] Filter exercises by muscle group, equipment, or difficulty level.
-   - [ ] Detailed exercise descriptions, including proper form and tips. <sub>I will use w.e there is </sub>
+   - [x] Detailed exercise descriptions, including proper form and tips. <sub>I will use w.e there is </sub>
 4. Workout Logging:
    - [ ] Log individual exercises with sets, repetitions, and weights.
    - [ ] Log duration and intensity for cardio workouts.
