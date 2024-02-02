@@ -1,9 +1,10 @@
 # fitness_logging
 
-Table
-[Prograss](#Prograss)
-[Thoughts](#Thoughts)
-[using as reference](#using-as-reference)
+## Table of Content
+
+- [Prograss](#Prograss)
+- [Thoughts](#Thoughts)
+- [using as reference](#using-as-reference)
 
 ## Prograss
 
