@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from datetime import datetime, timezone
 
 bcrypt = Bcrypt()
 db = SQLAlchemy()
@@ -13,9 +14,6 @@ class User(db.Model):
     def __init__(self, email, password):
         self.email = email
         self.password = password
-        
-    def __repr__(self):
-        return '<id {}>'.format(self.id)
     
     @classmethod
     def is_authenticated(cls, email, password):
@@ -37,13 +35,59 @@ class User(db.Model):
         hashed_utf8 = hashed.decode("utf8")
         return cls(email=email, password=hashed_utf8)
     
-    
-class Exercisecategory(db.Model):
-    __tablename__ = "exercisecategories"
+# log for exericise + date + amount    
+class ExerciseLog(db.Model):
+    __tablename__ = "exerciseLogs"
 
-    id = db.Column(db.Integer, unique=True, primary_key=True)
-    name = db.Column(db.Text, unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Text, db.ForeignKey('users.email'))
+    exercise_name = db.Column(db.Text, unique=True, nullable=False)
+    sets = db.Column(db.Integer, nullable=True)
+    repetitions = db.Column(db.Integer, nullable=True)
+    weight = db.Column(db.Integer, nullable=True)
+    cardio = db.Column(db.Integer, nullable=True)
+    notes = db.Column(db.Text, nullable=True)
+    date_logged = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     
-    def __init__(self, email, password):
-        self.email = email
-        self.password = password
+    def __init__(self, id, user_id, exercise_name, sets, repetitions, weight, cardio, notes, date_logged):
+        self.id = id
+        self.user_id = user_id
+        self.exercise_name = exercise_name
+        self.sets = sets
+        self.repetitions = repetitions
+        self.weight = weight
+        self.cardio = cardio
+        self.notes = notes
+        self.date_logged = date_logged
+        
+# name of folder for the exerice 
+class WorkoutPlan(db.Model):
+    __tablename__ = "workoutplans"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.Text, default=datetime.now().day)
+    description = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    day = db.Column(db.Text, default=datetime.now().day)
+    is_weekly = db.Column(db.Text, default=False)
+    
+    def __init__(self, id, name, description, created_at, day, is_weekly):
+        self.id = id
+        self.name = name
+        self.description = description
+        self.created_at = created_at
+        self.day = day
+        self.is_weekly = is_weekly
+
+# list of workout for the day => list of exerices for the day between folder and exerices name.. I'm confsued here.. need to rethink this one
+class ExerciseInPlan(db.Model):
+    __tablename__ = "exerciseinplans"
+    
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
+    exercise_name = db.Column(db.Text, nullable=False)    
+    
+    def __init__(self, id, plan_id, exercise_name):
+        self.id = id
+        self.plan_id = plan_id
+        self.exercise_name = exercise_name
