@@ -1,13 +1,13 @@
 {% extends "base.html" %} {% block title %}Exercises{% endblock %} {% block
 content %}
 
-<!-- sidebar  -->
-<div class="sidebar">
+<!-- FilterBar  -->
+<div class="filterBar">
   <div class="searchbar">
     <label for="name">Have a workout in mind?</label>
     <input type="text" id="name" placeholder="search" />
   </div>
-  <div class="form-group">
+  <div class="selectBar">
     <!-- filter muscle  -->
     <div class="form-group">
       <label for="muscle">muscle</label>
@@ -80,5 +80,10 @@ content %}
     <!-- end for loop  -->
     {% endfor %}
   </main>
+
+  <!-- sidebar  -->
+  <div class="sidebar">
+    <div class="schedule">{% if schedule %} {% endif %}</div>
+  </div>
 </div>
 {% endblock %}
