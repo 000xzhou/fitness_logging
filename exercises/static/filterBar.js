@@ -1,6 +1,6 @@
 const equipment = document.getElementById("equipment");
 const muscles = document.getElementById("muscles");
-// const component3 = document.getElementById("component3");
+const exerices_info = document.getElementById("exerices_info");
 
 // Getting the recent workout and displaying it
 fetch("/exercises/muscles")
@@ -32,17 +32,17 @@ fetch("/exercises/equipment")
     console.error("There was a problem with the fetch operation:", error);
   });
 
-// Getting the chartofOveralls and displaying it
-// fetch("/dashboard/chartofOveralls")
-//   .then((response) => {
-//     if (!response.ok) {
-//       throw new Error("Network response was not ok");
-//     }
-//     return response.text();
-//   })
-//   .then((data) => {
-//     component3.innerHTML = data;
-//   })
-//   .catch((error) => {
-//     console.error("There was a problem with the fetch operation:", error);
-//   });
+// Getting the exerices_info and displaying it
+fetch("/exercises/filter")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.text();
+  })
+  .then((data) => {
+    exerices_info.innerHTML = data;
+  })
+  .catch((error) => {
+    console.error("There was a problem with the fetch operation:", error);
+  });
