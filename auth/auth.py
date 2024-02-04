@@ -47,3 +47,9 @@ def register():
         return redirect(url_for("dashboard_bp.dashboard"))
 
     return render_template("auth/register.html", form=form)
+
+@auth_bp.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.pop('user', None)
+    return redirect("/")
+    
