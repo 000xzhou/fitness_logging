@@ -8,10 +8,10 @@
   <body>
     <nav>
       {% if 'user' in session %}
-      <a href="/dashboard/{{session['user']}}">Dashboard</a>
+      <a href="/dashboard">Dashboard</a>
       <a href="">Schedule</a>
       <a href="">Calendar</a>
-      <a href="/exercises/search">Exerices</a>
+      <a href="/exercises">Exerices</a>
       <a href="/settings">{{ session['user'] }} </a>
       <a href="/logout">Logout</a>
       {% else %}
