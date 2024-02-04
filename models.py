@@ -35,6 +35,10 @@ class User(db.Model):
         hashed_utf8 = hashed.decode("utf8")
         return cls(email=email, password=hashed_utf8)
     
+    workoutplans = db.relationship('WorkoutPlan', backref='user')
+    exerciseLogs = db.relationship('ExerciseLog', backref='user')
+    
+    
 # log for exericise + date + amount   (added after finish working out 1 exerice) 
 class ExerciseLog(db.Model):
     __tablename__ = "exerciseLogs"
@@ -60,6 +64,7 @@ class ExerciseLog(db.Model):
         self.notes = notes
         self.date_logged = date_logged
         
+        
 # name of folder for the exerice 
 class WorkoutPlan(db.Model):
     __tablename__ = "workoutplans"
@@ -69,17 +74,17 @@ class WorkoutPlan(db.Model):
     description = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Text, db.ForeignKey('users.email'))
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
-    day = db.Column(db.Text, default=datetime.now().day)
     is_weekly = db.Column(db.Text, default=False)
     
-    def __init__(self, id, name, description, user_id, created_at, day, is_weekly):
+    def __init__(self, id, name, description, user_id, created_at, is_weekly):
         self.id = id
         self.name = name
         self.description = description
         self.user_id = user_id
         self.created_at = created_at
-        self.day = day
         self.is_weekly = is_weekly
+    exerciseinplans = db.relationship('ExerciseInPlan', backref='workoutplan')
+        
 
 # exericed details in the workoutplan
 class ExerciseInPlan(db.Model):
