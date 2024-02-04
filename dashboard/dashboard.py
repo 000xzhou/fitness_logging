@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session, redirect
 from models import User
 
 dashboard_bp = Blueprint('dashboard_bp', __name__,
@@ -6,9 +6,11 @@ dashboard_bp = Blueprint('dashboard_bp', __name__,
     static_folder='static', static_url_path='/dash')
 
 # main 
-@dashboard_bp.route('/<user_email>')
-def dashboard(user_email):
-    user = User.query.get_or_404(user_email)
+@dashboard_bp.route('/')
+def dashboard():
+    if 'user' not in session:
+        return redirect('/login')
+    user = User.query.get_or_404(session['user'])
     return render_template('dashboard.html',user=user)
 
 # sub items inside main 

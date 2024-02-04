@@ -1,0 +1,32 @@
+<div class="flex">
+  {% for result in data.results %} {% for exercise in result.exercises %}
+  <!-- check if it's english  -->
+  {% if exercise.language == 2 %}
+  <!-- Data images here -->
+  {% if result.images %} {% for image in result.images %}
+  <img src="{{ image.image }}" alt="workout" width="100" />
+  {% endfor %} {% else %}
+  <img src="default.jpg" alt="workout image" width="100" />
+  {% endif %}
+  <div class="exercise_info">
+    <!-- Data exercise here -->
+    <h3>{{ exercise.name }}</h3>
+    {% endif %} {% endfor %}
+    <!-- Data equipment here -->
+    {% for equipment in result.equipment %}
+    <p>{{ equipment.name }}</p>
+    {% endfor %}
+  </div>
+  <!-- end data  -->
+  <button>Save to template</button>
+  <!-- popup should not be in this file. Should be in js file.  -->
+  <div class="popup-container">
+    <form action="">
+      <!-- get list of templates user made get WorkoutPlan -->
+    </form>
+    <form action="">
+      <!-- create template name+description -->
+    </form>
+  </div>
+  {% endfor %}
+</div>

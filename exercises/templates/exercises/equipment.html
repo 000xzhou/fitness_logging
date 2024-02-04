@@ -1,0 +1,7 @@
+<label for="select_equipment">Select Equipment</label>
+<select id="select_equipment" name="select_equipment">
+  <option value="any">any</option>
+  {% for item in data %}
+  <option value="{{item.id}}">{{ item.name }}</option>
+  {% endfor %}
+</select>

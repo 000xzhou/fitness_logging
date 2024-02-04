@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block title %}Exercises{% endblock %} {% block
+content %}
+<!-- filters  -->
+<div class="grid">
+  <div class="filters">
+    <div id="equipment"></div>
+    <div id="muscles"></div>
+  </div>
+  <!-- main content  -->
+  <div id="exerices_info"></div>
+</div>
+<script src="{{ url_for('exercises_bp.static', filename='filterBar.js') }}"></script>
+{% endblock %}
