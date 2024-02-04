@@ -10,10 +10,14 @@ class User(db.Model):
 
     email = db.Column(db.Text, unique=True, primary_key=True)
     password = db.Column(db.Text, nullable=False)
+    reminders = db.Column(db.Boolean, default=False)
+    weightunit = db.Column(db.Text, default='metric')
     
-    def __init__(self, email, password):
+    def __init__(self, email, password, reminders, weightunit):
         self.email = email
         self.password = password
+        self.reminders = reminders
+        self.weightunit = weightunit
     
     @classmethod
     def is_authenticated(cls, email, password):
@@ -33,7 +37,7 @@ class User(db.Model):
         """Register user w/hashed password & return user."""
         hashed = bcrypt.generate_password_hash(password)
         hashed_utf8 = hashed.decode("utf8")
-        return cls(email=email, password=hashed_utf8)
+        return cls(email=email, password=hashed_utf8, reminders=False, weightunit='metric')
     
     workoutplans = db.relationship('WorkoutPlan', backref='user')
     exerciseLogs = db.relationship('ExerciseLog', backref='user')

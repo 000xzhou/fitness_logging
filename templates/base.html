@@ -9,8 +9,15 @@
     <nav>
       {% if 'user' in session %}
       <a href="/dashboard/{{session['user']}}">Dashboard</a>
+      <a href="">Schedule</a>
+      <a href="">Calendar</a>
       <a href="/exercises/search">Exerices</a>
-      <a href="/logout">Logout</a>
+      <div class="dropdown">
+        <button class="dropbtn">{{ session['user'] }} V</button>
+        <div class="dropdown-content">
+          <a href="/settings">Settings</a>
+          <a href="/logout">Logout</a>
+        </div>
       {% else %}
       <a href="/">Home</a>
       <a href="/login">Login</a>

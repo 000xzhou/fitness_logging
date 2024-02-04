@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block title %}Settings{% endblock %} {% block
+content %}
+<form method="POST" action="/settings">
+  {{ form.hidden_tag() }}
+  <!-- form  -->
+  {% for field in form if field.widget.input_type != 'hidden' %} {% if
+  field.type != 'SubmitField' %} {{ field.label }} {{ field }} {% for error in
+  field.errors %} {{ error }} {% endfor %} {% else %} {{ field }}
+  <!-- Display the submit button without its label -->
+  {% if error %}{{error}}{% endif %} {% endif %} {% endfor %}
+</form>
+
+{% endblock %}
