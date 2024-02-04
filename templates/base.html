@@ -7,12 +7,12 @@
   </head>
   <body>
     <nav>
-      <a href="/">Home</a>
-      {% if user in session %}
+      {% if 'user' in session %}
       <a href="/dashboard">Dashboard</a>
       <a href="exercises/search">Exerices</a>
       <a href="/logout">Logout</a>
       {% else %}
+      <a href="/">Home</a>
       <a href="/login">Login</a>
       <a href="/register">Register</a>
       {% endif %}

@@ -25,7 +25,7 @@ def login():
             return render_template("auth/login.html", form=form)
         
         session['user'] = user.email
-        return "login"
+        return redirect(url_for("dashboard_bp.dashboard"))
     return render_template("auth/login.html", form=form)
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
@@ -44,7 +44,6 @@ def register():
             return render_template("auth/register.html", form=form)
 
         session['user'] = new_user.email
-        return "you login"
-        # return redirect(url_for('index'))
+        return redirect(url_for("dashboard_bp.dashboard"))
 
     return render_template("auth/register.html", form=form)
