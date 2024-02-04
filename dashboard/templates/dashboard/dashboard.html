@@ -1,6 +1,12 @@
 {% extends "base.html" %} {% block title %}Dashboard{% endblock %}{% block
 content %}
+<hr />
+Your account: {{user.email}} <span><a href="/edit_user">Edit</a></span>
 <div>Dashboard:</div>
+<div id="workout_schedule">
+  <h2>Today's Workout Schedule</h2>
+  {% if workout_schedule %} {%else%} No workout schedule for today. {%endif%}
+</div>
 <div id="component1"></div>
 
 <div id="component2"></div>

@@ -1,13 +1,15 @@
 from flask import Blueprint, render_template
+from models import User
 
 dashboard_bp = Blueprint('dashboard_bp', __name__,
     template_folder='templates',
     static_folder='static', static_url_path='/dash')
 
 # main 
-@dashboard_bp.route('/dashboard')
-def dashboard():
-    return render_template('dashboard/dashboard.html')
+@dashboard_bp.route('/dashboard/<user_email>')
+def dashboard(user_email):
+    user = User.query.get_or_404(user_email)
+    return render_template('dashboard/dashboard.html',user=user)
 
 # sub items inside main 
 @dashboard_bp.route('/dashboard/recent_workouts/')
