@@ -5,6 +5,7 @@ from general import general
 from dashboard import dashboard
 from exercises import exercises
 from workoutschedule import workoutschedule
+from loggingworkout import loggingworkout
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('config.Config')
@@ -19,6 +20,7 @@ app.register_blueprint(general.general_bp)
 app.register_blueprint(dashboard.dashboard_bp, url_prefix='/dashboard')
 app.register_blueprint(exercises.exercises_bp, url_prefix='/exercises')
 app.register_blueprint(workoutschedule.workout_schedule_bp, url_prefix='/schedule')
+app.register_blueprint(loggingworkout.logging_workout_bp, url_prefix='/logging')
 
 if __name__ == "__main__":
     app.run(debug=True)
