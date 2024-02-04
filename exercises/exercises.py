@@ -37,9 +37,6 @@ def search_overall():
     
 
 
-@exercises_bp.route('/add_exercise/<exercise>')
-def add_exercise(exercise):
-    return "Adding"
 
 
 

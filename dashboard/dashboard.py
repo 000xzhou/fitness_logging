@@ -9,7 +9,7 @@ dashboard_bp = Blueprint('dashboard_bp', __name__,
 @dashboard_bp.route('/<user_email>')
 def dashboard(user_email):
     user = User.query.get_or_404(user_email)
-    return render_template('dashboard/dashboard.html',user=user)
+    return render_template('dashboard.html',user=user)
 
 # sub items inside main 
 @dashboard_bp.route('/recent_workouts/')
