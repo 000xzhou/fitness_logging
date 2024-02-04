@@ -43,8 +43,8 @@ class User(db.Model):
     exerciseLogs = db.relationship('ExerciseLog', backref='user')
     
     
-# log for exericise + date + amount   (added after finish working out 1 exerice) 
 class ExerciseLog(db.Model):
+# log for exericise + date + amount   (added after finish working out 1 exerice) 
     __tablename__ = "exerciseLogs"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -69,8 +69,8 @@ class ExerciseLog(db.Model):
         self.date_logged = date_logged
         
         
-# name of folder for the exerice 
 class WorkoutPlan(db.Model):
+# name of folder for the exerice 
     __tablename__ = "workoutplans"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -90,24 +90,22 @@ class WorkoutPlan(db.Model):
     exerciseinplans = db.relationship('ExerciseInPlan', backref='workoutplan')
         
 
-# exericed details in the workoutplan
 class ExerciseInPlan(db.Model):
+# exericed details in the workoutplan
     __tablename__ = "exerciseinplans"
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
     exercise_id = db.Column(db.Integer, nullable=False)    
-    # sets = db.Column(db.Integer, nullable=True)
-    # repetitions = db.Column(db.Integer, nullable=True)
-    # weight = db.Column(db.Integer, nullable=True)
-    # cardio = db.Column(db.Integer, nullable=True)
-    
+
     def __init__(self, id, plan_id, exercise_id):
         self.id = id
         self.plan_id = plan_id
         self.exercise_id = exercise_id
-        # self.sets = sets
-        # self.repetitions = repetitions
-        # self.weight = weight
-        # self.cardio = cardio
         
+        
+class Workoutsession(db.Model):
+    # might not use. I will come back to this after getting everything else
+    __tablename__ = "workoutsessions"
+    
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
