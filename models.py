@@ -37,7 +37,7 @@ class User(db.Model):
         """Register user w/hashed password & return user."""
         hashed = bcrypt.generate_password_hash(password)
         hashed_utf8 = hashed.decode("utf8")
-        return cls(email=email, password=hashed_utf8, reminders=False, weightunit='metric')
+        return cls(email=email, password=hashed_utf8, reminders=False)
     
     workoutplans = db.relationship('WorkoutPlan', backref='user')
     exerciseLogs = db.relationship('ExerciseLog', backref='user')
@@ -49,7 +49,7 @@ class ExerciseLog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Text, db.ForeignKey('users.email'))
-    exercise_name = db.Column(db.Text, unique=True, nullable=False)
+    exercise_id = db.Column(db.Integer, nullable=False)
     sets = db.Column(db.Integer, nullable=True)
     repetitions = db.Column(db.Integer, nullable=True)
     weight = db.Column(db.Integer, nullable=True)
@@ -57,10 +57,10 @@ class ExerciseLog(db.Model):
     notes = db.Column(db.Text, nullable=True)
     date_logged = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     
-    def __init__(self, id, user_id, exercise_name, sets, repetitions, weight, cardio, notes, date_logged):
+    def __init__(self, id, user_id, exercise_id, sets, repetitions, weight, cardio, notes, date_logged):
         self.id = id
         self.user_id = user_id
-        self.exercise_name = exercise_name
+        self.exercise_id = exercise_id
         self.sets = sets
         self.repetitions = repetitions
         self.weight = weight
@@ -96,18 +96,18 @@ class ExerciseInPlan(db.Model):
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
-    exercise_name = db.Column(db.Text, nullable=False)    
-    sets = db.Column(db.Integer, nullable=True)
-    repetitions = db.Column(db.Integer, nullable=True)
-    weight = db.Column(db.Integer, nullable=True)
-    cardio = db.Column(db.Integer, nullable=True)
+    exercise_id = db.Column(db.Integer, nullable=False)    
+    # sets = db.Column(db.Integer, nullable=True)
+    # repetitions = db.Column(db.Integer, nullable=True)
+    # weight = db.Column(db.Integer, nullable=True)
+    # cardio = db.Column(db.Integer, nullable=True)
     
-    def __init__(self, id, plan_id, exercise_name,sets, repetitions, weight, cardio):
+    def __init__(self, id, plan_id, exercise_id):
         self.id = id
         self.plan_id = plan_id
-        self.exercise_name = exercise_name
-        self.sets = sets
-        self.repetitions = repetitions
-        self.weight = weight
-        self.cardio = cardio
+        self.exercise_id = exercise_id
+        # self.sets = sets
+        # self.repetitions = repetitions
+        # self.weight = weight
+        # self.cardio = cardio
         

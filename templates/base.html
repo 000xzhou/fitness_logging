@@ -12,24 +12,15 @@
       <a href="">Schedule</a>
       <a href="">Calendar</a>
       <a href="/exercises/search">Exerices</a>
-      <div class="dropdown">
-        <button class="dropbtn">{{ session['user'] }} V</button>
-        <div class="dropdown-content">
-          <a href="/settings">Settings</a>
-          <a href="/logout">Logout</a>
-        </div>
+      <a href="/settings">{{ session['user'] }} </a>
+      <a href="/logout">Logout</a>
       {% else %}
       <a href="/">Home</a>
       <a href="/login">Login</a>
       <a href="/register">Register</a>
       {% endif %}
     </nav>
-    Setting: Metric
-    <label class="switch">
-      <input type="checkbox" />
-      <span class="slider"></span>
-    </label>
-    Imperial {% block content %}
+    {% block content %}
     <main></main>
     {% endblock %}
     <!-- <script src="/dashboard/static/dashboard.js"></script> -->
