@@ -1,13 +1,11 @@
-{% extends "base.html" %} {% block content %} Setting: Metric
-<label class="switch">
-  <input type="checkbox" />
-  <span class="slider"></span>
-</label>
-Imperial
+{% extends "base.html" %} {% block title %}Dashboard{% endblock %}{% block
+content %}
 <div>Dashboard:</div>
 <div id="component1"></div>
 
 <div id="component2"></div>
 
 <div id="component3"></div>
+<script src="{{ url_for('dashboard_bp.static', filename='dashboard.js') }}"></script>
+
 {% endblock %}

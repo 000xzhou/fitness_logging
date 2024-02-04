@@ -10,8 +10,8 @@ app.config.from_object('config.Config')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
-# with app.app_context():
-#     db.create_all()  
+with app.app_context():
+    db.create_all()  
 
 app.register_blueprint(auth.auth_bp)
 app.register_blueprint(general.general_bp)
