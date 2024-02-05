@@ -47,10 +47,10 @@ def edit_schedule(id):
     schedule.description = request.json['description']
     db.session.commit() 
     return render_template("workoutplan/add_schedule.html", schedule=schedule)
-# =========================== END add edit delete schedule END ============================================
 
 @workout_schedule_bp.route('/delete_schedule', methods=['POST'])
 def delete_schedule():
+    """ Let user delete a schedule."""
     if 'user' not in session:
         return redirect(url_for('auth_bp.login'))
     
@@ -60,6 +60,7 @@ def delete_schedule():
     db.session.commit()
     return jsonify({'message': 'Schedule deleted successfully'})
 
+# =========================== END add edit delete schedule END ============================================
 
 @workout_schedule_bp.route('/add_exercise', methods=['GET', 'POST'])
 def add_exercise():
