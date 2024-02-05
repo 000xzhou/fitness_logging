@@ -4,10 +4,17 @@ from models import WorkoutPlan, db
 workout_schedule_bp = Blueprint('workout_schedule_bp', __name__,
     template_folder='templates', static_folder='static')
 
+@workout_schedule_bp.route('/calendar', methods=['GET', 'POST'])
+def user_calendar():
+    # show full calendar with the workouts and abilty to edit
+    return render_template("calendar.html")
+
 @workout_schedule_bp.route('/', methods=['GET', 'POST'])
 def user_schedule():
-    # show full caluder with the workouts and abilty to edit
-    return render_template("schedule.html")
+    # show full schedule with the workouts and abilty to edit
+    schedules = WorkoutPlan.query.all()
+
+    return render_template("workoutplan/schedule.html", schedules=schedules)
 
 @workout_schedule_bp.route('/add_schedule', methods=['GET', 'POST'])
 def add_schedule():
@@ -15,12 +22,12 @@ def add_schedule():
         return redirect(url_for('auth_bp.login'))
 
     if request.method == "POST":
-        name = request.form.get('add_schedule-name', default='', type=str)
+        name = request.form.get('add_schedule-name', type=str)
         description = request.form.get('add_schedule-description', default='', type=str)
         new_plan = WorkoutPlan(name=name, description=description, user_id = session['user'])
         db.session.add(new_plan)
         db.session.commit() 
-        return redirect(url_for('dashboard_bp.dashboard'))
+        return redirect(url_for('workout_schedule_bp.user_schedule'))
     return render_template("workoutplan/add_schedule.html")
 
 @workout_schedule_bp.route('/delete_schedule', methods=['GET', 'POST'])

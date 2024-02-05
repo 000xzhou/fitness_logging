@@ -1,2 +1,10 @@
 <!-- return only the html will be added on to page by js  -->
 <h2>schedule</h2>
+{% for schedule in schedules %}
+<div id="{{ schedule.id }}">
+  <h3>{{ schedule.name }}</h3>
+  <p>{{ schedule.description }}</p>
+  <a href="#">Edit</a>
+  <a href="#">Delete</a>
+</div>
+{% endfor %}
