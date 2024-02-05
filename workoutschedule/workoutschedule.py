@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for
+from flask import Blueprint, render_template, request, session, redirect, url_for,jsonify
+import json
 from models import WorkoutPlan, db
 
 workout_schedule_bp = Blueprint('workout_schedule_bp', __name__,
-    template_folder='templates', static_folder='static')
+    template_folder='templates', static_folder='static', static_url_path='/schedule')
 
 @workout_schedule_bp.route('/calendar', methods=['GET', 'POST'])
 def user_calendar():
@@ -32,11 +33,15 @@ def add_schedule():
 
 @workout_schedule_bp.route('/delete_schedule', methods=['GET', 'POST'])
 def delete_schedule():
-    name = request.args.get('name', default='', type=str)
-    plan = WorkoutPlan
+    data = json.loads(request.data)
+    id = data.get('id')
+    # print(id)
+    plan = WorkoutPlan.query.get_or_404(id)
     db.session.delete(plan)
     db.session.commit()
-    return "Adding"
+    # return redirect(url_for('workout_schedule_bp.user_schedule'))
+    return jsonify({'message': 'Schedule deleted successfully'})
+
 
 @workout_schedule_bp.route('/add_exercise', methods=['GET', 'POST'])
 def add_exercise():
