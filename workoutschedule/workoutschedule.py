@@ -17,29 +17,29 @@ def user_schedule():
 
     return render_template("schedule.html", schedules=schedules)
 
-@workout_schedule_bp.route('/add_schedule', methods=['GET', 'POST'])
+@workout_schedule_bp.route('/add_schedule', methods=['POST'])
 def add_schedule():
     if 'user' not in session:
         return redirect(url_for('auth_bp.login'))
+    
+    data = json.loads(request.data)
+    name = data.get('name')
+    description = data.get('description')
+    new_plan = WorkoutPlan(name=name, description=description, user_id = session['user'])
+    db.session.add(new_plan)
+    db.session.commit() 
+    return render_template("workoutplan/add_schedule.html", schedule=new_plan)
 
-    if request.method == "POST":
-        name = request.form.get('add_schedule-name', type=str)
-        description = request.form.get('add_schedule-description', default='', type=str)
-        new_plan = WorkoutPlan(name=name, description=description, user_id = session['user'])
-        db.session.add(new_plan)
-        db.session.commit() 
-        return redirect(url_for('workout_schedule_bp.user_schedule'))
-    return render_template("workoutplan/add_schedule.html")
-
-@workout_schedule_bp.route('/delete_schedule', methods=['GET', 'POST'])
+@workout_schedule_bp.route('/delete_schedule', methods=['POST'])
 def delete_schedule():
+    if 'user' not in session:
+        return redirect(url_for('auth_bp.login'))
+    
     data = json.loads(request.data)
     id = data.get('id')
-    # print(id)
     plan = WorkoutPlan.query.get_or_404(id)
     db.session.delete(plan)
     db.session.commit()
-    # return redirect(url_for('workout_schedule_bp.user_schedule'))
     return jsonify({'message': 'Schedule deleted successfully'})
 
 

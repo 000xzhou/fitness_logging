@@ -1,18 +1,42 @@
 {% extends "base.html" %} {% block title %}Schedule{% endblock %} {% block
 content %}
-<a href="/schedule/add_schedule">Add schedule template</a>
-<a href="/exercises">Add exerice to template</a>
-<h2>schedule</h2>
-{% for schedule in schedules %}
-<div id="{{ schedule.id }}">
-  <h3>{{ schedule.name }}</h3>
-  <p>{{ schedule.description }}</p>
-  <!-- <a href="/schedule/edit_schedule/{{ schedule.id }}">Edit</a> -->
-  <button class="edit-btn">Edit</button>
-  <button type="button" class="delete-btn">Delete</button>
-  <!-- <a href="/schedule/delete_schedule/{{ schedule.id }}">Delete</a> -->
+
+<h2>Add Schedule</h2>
+<!-- <a href="/schedule/add_schedule">Add schedule template</a> -->
+<div>
+  <form id="add-schedule" method="post">
+    <label for="add_schedule-name">name</label>
+    <input
+      type="text"
+      id="add_schedule-name"
+      name="add_schedule-name"
+      required
+    />
+    <label for="add_scheduleescription">description</label>
+    <input
+      type="text"
+      id="add_schedule-description"
+      name="add_schedule-description"
+    />
+    <button type="submit">Add</button>
+  </form>
 </div>
-{% endfor %}
-<div id="popupContainer" class="popup"></div>
-<script src="{{ url_for('workout_schedule_bp.static', filename='schedule.js') }}"></script>
+<div id="schedule">
+  <h2>Schedule</h2>
+  {% for schedule in schedules %}
+  <div id="{{ schedule.id }}">
+    <h3>
+      <!-- gose to a page with all the workout in this schedule that lets you add exerices in template if not in exerice page -->
+      <a href="http://" target="_blank" rel="noopener noreferrer"
+        >{{ schedule.name }}</a
+      >
+    </h3>
+    <p>{{ schedule.description }}</p>
+    <button class="edit-btn">Edit</button>
+    <button type="button" class="delete-btn">Delete</button>
+  </div>
+  {% endfor %}
+  <div id="popupContainer" class="popup"></div>
+  <script src="{{ url_for('workout_schedule_bp.static', filename='schedule.js') }}"></script>
+</div>
 {% endblock %}
