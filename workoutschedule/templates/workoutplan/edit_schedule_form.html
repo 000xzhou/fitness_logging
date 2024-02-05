@@ -1,0 +1,22 @@
+<form id="edit-schedule-form" method="patch">
+  <h3>
+    <label for="add-name">name</label>
+    <input
+      type="text"
+      id="add-name"
+      name="add-name"
+      required
+      value="{{schedule.name}}"
+    />
+  </h3>
+  <p>
+    <label for="add-description">description</label>
+    <input
+      type="text"
+      id="add-description"
+      name="add-description"
+      value="{{schedule.description}}"
+    />
+  </p>
+  <button type="submit" id="save_edit">Save</button>
+</form>
