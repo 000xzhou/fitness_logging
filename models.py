@@ -11,13 +11,14 @@ class User(db.Model):
     email = db.Column(db.Text, unique=True, primary_key=True)
     password = db.Column(db.Text, nullable=False)
     reminders = db.Column(db.Boolean, default=False)
-    weightunit = db.Column(db.Text, default='metric')
+    # weightunit = db.Column(db.Text, default='metric')
     
-    def __init__(self, email, password, reminders, weightunit):
+    def __init__(self, email, password):
+        # , reminders, weightunit
         self.email = email
         self.password = password
-        self.reminders = reminders
-        self.weightunit = weightunit
+        # self.reminders = reminders
+        # self.weightunit = weightunit
     
     @classmethod
     def is_authenticated(cls, email, password):
@@ -37,7 +38,7 @@ class User(db.Model):
         """Register user w/hashed password & return user."""
         hashed = bcrypt.generate_password_hash(password)
         hashed_utf8 = hashed.decode("utf8")
-        return cls(email=email, password=hashed_utf8, reminders=False)
+        return cls(email=email, password=hashed_utf8)
     
     workoutplans = db.relationship('WorkoutPlan', backref='user')
     exerciseLogs = db.relationship('ExerciseLog', backref='user')
@@ -56,17 +57,20 @@ class ExerciseLog(db.Model):
     cardio = db.Column(db.Integer, nullable=True)
     notes = db.Column(db.Text, nullable=True)
     date_logged = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    weightunit = db.Column(db.Text, default='metric')
     
-    def __init__(self, id, user_id, exercise_id, sets, repetitions, weight, cardio, notes, date_logged):
+    def __init__(self, id, user_id, exercise_id):
+        # , sets, repetitions, weight, cardio, notes, date_logged, weightunit
         self.id = id
         self.user_id = user_id
         self.exercise_id = exercise_id
-        self.sets = sets
-        self.repetitions = repetitions
-        self.weight = weight
-        self.cardio = cardio
-        self.notes = notes
-        self.date_logged = date_logged
+        # self.sets = sets
+        # self.repetitions = repetitions
+        # self.weight = weight
+        # self.cardio = cardio
+        # self.notes = notes
+        # self.date_logged = date_logged
+        # weightunit = weightunit
         
         
 class WorkoutPlan(db.Model):
@@ -74,19 +78,20 @@ class WorkoutPlan(db.Model):
     __tablename__ = "workoutplans"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.Text, default=datetime.now().day)
+    name = db.Column(db.Text, nullable=False)
     description = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Text, db.ForeignKey('users.email'))
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     is_weekly = db.Column(db.Text, default=False)
     
-    def __init__(self, id, name, description, user_id, created_at, is_weekly):
-        self.id = id
+    def __init__(self, name, description, user_id):
+        # id, created_at, is_weekly
+        # self.id = id
         self.name = name
         self.description = description
         self.user_id = user_id
-        self.created_at = created_at
-        self.is_weekly = is_weekly
+        # self.created_at = created_at
+        # self.is_weekly = is_weekly
     exerciseinplans = db.relationship('ExerciseInPlan', backref='workoutplan')
         
 
@@ -99,7 +104,7 @@ class ExerciseInPlan(db.Model):
     exercise_id = db.Column(db.Integer, nullable=False)    
 
     def __init__(self, id, plan_id, exercise_id):
-        self.id = id
+        # self.id = id
         self.plan_id = plan_id
         self.exercise_id = exercise_id
         

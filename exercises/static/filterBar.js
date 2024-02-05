@@ -1,6 +1,7 @@
 const equipment = document.getElementById("equipment");
 const muscles = document.getElementById("muscles");
 const exerices_info = document.getElementById("exerices_info");
+const schedule = document.getElementById("schedule");
 
 // Getting the recent workout and displaying it
 fetch("/exercises/muscles")
