@@ -14,7 +14,7 @@ def user_schedule():
     # show full schedule with the workouts and abilty to edit
     schedules = WorkoutPlan.query.all()
 
-    return render_template("workoutplan/schedule.html", schedules=schedules)
+    return render_template("schedule.html", schedules=schedules)
 
 @workout_schedule_bp.route('/add_schedule', methods=['GET', 'POST'])
 def add_schedule():
