@@ -15,28 +15,66 @@
     value="{{schedule.description}}"
   />
   <label for="is_weekly">Repeat Weekly</label>
+  {% if schedule.is_weekly == "true" %}
+  <input
+    type="checkbox"
+    id="is_weekly"
+    name="is_weekly"
+    value="is_weekly"
+    checked
+  />
+  {%else %}
   <input type="checkbox" id="is_weekly" name="is_weekly" value="is_weekly" />
+  {% endif%}
 
   <div class="day">
+    {% if schedule.mon == "true" %}
+    <input type="checkbox" id="mon" name="mon" value="mon" checked />
+    {%else %}
     <input type="checkbox" id="mon" name="mon" value="mon" />
+    {% endif%}
     <label for="mon">Monday</label>
 
+    {% if schedule.tue == "true" %}
+    <input type="checkbox" id="tue" name="tue" value="tue" checked />
+    {%else %}
     <input type="checkbox" id="tue" name="tue" value="tue" />
+    {% endif%}
     <label for="tue">Tuesday</label>
 
+    {% if schedule.wed == "true" %}
+    <input type="checkbox" id="wed" name="wed" value="wed" checked />
+    {%else %}
     <input type="checkbox" id="wed" name="wed" value="wed" />
+    {% endif%}
     <label for="wed">Wednesday</label>
 
+    {% if schedule.thur == "true" %}
+    <input type="checkbox" id="thur" name="thur" value="thur" checked />
+    {%else %}
     <input type="checkbox" id="thur" name="thur" value="thur" />
+    {% endif%}
     <label for="thur">Thursday</label>
 
+    {% if schedule.fri == "true" %}
+    <input type="checkbox" id="fri" name="fri" value="fri" checked />
+    {%else %}
     <input type="checkbox" id="fri" name="fri" value="fri" />
+    {% endif%}
     <label for="fri">Friday</label>
 
+    {% if schedule.sat == "true" %}
+    <input type="checkbox" id="sat" name="sat" value="sat" checked />
+    {%else %}
     <input type="checkbox" id="sat" name="sat" value="sat" />
+    {% endif%}
     <label for="sat">Saturday</label>
 
+    {% if schedule.sun == "true" %}
+    <input type="checkbox" id="sun" name="sun" value="sun" checked />
+    {%else %}
     <input type="checkbox" id="sun" name="sun" value="sun" />
+    {% endif%}
     <label for="sun">Sunday</label>
   </div>
   <button type="submit" id="save_edit">Save</button>

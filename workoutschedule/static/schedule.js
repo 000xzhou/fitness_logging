@@ -1,12 +1,12 @@
 const schedule = document.getElementById("schedule");
 const deleteBtn = document.querySelectorAll(".delete-btn");
-const addForm = document.getElementById("add-schedule");
+const addForm = document.getElementById("add-schedule-btn");
 const editBtn = document.querySelectorAll(".edit-btn");
 const editForm = document.getElementById("edit-schedule-form");
 const popup = document.getElementById("popup-schedule");
 
 deleteBtn.forEach((btn) => btn.addEventListener("click", deleteSchedule));
-// addForm.addEventListener("submit", addSchedule);
+addForm.addEventListener("click", addScheduleForm);
 editBtn.forEach((btn) => btn.addEventListener("click", editScheduleForm));
 if (editForm) {
   editForm.addEventListener("submit", editSchedule);
@@ -42,12 +42,23 @@ function deleteSchedule(e) {
 
 function addSchedule(e) {
   e.preventDefault();
-  let nameVal = document.getElementById("add_schedule-name");
-  let descriptionVal = document.getElementById("add_schedule-description");
+  let formElements = document.getElementById("add-schedule-form").elements;
+  let formData = {};
+  for (let i = 0; i < formElements.length; i++) {
+    let element = formElements[i];
+    if (element.type === "checkbox") {
+      formData[element.name] = element.checked; // true if checked, false otherwise
+    } else {
+      if (element.name !== "") {
+        formData[element.name] = element.value;
+      }
+    }
+  }
+  console.log(formData);
   const scheduleVal = {
-    name: nameVal.value,
-    description: descriptionVal.value,
+    formData,
   };
+
   fetch("/schedule/add_schedule", {
     method: "POST",
     headers: {
@@ -64,11 +75,30 @@ function addSchedule(e) {
     .then((data) => {
       schedule.innerHTML += data;
       addEventtoBtns();
-      nameVal.value = "";
-      descriptionVal.value = "";
+      popup.innerText = "";
     })
     .catch((error) => {
       console.error("Error:", error);
+    });
+}
+
+function addScheduleForm(e) {
+  // let parentElement = e.target.parentElement;
+  fetch("/schedule/add_schedule")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.text();
+    })
+    .then((data) => {
+      popup.innerHTML = data;
+      document
+        .getElementById("add-schedule-form")
+        .addEventListener("submit", addSchedule);
+    })
+    .catch((error) => {
+      console.error("There was a problem with the fetch operation:", error);
     });
 }
 

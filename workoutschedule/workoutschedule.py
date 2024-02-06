@@ -27,16 +27,12 @@ def add_schedule():
         return redirect(url_for('auth_bp.login'))
     
     if request.method == 'GET':
-        # form = ScheduleForm()
         return render_template("workoutplan/add_schedule_form.html")
     
-    # name = request.json["name"]
-    # description = request.json['description']
-    new_plan = WorkoutPlan(**request.json, user_id=session['user'])
-    # new_plan = WorkoutPlan(name=name, description=description, user_id = session['user'])
+    new_plan = WorkoutPlan(**request.json['formData'], user_id=session['user'])
     db.session.add(new_plan)
     db.session.commit() 
-    return render_template("workoutplan/add_schedule.html")
+    return render_template("workoutplan/add_schedule.html", schedule=new_plan)
 
 @workout_schedule_bp.route('/edit_schedule/<id>', methods=['GET', 'PATCH'])
 def edit_schedule(id):

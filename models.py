@@ -91,14 +91,22 @@ class WorkoutPlan(db.Model):
     sat = db.Column(db.Text, default=False)
     sun = db.Column(db.Text, default=False)
     
-    def __init__(self, name, description, user_id):
-        # id, created_at, is_weekly
+    def __init__(self, name, description, user_id, is_weekly, mon, tue,wed, thur, fri,sat,sun):
+        # id, created_at
         # self.id = id
         self.name = name
         self.description = description
         self.user_id = user_id
         # self.created_at = created_at
-        # self.is_weekly = is_weekly
+        self.is_weekly = is_weekly
+        self.mon = mon
+        self.tue = tue
+        self.wed = wed
+        self.thur = thur
+        self.fri = fri
+        self.sat = sat
+        self.sun = sun
+        
         
     @classmethod
     def register(cls, username, password, email, first_name, last_name):
