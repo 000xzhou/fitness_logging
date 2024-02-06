@@ -3,9 +3,10 @@ const deleteBtn = document.querySelectorAll(".delete-btn");
 const addForm = document.getElementById("add-schedule");
 const editBtn = document.querySelectorAll(".edit-btn");
 const editForm = document.getElementById("edit-schedule-form");
+const popup = document.getElementById("popup-schedule");
 
 deleteBtn.forEach((btn) => btn.addEventListener("click", deleteSchedule));
-addForm.addEventListener("submit", addSchedule);
+// addForm.addEventListener("submit", addSchedule);
 editBtn.forEach((btn) => btn.addEventListener("click", editScheduleForm));
 if (editForm) {
   editForm.addEventListener("submit", editSchedule);
@@ -82,7 +83,7 @@ function editScheduleForm(e) {
       return response.text();
     })
     .then((data) => {
-      parentElement.innerHTML = data;
+      popup.innerHTML = data;
       document
         .getElementById("edit-schedule-form")
         .addEventListener("submit", editSchedule);
@@ -94,16 +95,23 @@ function editScheduleForm(e) {
 
 function editSchedule(e) {
   e.preventDefault();
-  let parentElement = e.target.parentElement;
-  let nameVal = document.getElementById("add-name");
-  let descriptionVal = document.getElementById("add-description");
-  console.log(nameVal);
-  console.log(nameVal.value);
+  let formElements = document.getElementById("edit-schedule-form").elements;
+  let formData = {};
+  for (let i = 0; i < formElements.length; i++) {
+    let element = formElements[i];
+    if (element.type === "checkbox") {
+      formData[element.name] = element.checked; // true if checked, false otherwise
+    } else {
+      if (element.value.trim() !== "") {
+        formData[element.name] = element.value;
+      }
+    }
+  }
   const scheduleVal = {
-    name: nameVal.value,
-    description: descriptionVal.value,
+    formData,
   };
-  fetch("/schedule/edit_schedule/" + parentElement.id, {
+  const dataId = e.target.getAttribute("data-id");
+  fetch("/schedule/edit_schedule/" + dataId, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -117,9 +125,10 @@ function editSchedule(e) {
       return response.text();
     })
     .then((data) => {
-      console.log(data);
-      parentElement.innerHTML = data;
+      document.getElementById(e.target.getAttribute("data-id")).innerHTML =
+        data;
       addEventtoBtns();
+      popup.innerText = "";
     })
     .catch((error) => {
       console.error("Error:", error);

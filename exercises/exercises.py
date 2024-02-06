@@ -30,11 +30,6 @@ def filter_overall():
         response = requests.get(api_url + "exercisebaseinfo", params=parameters)
         if response.status_code == 200:
             data = response.json()
-            # results[1].exercises[0].name
-            # exercises[0].id
-            # results[0].exercises[0].name
-            # let's just get the first exercise for each result
-
             return render_template('exercises/exerices_info.html', data=data)
         else:
             return jsonify({'error': 'Failed to fetch data from the API'}), response.status_code
@@ -82,3 +77,16 @@ def equipment_list():
             return jsonify({'error': 'Failed to fetch data from the API'}), response.status_code
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+# =========================== START add edit delete exercise START ============================================
+
+@exercises_bp.route('/add_exercise', methods=['GET', 'POST'])
+def add_exercise():
+    # will popup a searchbar to search exercise to add (from calendar page) after pressing add button
+    name = request.args.get('name', default='', type=str)
+    return "Adding"
+
+@exercises_bp.route('/delete_exercise', methods=['POST'])
+def delete_exercise():
+    # will popup a searchbar to search exercise to delete (from calendar page) after pressing delete button
+    return "deleted"

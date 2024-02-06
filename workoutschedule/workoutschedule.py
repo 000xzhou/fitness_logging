@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for,jsonify
 from models import WorkoutPlan, db
+from workoutschedule.forms import ScheduleForm
 
 workout_schedule_bp = Blueprint('workout_schedule_bp', __name__,
     template_folder='templates', static_folder='static', static_url_path='/schedule')
@@ -19,18 +20,23 @@ def user_schedule():
 
     return render_template("schedule.html", schedules=schedules)
 
-@workout_schedule_bp.route('/add_schedule', methods=['POST'])
+@workout_schedule_bp.route('/add_schedule', methods=['GET', 'POST'])
 def add_schedule():
     """ Let user add a schedule."""
     if 'user' not in session:
         return redirect(url_for('auth_bp.login'))
     
-    name = request.json["name"]
-    description = request.json['description']
-    new_plan = WorkoutPlan(name=name, description=description, user_id = session['user'])
+    if request.method == 'GET':
+        # form = ScheduleForm()
+        return render_template("workoutplan/add_schedule_form.html")
+    
+    # name = request.json["name"]
+    # description = request.json['description']
+    new_plan = WorkoutPlan(**request.json, user_id=session['user'])
+    # new_plan = WorkoutPlan(name=name, description=description, user_id = session['user'])
     db.session.add(new_plan)
     db.session.commit() 
-    return render_template("workoutplan/add_schedule.html", schedule=new_plan)
+    return render_template("workoutplan/add_schedule.html")
 
 @workout_schedule_bp.route('/edit_schedule/<id>', methods=['GET', 'PATCH'])
 def edit_schedule(id):
@@ -42,9 +48,18 @@ def edit_schedule(id):
         
     if request.method == 'GET':
         return render_template("workoutplan/edit_schedule_form.html", schedule=schedule)
- 
-    schedule.name = request.json["name"]
-    schedule.description = request.json['description']
+    
+    data = request.json['formData']
+    schedule.name = data["name"]
+    schedule.description = data['description']
+    schedule.is_weekly = data['is_weekly']
+    schedule.mon = data['mon']
+    schedule.tue = data['tue']
+    schedule.wed = data['wed']
+    schedule.thur = data['thur']
+    schedule.fri = data['fri']
+    schedule.sat = data['sat']
+    schedule.sun = data['sun']
     db.session.commit() 
     return render_template("workoutplan/add_schedule.html", schedule=schedule)
 
@@ -62,16 +77,7 @@ def delete_schedule():
 
 # =========================== END add edit delete schedule END ============================================
 
-@workout_schedule_bp.route('/add_exercise', methods=['GET', 'POST'])
-def add_exercise():
-    # will popup a searchbar to search exercise to add (from calendar page) after pressing add button
-    name = request.args.get('name', default='', type=str)
-    return "Adding"
 
-@workout_schedule_bp.route('/delete_exercise', methods=['POST'])
-def delete_exercise():
-    # will popup a searchbar to search exercise to delete (from calendar page) after pressing delete button
-    return "deleted"
 
 @workout_schedule_bp.route('today/<user_email>', methods=['GET', 'POST'])
 def user_today_schedule(user_email):

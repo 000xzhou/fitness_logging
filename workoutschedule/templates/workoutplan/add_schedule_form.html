@@ -1,19 +1,8 @@
-<form id="edit-schedule-form" data-id="{{schedule.id}}" method="patch">
+<form id="add-schedule-form" method="post">
   <label for="add-name">name</label>
-  <input
-    type="text"
-    id="add-name"
-    name="name"
-    required
-    value="{{schedule.name}}"
-  />
+  <input type="text" id="add-name" name="name" required />
   <label for="add-description">description</label>
-  <input
-    type="text"
-    id="add-description"
-    name="description"
-    value="{{schedule.description}}"
-  />
+  <input type="text" id="add-description" name="description" />
   <label for="is_weekly">Repeat Weekly</label>
   <input type="checkbox" id="is_weekly" name="is_weekly" value="is_weekly" />
 
@@ -39,5 +28,5 @@
     <input type="checkbox" id="sun" name="sun" value="sun" />
     <label for="sun">Sunday</label>
   </div>
-  <button type="submit" id="save_edit">Save</button>
+  <button type="submit" id="save_schedule">Add schedule</button>
 </form>

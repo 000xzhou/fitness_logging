@@ -1,26 +1,9 @@
 {% extends "base.html" %} {% block title %}Schedule{% endblock %} {% block
 content %}
 
-<h2>Add Schedule</h2>
+<button type="button">Add Schedule</button>
 <!-- <a href="/schedule/add_schedule">Add schedule template</a> -->
-<div>
-  <form id="add-schedule" method="post">
-    <label for="add_schedule-name">name</label>
-    <input
-      type="text"
-      id="add_schedule-name"
-      name="add_schedule-name"
-      required
-    />
-    <label for="add_scheduleescription">description</label>
-    <input
-      type="text"
-      id="add_schedule-description"
-      name="add_schedule-description"
-    />
-    <button type="submit">Add</button>
-  </form>
-</div>
+<div id="popup-schedule"></div>
 <div id="schedule">
   <h2>Schedule</h2>
   {% for schedule in schedules %}

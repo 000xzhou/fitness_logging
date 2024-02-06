@@ -83,6 +83,13 @@ class WorkoutPlan(db.Model):
     user_id = db.Column(db.Text, db.ForeignKey('users.email'))
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     is_weekly = db.Column(db.Text, default=False)
+    mon = db.Column(db.Text, default=False)
+    tue = db.Column(db.Text, default=False)
+    wed = db.Column(db.Text, default=False)
+    thur = db.Column(db.Text, default=False)
+    fri = db.Column(db.Text, default=False)
+    sat = db.Column(db.Text, default=False)
+    sun = db.Column(db.Text, default=False)
     
     def __init__(self, name, description, user_id):
         # id, created_at, is_weekly
@@ -92,6 +99,14 @@ class WorkoutPlan(db.Model):
         self.user_id = user_id
         # self.created_at = created_at
         # self.is_weekly = is_weekly
+        
+    @classmethod
+    def register(cls, username, password, email, first_name, last_name):
+        """Register user w/hashed password & return user."""
+        hashed = bcrypt.generate_password_hash(password)
+        hashed_utf8 = hashed.decode("utf8")
+        return cls(username=username, password=hashed_utf8, email=email, first_name=first_name, last_name=last_name)
+    
     exerciseinplans = db.relationship('ExerciseInPlan', backref='workoutplan')
         
 
