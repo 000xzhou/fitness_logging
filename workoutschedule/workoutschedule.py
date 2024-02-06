@@ -16,7 +16,7 @@ def user_schedule():
     """ Gives user a list of their schedule."""
     if 'user' not in session:
         return redirect(url_for('auth_bp.login'))
-    schedules = WorkoutPlan.query.all()
+    schedules = WorkoutPlan.query.filter_by(user_id=session['user']).all()
 
     return render_template("schedule.html", schedules=schedules)
 
