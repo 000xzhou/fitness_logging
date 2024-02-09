@@ -26,3 +26,29 @@ function addToSchedule(event) {
       console.error("Error:", error);
     });
 }
+
+function deleteFromSchedule(event) {
+  const id = event.target.getAttribute("data-exercisesinplan-id");
+  fetch("/exercises/delete_exercise", {
+    method: "Delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    // body: JSON.stringify(parseInt(id)),
+    body: JSON.stringify({ id: parseInt(id) }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if ((data.message = "Schedule deleted successfully")) {
+        event.target.parentElement.remove();
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}

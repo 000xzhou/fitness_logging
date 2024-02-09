@@ -84,18 +84,16 @@ def equipment_list():
 
 @exercises_bp.route('/add_exercise', methods=['POST'])
 def add_exercise():
-    # will popup a searchbar to search exercise to add (from calendar page) after pressing add button
-        # plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
-    # exercise_id = db.Column(db.Integer, nullable=False)  
     new_exercise = ExerciseInPlan(plan_id=request.json['plan_id'], exercise_id=request.json['exercise_id'], exercise_name=request.json['exercise_name'])
     db.session.add(new_exercise)
     db.session.commit()
-    print(new_exercise.id)
-    print(new_exercise.plan_id)
-    print(new_exercise.exercise_name)
-    return "Adding"
 
-@exercises_bp.route('/delete_exercise', methods=['POST'])
+    return render_template('exercises/add_exercise.html', exercise = new_exercise)
+
+@exercises_bp.route('/delete_exercise', methods=['DELETE'])
 def delete_exercise():
-    # will popup a searchbar to search exercise to delete (from calendar page) after pressing delete button
-    return "deleted"
+    id = request.json['id']
+    exercise = ExerciseInPlan.query.get_or_404(id)
+    db.session.delete(exercise)
+    db.session.commit()
+    return jsonify({'message': 'Schedule deleted successfully'})

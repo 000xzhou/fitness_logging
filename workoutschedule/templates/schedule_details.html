@@ -4,11 +4,22 @@ block content %}
 <div id="schedule-id" data-plan-id="{{schedule.id}}">
   <p>schedule: {{schedule.name}}</p>
   <p>description: {{schedule.description}}</p>
-  <ul id="exercisesinplan">
-    {% for exercise in schedule.exerciseinplans %}
-    <li>{{exercise.exercise_name}}</li>
-    {% endfor %}
-  </ul>
+  <div>
+    exercises:
+    <ul id="exercisesinplan">
+      {% for exercise in schedule.exerciseinplans %}
+      <li>
+        {{exercise.exercise_name}}
+        <button
+          data-exercisesinplan-id="{{exercise.id}}"
+          onclick="deleteFromSchedule(event)"
+        >
+          Delete
+        </button>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
 <form action="POST" id="search-form">
   <input id="search-term" type="text" placeholder="Search Exercises" />

@@ -82,10 +82,6 @@ def schedule_detail(id):
     schedule = WorkoutPlan.query.get_or_404(id)
     if schedule.user_id != session['user']:
         return redirect(url_for('dashboard_bp.dashboard'))
-    print(schedule.id)
-    # exercises = schedule.exerciseinplans
-    # for exercise in exercises:
-        # print(exercise.exercise_name)
     return render_template("schedule_details.html", schedule=schedule)
 
 # =========================== END add edit delete details schedule END ============================================
