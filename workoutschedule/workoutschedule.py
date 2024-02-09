@@ -10,12 +10,13 @@ def user_calendar():
     # show full calendar with the workouts and abilty to edit
     return render_template("calendar.html")
 
-# =========================== START add edit delete schedule START ============================================
+# =========================== START add edit delete details schedule START ============================================
 @workout_schedule_bp.route('/', methods=['GET', 'POST'])
 def user_schedule():
     """ Gives user a list of their schedule."""
     if 'user' not in session:
         return redirect(url_for('auth_bp.login'))
+    
     schedules = WorkoutPlan.query.filter_by(user_id=session['user']).all()
 
     return render_template("schedule.html", schedules=schedules)
@@ -71,7 +72,23 @@ def delete_schedule():
     db.session.commit()
     return jsonify({'message': 'Schedule deleted successfully'})
 
-# =========================== END add edit delete schedule END ============================================
+
+@workout_schedule_bp.route('/<id>', methods=['GET', 'POST'])
+def schedule_detail(id):
+    """ Gives user a deatil of their schedule."""
+    if 'user' not in session:
+        return redirect(url_for('auth_bp.login'))
+    
+    schedule = WorkoutPlan.query.get_or_404(id)
+    if schedule.user_id != session['user']:
+        return redirect(url_for('dashboard_bp.dashboard'))
+    print(schedule.id)
+    # exercises = schedule.exerciseinplans
+    # for exercise in exercises:
+        # print(exercise.exercise_name)
+    return render_template("schedule_details.html", schedule=schedule)
+
+# =========================== END add edit delete details schedule END ============================================
 
 
 

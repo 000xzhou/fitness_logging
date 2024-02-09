@@ -54,7 +54,6 @@ function addSchedule(e) {
       }
     }
   }
-  console.log(formData);
   const scheduleVal = {
     formData,
   };

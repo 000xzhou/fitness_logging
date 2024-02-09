@@ -1,0 +1,16 @@
+<div class="flex">
+  {% for exercise in data %}
+  <div>
+    <!-- <img src="{{exercise.data.image}}" alt="img" /> -->
+    <h3>{{ exercise.data.name }}</h3>
+    <p>{{ exercise.data.category }}</p>
+    <button
+      data-exercise-name="{{ exercise.data.name }}"
+      data-exercise-id="{{exercise.data.base_id}}"
+      onclick="addToSchedule(event)"
+    >
+      Add to Schedule
+    </button>
+  </div>
+  {% endfor %}
+</div>

@@ -106,14 +106,6 @@ class WorkoutPlan(db.Model):
         self.fri = fri
         self.sat = sat
         self.sun = sun
-        
-        
-    @classmethod
-    def register(cls, username, password, email, first_name, last_name):
-        """Register user w/hashed password & return user."""
-        hashed = bcrypt.generate_password_hash(password)
-        hashed_utf8 = hashed.decode("utf8")
-        return cls(username=username, password=hashed_utf8, email=email, first_name=first_name, last_name=last_name)
     
     exerciseinplans = db.relationship('ExerciseInPlan', backref='workoutplan')
         
@@ -124,12 +116,14 @@ class ExerciseInPlan(db.Model):
     
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
-    exercise_id = db.Column(db.Integer, nullable=False)    
+    exercise_id = db.Column(db.Integer, nullable=False)
+    exercise_name = db.Column(db.Text, nullable=False)
 
-    def __init__(self, id, plan_id, exercise_id):
+    def __init__(self, plan_id, exercise_id, exercise_name):
         # self.id = id
         self.plan_id = plan_id
         self.exercise_id = exercise_id
+        self.exercise_name = exercise_name
         
         
 class Workoutsession(db.Model):

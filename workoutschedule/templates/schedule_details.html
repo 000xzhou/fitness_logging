@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %}Schedule Details{% endblock %} {%
+block content %}
+<!-- start main  -->
+<div id="schedule-id" data-plan-id="{{schedule.id}}">
+  <p>schedule: {{schedule.name}}</p>
+  <p>description: {{schedule.description}}</p>
+  <ul id="exercisesinplan">
+    {% for exercise in schedule.exerciseinplans %}
+    <li>{{exercise.exercise_name}}</li>
+    {% endfor %}
+  </ul>
+</div>
+<form action="POST" id="search-form">
+  <input id="search-term" type="text" placeholder="Search Exercises" />
+  <button type="submit">Search</button>
+</form>
+<div class="container">
+  <div id="exercises"></div>
+</div>
+<!-- end main -->
+<script src="{{ url_for('workout_schedule_bp.static', filename='schedule_details.js') }}"></script>
+<script src="{{ url_for('workout_schedule_bp.static', filename='exercise_in_plan.js') }}"></script>
+{% endblock %}

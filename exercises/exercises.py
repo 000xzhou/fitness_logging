@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, jsonify, request
 import requests
+from models import ExerciseInPlan, db
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -41,14 +42,15 @@ def search_name():
     # search by name . sadly there is no name option in the exercisebaseinfo 
     parameters = {
         "language": "en",
-        "term": request.args.get('terms')
+        "term": request.args.get('term')
         }
     try:
-        response = requests.get(api_url + "search", params=parameters)
+        response = requests.get(api_url + "exercise/search/", params=parameters)
         if response.status_code == 200:
             data = response.json()
-            return render_template('exercises/exerices_info_search.html', data=data)
+            return render_template('exercises/exerices_info_search.html', data=data['suggestions'])
         else:
+            # note to self: change below since it can't be both text and json 
             return jsonify({'error': 'Failed to fetch data from the API'}), response.status_code
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -80,10 +82,17 @@ def equipment_list():
 
 # =========================== START add edit delete exercise START ============================================
 
-@exercises_bp.route('/add_exercise', methods=['GET', 'POST'])
+@exercises_bp.route('/add_exercise', methods=['POST'])
 def add_exercise():
     # will popup a searchbar to search exercise to add (from calendar page) after pressing add button
-    name = request.args.get('name', default='', type=str)
+        # plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
+    # exercise_id = db.Column(db.Integer, nullable=False)  
+    new_exercise = ExerciseInPlan(plan_id=request.json['plan_id'], exercise_id=request.json['exercise_id'], exercise_name=request.json['exercise_name'])
+    db.session.add(new_exercise)
+    db.session.commit()
+    print(new_exercise.id)
+    print(new_exercise.plan_id)
+    print(new_exercise.exercise_name)
     return "Adding"
 
 @exercises_bp.route('/delete_exercise', methods=['POST'])
