@@ -20,20 +20,22 @@ def filter_overall():
         "limit": 5,
         "offset": 0
         }
+    
     equipment = request.args.get('equipment')
-    category = request.args.get('muscles')
+    category = request.args.get('muscle')
     if equipment != "all":
         parameters['equipment'] = equipment
     if category != "all":
         parameters['category'] = category
         
     try:
-        response = requests.get(api_url + "exercisebaseinfo", params=parameters)
+        response = requests.get(api_url + "exercisebaseinfo/", params=parameters)
         if response.status_code == 200:
             data = response.json()
             return render_template('exercises/exerices_info.html', data=data)
         else:
-            return jsonify({'error': 'Failed to fetch data from the API'}), response.status_code
+            # return jsonify({'error': 'Failed to fetch data from the API'}), response.status_code
+            return render_template('not_found.html')
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     

@@ -16,8 +16,8 @@
    - [ ] Overview of recent workouts and achievements.
    - [ ] Progress tracking charts or graphs.
 3. Exercise Library:
-   - [ ] Browse and search functionality for a comprehensive exercise database.
-   - [ ] Filter exercises by muscle group, equipment, or difficulty level.
+   - [x] Browse and search functionality for a comprehensive exercise database. (only on schedule page atm)
+   - [x] Filter exercises by muscle group, equipment, or difficulty level.
    - [x] Detailed exercise descriptions, including proper form and tips. <sub>I will use w.e there is </sub>
 4. Workout Logging:
    - [ ] Log individual exercises with sets, repetitions, and weights.
@@ -25,8 +25,8 @@
    - [ ] Option to add notes or comments for each exercise.
    - [ ] Timer during workout
 5. Custom Workouts:
-   - [ ] Create and save custom workout plans.
-   - [ ] Select exercises from the library to include in custom workouts.
+   - [x] Create and save custom workout plans.
+   - [x] Select exercises from the library to include in custom workouts.
    - [ ] Specify sets, repetitions, and rest intervals.
 6. Routine Tracking:
    - [ ] Track recurring workout routines. <sub>Not sure what this means</sub>

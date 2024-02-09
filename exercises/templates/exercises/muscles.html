@@ -1,6 +1,6 @@
 <label for="select_muscle">Select Muscle</label>
-<select id="select_muscle" name="select_muscle">
-  <option value="any">any</option>
+<select id="select_muscle" name="select_muscle" onchange="filterExerices()">
+  <option value="all">all</option>
   {% for item in data %}
   <option value="{{item.id}}">{{ item.name }}</option>
   {% endfor %}
