@@ -60,7 +60,7 @@ function deleteFromSchedule(event) {
     });
 }
 
-function detailAddExerciseForm(event) {
+function detailEditExerciseForm(event) {
   // turn the things under exerice name into form
   const id = event.target.parentElement;
 
@@ -84,7 +84,7 @@ function detailAddExerciseForm(event) {
     });
 }
 
-function detailAddExercise(event, inputElement) {
+function detailEditExercise(event, inputElement) {
   const selectedValue = inputElement.value;
   const selectedOption = event.target.value;
   let wc;
