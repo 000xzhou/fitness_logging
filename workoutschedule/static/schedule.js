@@ -131,11 +131,12 @@ function editSchedule(e) {
     if (element.type === "checkbox") {
       formData[element.name] = element.checked; // true if checked, false otherwise
     } else {
-      if (element.value.trim() !== "") {
+      if (element.name !== "") {
         formData[element.name] = element.value;
       }
     }
   }
+  console.log(formData);
   const scheduleVal = {
     formData,
   };
