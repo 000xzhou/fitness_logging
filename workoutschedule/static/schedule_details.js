@@ -21,7 +21,6 @@ function searchExercises(e) {
     })
     .then((data) => {
       exercises.innerHTML = data;
-      //   console.log(data);
     })
     .catch((error) => {
       console.error("Error:", error);

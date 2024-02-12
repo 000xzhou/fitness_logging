@@ -5,6 +5,7 @@
     <h3>{{ exercise.data.name }}</h3>
     <p>{{ exercise.data.category }}</p>
     <button
+      data-exercise-category="{{ exercise.data.category }}"
       data-exercise-name="{{ exercise.data.name }}"
       data-exercise-id="{{exercise.data.base_id}}"
       onclick="addToSchedule(event)"

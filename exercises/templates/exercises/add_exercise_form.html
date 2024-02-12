@@ -1,0 +1,29 @@
+<div class="units">
+  <div class="sets">
+    <label for="sets">sets</label>
+    <input type="text" name="sets" id="sets" value="{{set}}" />
+  </div>
+  <div class="repetitions">
+    <label for="repetitions">repetitions</label>
+    <input type="text" name="repetitions" id="repetitions" value="{{reps}}" />
+  </div>
+  <div class="weight">
+    {% if session['weightunit'] == 'metric' %}
+    <div>
+      <input type="number" />
+      <select id="mySelect">
+        <option value="option1">KG</option>
+        <option value="option3">KM</option>
+      </select>
+    </div>
+    {% else %}
+    <div>
+      <input type="number" />
+      <select id="mySelect">
+        <option value="option1">LB</option>
+        <option value="option3">Miles</option>
+      </select>
+    </div>
+    {% endif %}
+  </div>
+</div>

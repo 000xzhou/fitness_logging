@@ -7,29 +7,6 @@ block content %}
   <div>
     <div id="popup">
       <!-- make the below into popup  -->
-      <div class="exercise-detial">
-        <div class="sets">sets</div>
-        <div class="reps">reps</div>
-        <div class="wc">
-          weights {% if session['weightunit'] == 'metric' %}
-          <div>
-            <input type="number" />
-            <select id="mySelect">
-              <option value="kg">KG</option>
-              <option value="km">KM</option>
-            </select>
-          </div>
-          {% else %}
-          <div>
-            <input type="number" onchange="detailAddExercise(event, this)" />
-            <select id="mySelect" onchange="detailAddExercise(event, this)">
-              <option value="lb">LB</option>
-              <option value="miles">Miles</option>
-            </select>
-          </div>
-          {% endif %}
-        </div>
-      </div>
     </div>
     exercises:
     <ul id="exercisesinplan">

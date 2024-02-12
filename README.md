@@ -53,23 +53,3 @@ exercise libaray - just notice I forgot to either add page number to get next se
 
 [Blueprint](https://realpython.com/flask-blueprint/)
 [setting up postgres with config](https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/)
-
-## add-ons for flask that I might or might not use
-
-### WTForms-Alchemy
-
-- from wtforms_alchemy import ModelForm
-- from models import Pet
-
-### Flask-Login
-
-- from flask_login import login_user, logout_user, login_required
-
-### Flask-Mail
-
-- from flask_mail import Message
-- send reminder email or password reset
-
-### Flask-Restless
-
-- makes restless routes base on your model

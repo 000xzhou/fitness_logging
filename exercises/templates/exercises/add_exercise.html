@@ -1,28 +1,21 @@
 <div>
-  <div>{{exercise.exercise_name}}</div>
-  <div class="sets">
-    {% if session['weightunit'] == 'metric' %}
-    <div>
-      <input type="number" />
-      <select id="mySelect">
-        <option value="option1">KG</option>
-        <option value="option3">KM</option>
-      </select>
-    </div>
-    {% else %}
-    <div>
-      <input type="number" />
-      <select id="mySelect">
-        <option value="option1">LB</option>
-        <option value="option3">Miles</option>
-      </select>
-    </div>
-    {% endif %}
+  <div onclick="detailAddExercise(event)">
+    {{exercise.exercise_name}} <span>edit icon</span>
+    set: 3 reps: 60 weight: 100 || set: 1 10km
+    <!--  -->
+    {% if exercise.sets %} {{exercise.sets}} {% endif %}
+    <!--  -->
+    {% if exercise.sets %} {{exercise.sets}} {% endif %}
+    <!--  -->
+    {% if exercise.sets %} {{exercise.sets}} {% endif %}
+    <!--  -->
+    {% if exercise.sets %} {{exercise.sets}} {% endif %}
   </div>
+  |
   <button
     data-exercisesinplan-id="{{exercise.id}}"
     onclick="deleteFromSchedule(event)"
   >
-    Delete
+    Delete icon
   </button>
 </div>

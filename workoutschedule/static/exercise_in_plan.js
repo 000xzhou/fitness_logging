@@ -1,12 +1,17 @@
-import { convertToKG, convertToKM } from "./helpers";
+// import { convertToKG, convertToKM } from "./helpers.js";
 
 function addToSchedule(event) {
   const planElement = document.getElementById("schedule-id");
   const planId = planElement.getAttribute("data-plan-id");
+  const exerciseType = event.target.getAttribute("data-exercise-category");
   const scheduleVal = {
     plan_id: planId,
     exercise_id: event.target.getAttribute("data-exercise-id"),
     exercise_name: event.target.getAttribute("data-exercise-name"),
+    // adding exercise base on type
+    ...(exerciseType === "cardio"
+      ? { sets: 1, cardio: 10 }
+      : { sets: 3, rep: 10, weight: 10 }),
   };
   fetch("/exercises/add_exercise", {
     method: "POST",
@@ -63,21 +68,22 @@ function detailAddExercise(event, inputElement) {
   const selectedValue = inputElement.value;
   const selectedOption = event.target.value;
   let wc;
+  let fvalue;
   if (selectedOption == "kg" || selectedOption == "lb") {
     if (selectedOption == "lb") {
-      convertToKG(selectedValue);
+      fvalue = convertToKG(selectedValue);
     }
     wc = weight;
   } else {
     if (selectedOption == "miles") {
-      convertToKM(selectedValue);
+      fvalue = convertToKM(selectedValue);
     }
     wc = cardio;
   }
   const scheduleVal = {
     sets: 0,
     repetitions: 0,
-    wc: selectedValue + selectedOption,
+    wc: fvalue,
   };
   fetch("/exercises/add_exercise", {
     method: "POST",
@@ -98,4 +104,13 @@ function detailAddExercise(event, inputElement) {
     .catch((error) => {
       console.error("Error:", error);
     });
+}
+
+function convertToKG(lb) {
+  // for an approximate result, divide the mass value by 2.205
+  return parseInt(lb) / 2.205;
+}
+function convertToKM(miles) {
+  // for an approximate result, multiply the length value by 1.609
+  return parseInt(miles) * 1.609;
 }
