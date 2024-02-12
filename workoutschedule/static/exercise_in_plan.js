@@ -35,14 +35,14 @@ function addToSchedule(event) {
 }
 
 function deleteFromSchedule(event) {
-  const id = event.target.getAttribute("data-exercisesinplan-id");
+  const id = event.target.parentElement;
   fetch("/exercises/delete_exercise", {
     method: "Delete",
     headers: {
       "Content-Type": "application/json",
     },
     // body: JSON.stringify(parseInt(id)),
-    body: JSON.stringify({ id: parseInt(id) }),
+    body: JSON.stringify({ id: parseInt(id.id) }),
   })
     .then((response) => {
       if (!response.ok) {
@@ -60,8 +60,28 @@ function deleteFromSchedule(event) {
     });
 }
 
-function detailAddExerciseForm() {
-  // popup form for adding details to your exercise
+function detailAddExerciseForm(event) {
+  // turn the things under exerice name into form
+  const id = event.target.parentElement;
+
+  fetch(`/exercises/edit_exercise/${id.id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.text();
+    })
+    .then((data) => {
+      id.innerHTML = data;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 
 function detailAddExercise(event, inputElement) {

@@ -1,0 +1,30 @@
+<div id="{{exercise.id}}">
+  <div>
+    <div>{{exercise.exercise_name}}</div>
+    <p>
+      {% if exercise.sets %}
+      <input type="text" value="{{exercise.sets}}" /> SETS {% endif %} *
+      <!--  -->
+      {% if exercise.repetitions %}
+      <input type="text" value="{{exercise.repetitions}}" name="" id="" /> Reps
+      {% endif %} *
+      <!--  -->
+      {% if session[weightunit] == "metric" %} {% if exercise.weight %}
+      <input type="text" value="{{exercise.weight}}" /> KG {% endif %}
+      <!--  -->
+      {% if exercise.cardio %}
+      <input type="text" value="{{exercise.cardio}}" name="" id="" /> KM {%
+      endif %}
+      <!--  -->
+      {% else %} {% if exercise.weight %}
+      <input type="text" value="{{exercise.weight}}" name="" id="" /> LB {%
+      endif %}
+      <!--  -->
+      {% if exercise.cardio %}
+      <input type="text" value="{{exercise.cardio}}" name="" id="" /> MILES {%
+      endif %} {% endif %}
+    </p>
+  </div>
+  <button onclick="detailAddExerciseForm(event)">Save</button>
+  <button onclick="deleteFromSchedule(event)">Delete</button>
+</div>

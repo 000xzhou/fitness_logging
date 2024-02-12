@@ -1,7 +1,7 @@
 <div>
   <div onclick="detailAddExercise(event)">
     {{exercise.exercise_name}} <span>edit icon</span>
-    <p>
+    <p id="{{exercise.id}}" onclick="detailAddExerciseForm(event)">
       {% if exercise.sets %} {{exercise.sets}} SETS {% endif %} *
       <!--  -->
       {% if exercise.repetitions %} {{exercise.repetitions}} Reps {% endif %} *

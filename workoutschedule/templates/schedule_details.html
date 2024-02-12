@@ -11,7 +11,7 @@ block content %}
     exercises:
     <ul id="exercisesinplan">
       {% for exercise in schedule.exerciseinplans %}
-      <div>
+      <div id="{{exercise.id}}">
         <div>
           <div>{{exercise.exercise_name}}</div>
           <p>
@@ -32,12 +32,8 @@ block content %}
             endif %}
           </p>
         </div>
-        <button
-          data-exercisesinplan-id="{{exercise.id}}"
-          onclick="deleteFromSchedule(event)"
-        >
-          Delete
-        </button>
+        <button onclick="detailAddExerciseForm(event)">Edit</button>
+        <button onclick="deleteFromSchedule(event)">Delete</button>
       </div>
       {% endfor %}
     </ul>
