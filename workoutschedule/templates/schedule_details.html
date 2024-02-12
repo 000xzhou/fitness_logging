@@ -14,7 +14,23 @@ block content %}
       <div>
         <div>
           <div>{{exercise.exercise_name}}</div>
-          <p>3 SETS * 6 REPS * 60LB (pincel edit icon)</p>
+          <p>
+            {% if exercise.sets %} {{exercise.sets}} SETS {% endif %} *
+            <!--  -->
+            {% if exercise.repetitions %} {{exercise.repetitions}} Reps {% endif
+            %} *
+            <!--  -->
+            {% if session[weightunit] == "metric" %} {% if exercise.weight %}
+            {{exercise.weight}} KG {% endif %}
+            <!--  -->
+            {% if exercise.cardio %} {{exercise.cardio}} KM {% endif %}
+            <!--  -->
+            {% else %} {% if exercise.weight %} {{exercise.weight}} LB {% endif
+            %}
+            <!--  -->
+            {% if exercise.cardio %} {{exercise.cardio}} MILES {% endif %} {%
+            endif %}
+          </p>
         </div>
         <button
           data-exercisesinplan-id="{{exercise.id}}"
