@@ -1,0 +1,19 @@
+<div>
+  <div>{{exercise.exercise_name}}</div>
+  <p>
+    {% if exercise.sets %} {{exercise.sets}} SETS *{% endif %}
+    <!--  -->
+    {% if exercise.repetitions %} {{exercise.repetitions}} Reps *{% endif %}
+    <!--  -->
+    {% if session[weightunit] == "metric" %} {% if exercise.weight %}
+    {{exercise.weight}} KG {% endif %}
+    <!--  -->
+    {% if exercise.cardio %} {{exercise.cardio}} KM {% endif %}
+    <!--  -->
+    {% else %} {% if exercise.weight %} {{exercise.weight}} LB {% endif %}
+    <!--  -->
+    {% if exercise.cardio %} {{exercise.cardio}} MILES {% endif %} {% endif %}
+  </p>
+</div>
+<button onclick="detailEditExerciseForm(event)">Edit</button>
+<button onclick="deleteFromSchedule(event)">Delete</button>

@@ -9,7 +9,7 @@ function addToSchedule(event) {
     exercise_id: event.target.getAttribute("data-exercise-id"),
     exercise_name: event.target.getAttribute("data-exercise-name"),
     // adding exercise base on type
-    ...(exerciseType === "cardio"
+    ...(exerciseType === "Cardio"
       ? { sets: 1, cardio: 10 }
       : { sets: 3, rep: 10, weight: 10 }),
   };
@@ -84,29 +84,22 @@ function detailEditExerciseForm(event) {
     });
 }
 
-function detailEditExercise(event, inputElement) {
-  const selectedValue = inputElement.value;
-  const selectedOption = event.target.value;
-  let wc;
-  let fvalue;
-  if (selectedOption == "kg" || selectedOption == "lb") {
-    if (selectedOption == "lb") {
-      fvalue = convertToKG(selectedValue);
+function detailEditExercise(event) {
+  event.preventDefault();
+  const id = event.target.parentElement.getAttribute("data-id");
+  let formElements = event.target.parentElement.elements;
+  let formData = {};
+  for (let i = 0; i < formElements.length; i++) {
+    let element = formElements[i];
+    if (element.name !== "") {
+      formData[element.name] = element.value;
     }
-    wc = weight;
-  } else {
-    if (selectedOption == "miles") {
-      fvalue = convertToKM(selectedValue);
-    }
-    wc = cardio;
   }
   const scheduleVal = {
-    sets: 0,
-    repetitions: 0,
-    wc: fvalue,
+    formData,
   };
-  fetch("/exercises/add_exercise", {
-    method: "POST",
+  fetch(`/exercises/edit_exercise/${id}`, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
@@ -119,7 +112,7 @@ function detailEditExercise(event, inputElement) {
       return response.text();
     })
     .then((data) => {
-      exercisesinplan.innerHTML += data;
+      event.target.parentElement.parentElement.innerHTML = data;
     })
     .catch((error) => {
       console.error("Error:", error);

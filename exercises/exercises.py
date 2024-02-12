@@ -111,21 +111,15 @@ def delete_exercise():
 
 @exercises_bp.route('/edit_exercise/<id>', methods=['GET', 'PATCH'])
 def edit_exercise(id):
-    # adding default value to the exerices they added in 
-    # get exercise     
-    # new_exercise = ExerciseInPlan(plan_id=request.json['plan_id'], 
-    #                               exercise_id=request.json['exercise_id'], 
-    #                               exercise_name=request.json['exercise_name'],
-    #                               sets = request.json.get('sets'),
-    #                               cardio = request.json.get('cardio'),
-    #                               repetitions = request.json.get('rep'),
-    #                               weight = request.json.get('weight')
-    #                               )
-    # db.session.add(new_exercise)
-    # db.session.commit()
     exercise = ExerciseInPlan.query.get_or_404(id)
     if request.method == 'GET':
-    
         return render_template("exercises/edit_exercise_form.html", exercise = exercise)
-    # return render_template('exercises/add_exercise.html', exercise = new_exercise)
+    
+    data= request.json['formData']
+    exercise.sets = data.get('sets')
+    exercise.cardio = data.get('cardio')
+    exercise.repetitions = data.get('repetitions')
+    exercise.weight = data.get('weight')
+    db.session.commit()
+    return render_template('exercises/edit_exercise.html', exercise = exercise)
     

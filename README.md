@@ -27,7 +27,7 @@
 5. Custom Workouts:
    - [x] Create and save custom workout plans.
    - [x] Select exercises from the library to include in custom workouts.
-   - [ ] Specify sets, repetitions, and rest intervals.
+   - [x] Specify sets, repetitions, and rest intervals.
 6. Routine Tracking:
    - [ ] Track recurring workout routines. <sub>Not sure what this means</sub>
    - [ ] Set reminders for upcoming workouts.

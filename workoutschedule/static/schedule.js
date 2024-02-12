@@ -136,7 +136,6 @@ function editSchedule(e) {
       }
     }
   }
-  console.log(formData);
   const scheduleVal = {
     formData,
   };

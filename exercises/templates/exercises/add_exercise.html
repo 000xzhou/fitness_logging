@@ -1,10 +1,10 @@
-<div>
-  <div onclick="detailAddExercise(event)">
-    {{exercise.exercise_name}} <span>edit icon</span>
-    <p id="{{exercise.id}}" onclick="detailAddExerciseForm(event)">
-      {% if exercise.sets %} {{exercise.sets}} SETS {% endif %} *
+<div id="{{exercise.id}}">
+  <div>
+    <div>{{exercise.exercise_name}}</div>
+    <p>
+      {% if exercise.sets %} {{exercise.sets}} SETS *{% endif %}
       <!--  -->
-      {% if exercise.repetitions %} {{exercise.repetitions}} Reps {% endif %} *
+      {% if exercise.repetitions %} {{exercise.repetitions}} Reps *{% endif %}
       <!--  -->
       {% if session[weightunit] == "metric" %} {% if exercise.weight %}
       {{exercise.weight}} KG {% endif %}
@@ -16,10 +16,6 @@
       {% if exercise.cardio %} {{exercise.cardio}} MILES {% endif %} {% endif %}
     </p>
   </div>
-  <button
-    data-exercisesinplan-id="{{exercise.id}}"
-    onclick="deleteFromSchedule(event)"
-  >
-    Delete icon
-  </button>
+  <button onclick="detailEditExerciseForm(event)">Edit</button>
+  <button onclick="deleteFromSchedule(event)">Delete</button>
 </div>
