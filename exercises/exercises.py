@@ -86,7 +86,15 @@ def equipment_list():
 
 @exercises_bp.route('/add_exercise', methods=['POST'])
 def add_exercise():
-    new_exercise = ExerciseInPlan(plan_id=request.json['plan_id'], exercise_id=request.json['exercise_id'], exercise_name=request.json['exercise_name'])
+    catergry=request.json['exercise_catergry']
+    # adding default value to the exerices they added in 
+    if catergry == 'cardio':
+        cradio = "1km"
+    else:
+        weigth = "10kg"
+    new_exercise = ExerciseInPlan(plan_id=request.json['plan_id'], 
+                                  exercise_id=request.json['exercise_id'], 
+                                  exercise_name=request.json['exercise_name'],)
     db.session.add(new_exercise)
     db.session.commit()
 

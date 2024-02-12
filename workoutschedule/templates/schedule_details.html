@@ -5,18 +5,47 @@ block content %}
   <p>schedule: {{schedule.name}}</p>
   <p>description: {{schedule.description}}</p>
   <div>
+    <div id="popup">
+      <!-- make the below into popup  -->
+      <div class="exercise-detial">
+        <div class="sets">sets</div>
+        <div class="reps">reps</div>
+        <div class="wc">
+          weights {% if session['weightunit'] == 'metric' %}
+          <div>
+            <input type="number" />
+            <select id="mySelect">
+              <option value="kg">KG</option>
+              <option value="km">KM</option>
+            </select>
+          </div>
+          {% else %}
+          <div>
+            <input type="number" onchange="detailAddExercise(event, this)" />
+            <select id="mySelect" onchange="detailAddExercise(event, this)">
+              <option value="lb">LB</option>
+              <option value="miles">Miles</option>
+            </select>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
     exercises:
     <ul id="exercisesinplan">
       {% for exercise in schedule.exerciseinplans %}
-      <li>
-        {{exercise.exercise_name}}
+      <div>
+        <div>
+          <div>{{exercise.exercise_name}}</div>
+          <p>3 SETS * 6 REPS * 60LB (pincel edit icon)</p>
+        </div>
         <button
           data-exercisesinplan-id="{{exercise.id}}"
           onclick="deleteFromSchedule(event)"
         >
           Delete
         </button>
-      </li>
+      </div>
       {% endfor %}
     </ul>
   </div>

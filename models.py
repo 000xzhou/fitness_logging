@@ -11,7 +11,7 @@ class User(db.Model):
     email = db.Column(db.Text, unique=True, primary_key=True)
     password = db.Column(db.Text, nullable=False)
     reminders = db.Column(db.Boolean, default=False)
-    # weightunit = db.Column(db.Text, default='metric')
+    weightunit = db.Column(db.Text, default='metric')
     
     def __init__(self, email, password):
         # , reminders, weightunit
@@ -47,7 +47,7 @@ class User(db.Model):
 class ExerciseLog(db.Model):
 # log for exericise + date + amount   (added after finish working out 1 exerice) 
     __tablename__ = "exerciseLogs"
-
+    #! everything will be in metric 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Text, db.ForeignKey('users.email'))
     exercise_id = db.Column(db.Integer, nullable=False)
@@ -57,10 +57,9 @@ class ExerciseLog(db.Model):
     cardio = db.Column(db.Integer, nullable=True)
     notes = db.Column(db.Text, nullable=True)
     date_logged = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
-    weightunit = db.Column(db.Text, default='metric')
     
     def __init__(self, id, user_id, exercise_id):
-        # , sets, repetitions, weight, cardio, notes, date_logged, weightunit
+        # , sets, repetitions, weight, cardio, notes, date_logged
         self.id = id
         self.user_id = user_id
         self.exercise_id = exercise_id
@@ -70,7 +69,6 @@ class ExerciseLog(db.Model):
         # self.cardio = cardio
         # self.notes = notes
         # self.date_logged = date_logged
-        # weightunit = weightunit
         
         
 class WorkoutPlan(db.Model):
@@ -83,13 +81,13 @@ class WorkoutPlan(db.Model):
     user_id = db.Column(db.Text, db.ForeignKey('users.email'))
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     is_weekly = db.Column(db.Text, default=False)
-    mon = db.Column(db.Text, default=False)
-    tue = db.Column(db.Text, default=False)
-    wed = db.Column(db.Text, default=False)
-    thur = db.Column(db.Text, default=False)
-    fri = db.Column(db.Text, default=False)
-    sat = db.Column(db.Text, default=False)
-    sun = db.Column(db.Text, default=False)
+    mon = db.Column(db.Boolean, default=False)
+    tue = db.Column(db.Boolean, default=False)
+    wed = db.Column(db.Boolean, default=False)
+    thur = db.Column(db.Boolean, default=False)
+    fri = db.Column(db.Boolean, default=False)
+    sat = db.Column(db.Boolean, default=False)
+    sun = db.Column(db.Boolean, default=False)
     
     def __init__(self, name, description, user_id, is_weekly, mon, tue,wed, thur, fri,sat,sun):
         # id, created_at
@@ -118,12 +116,17 @@ class ExerciseInPlan(db.Model):
     plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
     exercise_id = db.Column(db.Integer, nullable=False)
     exercise_name = db.Column(db.Text, nullable=False)
+    sets = db.Column(db.Integer, nullable=True)
+    repetitions = db.Column(db.Integer, nullable=True)
+    weight = db.Column(db.Integer, nullable=True)
+    cardio = db.Column(db.Integer, nullable=True)
 
     def __init__(self, plan_id, exercise_id, exercise_name):
         # self.id = id
         self.plan_id = plan_id
         self.exercise_id = exercise_id
         self.exercise_name = exercise_name
+        
         
         
 class Workoutsession(db.Model):

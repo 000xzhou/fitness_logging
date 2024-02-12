@@ -25,6 +25,7 @@ def login():
             return render_template("auth/login.html", form=form)
         
         session['user'] = user.email
+        session['weightunit'] = user.weightunit
         return redirect(url_for("dashboard_bp.dashboard"))
     return render_template("auth/login.html", form=form)
 
@@ -44,6 +45,7 @@ def register():
             return render_template("auth/register.html", form=form)
 
         session['user'] = new_user.email
+        session['weightunit'] = new_user.weightunit
         return redirect(url_for("dashboard_bp.dashboard"))
 
     return render_template("auth/register.html", form=form)

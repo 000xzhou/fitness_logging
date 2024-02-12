@@ -42,6 +42,12 @@
 For the dashboard:
 I really don't want to use js so I try to use flask only. Then I though, why not just return the HTML block I wanted with the classes and everything already included. Then I can just use the div_id.textcontent = the return html I got from the server. Without having to create a bunch of elements and stuff.
 
+made everything in db metric. While also not sure what I'm writing above and below. That means you don't know either. Not sure how to fix that.
+
+i regret not just downloading [this](https://github.com/yuhonas/free-exercise-db) and make my own db because it's so much better. Also because this api is sloooooooooooooow. Too slow for my taste. I need to remind myself to add a loading thingy after i'm done with 1-5.
+
+I'm debating if I should do the convert before sending to server or do the convert in the server. Now that I think about it. Shouldn't make much of a difference since I'm doing this solo. Also internet says python is slow. So going to leave it in js.
+
 ## using as reference:
 
 [Blueprint](https://realpython.com/flask-blueprint/)
