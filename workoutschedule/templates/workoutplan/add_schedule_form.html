@@ -3,30 +3,38 @@
   <input type="text" id="add-name" name="name" required />
   <label for="add-description">description</label>
   <input type="text" id="add-description" name="description" />
-  <label for="is_weekly">Repeat Weekly</label>
-  <input type="checkbox" id="is_weekly" name="is_weekly" value="is_weekly" />
 
-  <div class="day">
+  <select name="repeat" id="repeat">
+    <option value="no-repeat">Don't repeat</option>
+    <option value="daily">Daily</option>
+    <option value="weekly">Weekly</option>
+    <option value="monthly">Monthly</option>
+  </select>
+  <div class="not-weekly">
+    <label for="datepicker">Select a date:</label>
+    <input type="date" name="date" id="datepicker" />
+  </div>
+  <div class="repeat-weekly">
+    <input type="checkbox" id="sun" name="sun" value="sun" />
+    <label for="sun">S</label>
+
     <input type="checkbox" id="mon" name="mon" value="mon" />
-    <label for="mon">Monday</label>
+    <label for="mon">M</label>
 
     <input type="checkbox" id="tue" name="tue" value="tue" />
-    <label for="tue">Tuesday</label>
+    <label for="tue">T</label>
 
     <input type="checkbox" id="wed" name="wed" value="wed" />
-    <label for="wed">Wednesday</label>
+    <label for="wed">W</label>
 
     <input type="checkbox" id="thur" name="thur" value="thur" />
-    <label for="thur">Thursday</label>
+    <label for="thur">T</label>
 
     <input type="checkbox" id="fri" name="fri" value="fri" />
-    <label for="fri">Friday</label>
+    <label for="fri">F</label>
 
     <input type="checkbox" id="sat" name="sat" value="sat" />
-    <label for="sat">Saturday</label>
-
-    <input type="checkbox" id="sun" name="sun" value="sun" />
-    <label for="sun">Sunday</label>
+    <label for="sat">S</label>
   </div>
   <button type="submit" id="save_schedule">Add schedule</button>
 </form>

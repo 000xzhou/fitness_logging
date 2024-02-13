@@ -48,6 +48,8 @@ function addSchedule(e) {
     let element = formElements[i];
     if (element.type === "checkbox") {
       formData[element.name] = element.checked; // true if checked, false otherwise
+    } else if (element.type === "select-one" || element.type === "date") {
+      formData[element.name] = element.value; // Get value for select and date inputs
     } else {
       if (element.name !== "") {
         formData[element.name] = element.value;
@@ -57,7 +59,6 @@ function addSchedule(e) {
   const scheduleVal = {
     formData,
   };
-
   fetch("/schedule/add_schedule", {
     method: "POST",
     headers: {

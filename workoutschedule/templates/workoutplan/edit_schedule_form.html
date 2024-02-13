@@ -14,20 +14,37 @@
     name="description"
     value="{{schedule.description}}"
   />
-  <label for="is_weekly">Repeat Weekly</label>
-  {% if schedule.is_weekly == "true" %}
-  <input
-    type="checkbox"
-    id="is_weekly"
-    name="is_weekly"
-    value="is_weekly"
-    checked
-  />
-  {%else %}
-  <input type="checkbox" id="is_weekly" name="is_weekly" value="is_weekly" />
-  {% endif%}
 
-  <div class="day">
+  <label for="is_weekly">Repeat Weekly</label>
+  <select name="repeat" id="repeat">
+    {% if schedule.repeat == "no-repeat" %}
+    <option value="no-repeat" selected>Don't repeat</option>
+    <option value="daily">Daily</option>
+    <option value="weekly">Weekly</option>
+    <option value="monthly">Monthly</option>
+    {% elif schedule.repeat == "daily" %}
+    <option value="no-repeat">Don't repeat</option>
+    <option value="daily" selected>Daily</option>
+    <option value="weekly">Weekly</option>
+    <option value="monthly">Monthly</option>
+    {% elif schedule.repeat == "weekly" %}
+    <option value="no-repeat">Don't repeat</option>
+    <option value="daily">Daily</option>
+    <option value="weekly" selected>Weekly</option>
+    <option value="monthly">Monthly</option>
+    {% elif schedule.repeat == "monthly" %}
+    <option value="no-repeat">Don't repeat</option>
+    <option value="daily">Daily</option>
+    <option value="weekly">Weekly</option>
+    <option value="monthly" selected>Monthly</option>
+    {% endif %}
+  </select>
+
+  <div class="not-weekly">
+    <label for="datepicker">Select a date:</label>
+    <input type="date" id="datepicker" />
+  </div>
+  <div class="repeat-weekly">
     {% if schedule.mon == "true" %}
     <input type="checkbox" id="mon" name="mon" value="mon" checked />
     {%else %}

@@ -1,13 +1,13 @@
 {% extends "base.html" %} {% block title %}Schedule{% endblock %} {% block
 content %}
 
-<div id="add-schedule">
-  <button type="button" id="add-schedule-btn">Add Schedule</button>
-</div>
 <!-- <a href="/schedule/add_schedule">Add schedule template</a> -->
 <div id="popup-schedule"></div>
 <div id="schedule">
   <h2>Schedule</h2>
+  <div id="add-schedule">
+    <button type="button" id="add-schedule-btn">Add Schedule</button>
+  </div>
   {% for schedule in schedules %}
   <div id="{{ schedule.id }}">
     <h3>

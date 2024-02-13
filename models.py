@@ -65,7 +65,8 @@ class WorkoutPlan(db.Model):
     description = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Text, db.ForeignKey('users.email'))
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
-    is_weekly = db.Column(db.Text, default=False)
+    repeat = db.Column(db.Text, default=None)
+    # is_weekly = db.Column(db.Boolean, default=False)
     mon = db.Column(db.Boolean, default=False)
     tue = db.Column(db.Boolean, default=False)
     wed = db.Column(db.Boolean, default=False)
@@ -73,6 +74,8 @@ class WorkoutPlan(db.Model):
     fri = db.Column(db.Boolean, default=False)
     sat = db.Column(db.Boolean, default=False)
     sun = db.Column(db.Boolean, default=False)
+    date = db.Column(db.DateTime, nullable=True)
+ 
     
     exerciseinplans = db.relationship('ExerciseInPlan', backref='workoutplan')
         
@@ -89,8 +92,10 @@ class ExerciseInPlan(db.Model):
     repetitions = db.Column(db.Integer, nullable=True)
     weight = db.Column(db.Integer, nullable=True)
     cardio = db.Column(db.Integer, nullable=True)
-class Workoutsession(db.Model):
-    # might not use. I will come back to this after getting everything else
-    __tablename__ = "workoutsessions"
     
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+# class Workoutsession(db.Model):
+#     __tablename__ = "workoutsessions"
+    
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
+#     date = db.Column(db.DateTime, nullable=False)

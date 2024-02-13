@@ -1,14 +1,13 @@
 <div id="{{ schedule.id }}">
-  <h3>
-    <!-- gose to a page with all the workout in this schedule that lets you add exerices in template if not in exerice page -->
-    <a
-      href="/schedule/{{ schedule.id }}"
-      target="_blank"
-      rel="noopener noreferrer"
-      >{{ schedule.name }}</a
-    >
-  </h3>
+  <h3>{{ schedule.name }}</h3>
   <p>{{ schedule.description }}</p>
+  <a
+    href="/schedule/{{ schedule.id }}"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="btn"
+    >More Details</a
+  >
   <button class="edit-btn">Edit</button>
   <button type="button" class="delete-btn">Delete</button>
 </div>
