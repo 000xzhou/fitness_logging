@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, session, redirect
-from models import User
+from models import User, WorkoutPlan
+from sqlalchemy import or_
+from datetime import datetime
 
 dashboard_bp = Blueprint('dashboard_bp', __name__,
     template_folder='templates',
@@ -11,12 +13,35 @@ def dashboard():
     if 'user' not in session:
         return redirect('/login')
     user = User.query.get_or_404(session['user'])
-    return render_template('dashboard.html',user=user)
+    
+    today = datetime.now().weekday()
+    
+    day_to_attr = {
+    0: WorkoutPlan.mon,
+    1: WorkoutPlan.tue,
+    2: WorkoutPlan.wed,
+    3: WorkoutPlan.thur,
+    4: WorkoutPlan.fri,
+    5: WorkoutPlan.sat,
+    6: WorkoutPlan.sun
+    }
+    today_workout = (
+        WorkoutPlan.query
+        .filter(WorkoutPlan.user_id == session['user'])
+        .filter(
+            or_(
+                (WorkoutPlan.repeat == "weekly") & (day_to_attr[today] == True),  # Weekly plans scheduled for today
+                (WorkoutPlan.repeat != "weekly") & (WorkoutPlan.date == datetime.now().date()),  # Non-weekly plans scheduled for today
+            )
+        )
+        .first()
+    )
+    return render_template('dashboard.html',user=user, workout = today_workout)
 
 # sub items inside main 
 @dashboard_bp.route('/recent_workouts/')
-# @dashboard_bp.route('/dashboard/recent_workouts/<workout_id>')
 def recent_workouts():
+
     return render_template('dashboard/recent_workouts.html')
     
 @dashboard_bp.route('/graphOfProgress')
@@ -26,3 +51,4 @@ def graphOfProgress():
 @dashboard_bp.route('/chartofOveralls')
 def chartofOveralls():
     return render_template('dashboard/chartofOveralls.html')
+

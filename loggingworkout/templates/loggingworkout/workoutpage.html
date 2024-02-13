@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block title %}Workout{% endblock %}{% block content
+%}
+<!--  -->
+{% for exercise in plan.exerciseinplans %}
+<!--  -->
+<div class="set" id="{{exercise.id}}" onclick="startExercise()">
+  <h3>{{exercise.exercise_name}}</h3>
+  <p>
+    {% if exercise.sets %} {{exercise.sets}} SETS *{% endif %}
+    <!--  -->
+    {% if exercise.repetitions %} {{exercise.repetitions}} Reps *{% endif %}
+    <!--  -->
+    {% if session[weightunit] == "metric" %} {% if exercise.weight %}
+    {{exercise.weight}} KG {% endif %}
+    <!--  -->
+    {% if exercise.cardio %} {{exercise.cardio}} KM {% endif %}
+    <!--  -->
+    {% else %} {% if exercise.weight %} {{exercise.weight}} LB {% endif %}
+    <!--  -->
+    {% if exercise.cardio %} {{exercise.cardio}} MILES {% endif %} {% endif %}
+  </p>
+</div>
+
+<!--  -->
+{% endfor %} {% endblock %}

@@ -6,7 +6,20 @@ Your account: {{user.email}} <span><a href="/settings">Edit</a></span
 <div>Dashboard:</div>
 <div id="workout_schedule">
   <h2>Today's Workout Schedule</h2>
-  {% if workout_schedule %} {%else%} No workout schedule for today. {%endif%}
+  <div id="todayWorkout">
+    {% if workout.exerciseinplans %}
+    <!-- start -->
+    <ul>
+      {% for exercise in workout.exerciseinplans %}
+      <li>{{ exercise.exercise_name }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <a href="/logging/{{workout.id}}">Start Workout</a>
+  </div>
+  <!-- else  -->
+  {%else%} No workout schedule for today. {%endif%}
 </div>
 <div id="component1"></div>
 

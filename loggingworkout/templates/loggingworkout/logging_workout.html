@@ -1,0 +1,7 @@
+<h3>{{exercise.exercise_name}}</h3>
+
+{% for _ in range(exercise.sets) %}
+<li>{{ exercise.repetitions }} REPS * {{ exercise.weight }} LB</li>
+
+<li>{{ exercise.repetitions }} REPS * {{ exercise.cardio }} LB</li>
+{% endfor %}
