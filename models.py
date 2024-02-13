@@ -74,7 +74,7 @@ class WorkoutPlan(db.Model):
     fri = db.Column(db.Boolean, default=False)
     sat = db.Column(db.Boolean, default=False)
     sun = db.Column(db.Boolean, default=False)
-    date = db.Column(db.DateTime, nullable=True)
+    date = db.Column(db.Date, nullable=True)
  
     
     exerciseinplans = db.relationship('ExerciseInPlan', backref='workoutplan')

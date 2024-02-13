@@ -42,52 +42,52 @@
 
   <div class="not-weekly">
     <label for="datepicker">Select a date:</label>
-    <input type="date" id="datepicker" />
+    <input type="date" id="datepicker" name="date" value="{{schedule.date}}" />
   </div>
   <div class="repeat-weekly">
-    {% if schedule.mon == "true" %}
+    {% if schedule.mon %}
     <input type="checkbox" id="mon" name="mon" value="mon" checked />
     {%else %}
     <input type="checkbox" id="mon" name="mon" value="mon" />
     {% endif%}
     <label for="mon">Monday</label>
 
-    {% if schedule.tue == "true" %}
+    {% if schedule.tue %}
     <input type="checkbox" id="tue" name="tue" value="tue" checked />
     {%else %}
     <input type="checkbox" id="tue" name="tue" value="tue" />
     {% endif%}
     <label for="tue">Tuesday</label>
 
-    {% if schedule.wed == "true" %}
+    {% if schedule.wed %}
     <input type="checkbox" id="wed" name="wed" value="wed" checked />
     {%else %}
     <input type="checkbox" id="wed" name="wed" value="wed" />
     {% endif%}
     <label for="wed">Wednesday</label>
 
-    {% if schedule.thur == "true" %}
+    {% if schedule.thur %}
     <input type="checkbox" id="thur" name="thur" value="thur" checked />
     {%else %}
     <input type="checkbox" id="thur" name="thur" value="thur" />
     {% endif%}
     <label for="thur">Thursday</label>
 
-    {% if schedule.fri == "true" %}
+    {% if schedule.fri %}
     <input type="checkbox" id="fri" name="fri" value="fri" checked />
     {%else %}
     <input type="checkbox" id="fri" name="fri" value="fri" />
     {% endif%}
     <label for="fri">Friday</label>
 
-    {% if schedule.sat == "true" %}
+    {% if schedule.sat %}
     <input type="checkbox" id="sat" name="sat" value="sat" checked />
     {%else %}
     <input type="checkbox" id="sat" name="sat" value="sat" />
     {% endif%}
     <label for="sat">Saturday</label>
 
-    {% if schedule.sun == "true" %}
+    {% if schedule.sun %}
     <input type="checkbox" id="sun" name="sun" value="sun" checked />
     {%else %}
     <input type="checkbox" id="sun" name="sun" value="sun" />
