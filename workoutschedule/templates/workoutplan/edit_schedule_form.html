@@ -45,54 +45,54 @@
     <input type="date" id="datepicker" name="date" value="{{schedule.date}}" />
   </div>
   <div class="repeat-weekly">
+    {% if schedule.sun %}
+    <input type="checkbox" id="sun" name="sun" value="sun" checked />
+    {%else %}
+    <input type="checkbox" id="sun" name="sun" value="sun" />
+    {% endif%}
+    <label for="sun">S</label>
+
     {% if schedule.mon %}
     <input type="checkbox" id="mon" name="mon" value="mon" checked />
     {%else %}
     <input type="checkbox" id="mon" name="mon" value="mon" />
     {% endif%}
-    <label for="mon">Monday</label>
+    <label for="mon">M</label>
 
     {% if schedule.tue %}
     <input type="checkbox" id="tue" name="tue" value="tue" checked />
     {%else %}
     <input type="checkbox" id="tue" name="tue" value="tue" />
     {% endif%}
-    <label for="tue">Tuesday</label>
+    <label for="tue">T</label>
 
     {% if schedule.wed %}
     <input type="checkbox" id="wed" name="wed" value="wed" checked />
     {%else %}
     <input type="checkbox" id="wed" name="wed" value="wed" />
     {% endif%}
-    <label for="wed">Wednesday</label>
+    <label for="wed">W</label>
 
     {% if schedule.thur %}
     <input type="checkbox" id="thur" name="thur" value="thur" checked />
     {%else %}
     <input type="checkbox" id="thur" name="thur" value="thur" />
     {% endif%}
-    <label for="thur">Thursday</label>
+    <label for="thur">T</label>
 
     {% if schedule.fri %}
     <input type="checkbox" id="fri" name="fri" value="fri" checked />
     {%else %}
     <input type="checkbox" id="fri" name="fri" value="fri" />
     {% endif%}
-    <label for="fri">Friday</label>
+    <label for="fri">F</label>
 
     {% if schedule.sat %}
     <input type="checkbox" id="sat" name="sat" value="sat" checked />
     {%else %}
     <input type="checkbox" id="sat" name="sat" value="sat" />
     {% endif%}
-    <label for="sat">Saturday</label>
-
-    {% if schedule.sun %}
-    <input type="checkbox" id="sun" name="sun" value="sun" checked />
-    {%else %}
-    <input type="checkbox" id="sun" name="sun" value="sun" />
-    {% endif%}
-    <label for="sun">Sunday</label>
+    <label for="sat">S</label>
   </div>
   <button type="submit" id="save_edit">Save</button>
 </form>

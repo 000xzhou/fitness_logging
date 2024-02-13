@@ -59,7 +59,7 @@ def edit_schedule(id):
     schedule.sat = data['sat']
     schedule.sun = data['sun']
     db.session.commit() 
-    return render_template("workoutplan/add_schedule.html", schedule=schedule)
+    return render_template("workoutplan/edit_schedule.html", schedule=schedule)
 
 @workout_schedule_bp.route('/delete_schedule', methods=['POST'])
 def delete_schedule():

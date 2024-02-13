@@ -49,6 +49,8 @@ custom workouts - I'm debating if I should do the convert before sending to serv
 
 exercise libaray - just notice I forgot to either add page number to get next set of exercises or the keep scrolling and load the next set.
 
+schedule - I notice I am not able to assign a date to it. Incase I plan to use this plan only once. Also my repeat option was limited to weekly only. What if I want to use it daily? monthly? So I added that option in. I also added a bit more details into the schedule page so the user can see the info right away without going in for more details.
+
 ## using as reference:
 
 [Blueprint](https://realpython.com/flask-blueprint/)
