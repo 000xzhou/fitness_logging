@@ -1,56 +1,62 @@
 {% extends "base.html" %} {% block title %}Schedule{% endblock %} {% block
 content %}
-
+<link
+  rel="stylesheet"
+  href="{{ url_for('workout_schedule_bp.static', filename='schedule.css') }}"
+/>
 <!-- <a href="/schedule/add_schedule">Add schedule template</a> -->
 <div id="popup-schedule"></div>
+
 <div id="schedule">
   <h2>Schedule</h2>
   <div id="add-schedule">
     <button type="button" id="add-schedule-btn">Add Schedule</button>
   </div>
-  {% for schedule in schedules %}
-  <div id="{{ schedule.id }}">
-    <h3>{{ schedule.name }}</h3>
-    <p>{{ schedule.description }}</p>
-    <p>Repeat: {{ schedule.repeat }}</p>
-    {% if schedule.repeat == "weekly" %}
-    <p>
-      <!-- S  -->
-      {% if schedule.sun %} S {% else %}
-      <span class="gray-out">S</span>
-      {% endif%}
-      <!-- M  -->
-      {% if schedule.mon %} M {% else %}
-      <span class="gray-out">M</span>{% endif%}
-      <!-- T  -->
-      {% if schedule.tue %} T {% else %}
-      <span class="gray-out">T</span>{% endif%}
-      <!-- W  -->
-      {% if schedule.wed %} W {% else %}
-      <span class="gray-out">W</span>{% endif%}
-      <!-- T  -->
-      {% if schedule.thur %} T {% else %}
-      <span class="gray-out">T</span>{% endif%}
-      <!-- F  -->
-      {% if schedule.fri %} F {% else %}
-      <span class="gray-out">F</span>{% endif%}
-      <!-- S -->
-      {% if schedule.sat %} S {% else %}
-      <span class="gray-out">S</span>{% endif%}
-    </p>
-    {% else %}
-    <p>{{ schedule.date }}</p>
-    {% endif %}
-    <a
-      href="/schedule/{{ schedule.id }}"
-      target="_blank"
-      rel="noopener noreferrer"
-      >Add Exerice</a
-    >
-    <button class="edit-btn">Edit</button>
-    <button type="button" class="delete-btn">Delete</button>
+  <div id="schedule_info">
+    {% for schedule in schedules %}
+    <div id="{{ schedule.id }}">
+      <h3>{{ schedule.name }}</h3>
+      <p>{{ schedule.description }}</p>
+      <p>Repeat: {{ schedule.repeat }}</p>
+      {% if schedule.repeat == "weekly" %}
+      <p>
+        <!-- S  -->
+        {% if schedule.sun %} S {% else %}
+        <span class="gray-out">S</span>
+        {% endif%}
+        <!-- M  -->
+        {% if schedule.mon %} M {% else %}
+        <span class="gray-out">M</span>{% endif%}
+        <!-- T  -->
+        {% if schedule.tue %} T {% else %}
+        <span class="gray-out">T</span>{% endif%}
+        <!-- W  -->
+        {% if schedule.wed %} W {% else %}
+        <span class="gray-out">W</span>{% endif%}
+        <!-- T  -->
+        {% if schedule.thur %} T {% else %}
+        <span class="gray-out">T</span>{% endif%}
+        <!-- F  -->
+        {% if schedule.fri %} F {% else %}
+        <span class="gray-out">F</span>{% endif%}
+        <!-- S -->
+        {% if schedule.sat %} S {% else %}
+        <span class="gray-out">S</span>{% endif%}
+      </p>
+      {% else %}
+      <p>{{ schedule.date }}</p>
+      {% endif %}
+      <a
+        href="/schedule/{{ schedule.id }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Add Exerice</a
+      >
+      <button class="edit-btn">Edit</button>
+      <button type="button" class="delete-btn">Delete</button>
+    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
 </div>
 <script src="{{ url_for('workout_schedule_bp.static', filename='schedule.js') }}"></script>
 {% endblock %}

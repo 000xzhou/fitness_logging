@@ -1,4 +1,5 @@
 const schedule = document.getElementById("schedule");
+const scheduleInfo = document.getElementById("schedule_info");
 const deleteBtn = document.querySelectorAll(".delete-btn");
 const addForm = document.getElementById("add-schedule-btn");
 const editBtn = document.querySelectorAll(".edit-btn");
@@ -42,6 +43,7 @@ function deleteSchedule(e) {
 
 function addSchedule(e) {
   e.preventDefault();
+
   let formElements = document.getElementById("add-schedule-form").elements;
   let formData = {};
   for (let i = 0; i < formElements.length; i++) {
@@ -73,7 +75,7 @@ function addSchedule(e) {
       return response.text();
     })
     .then((data) => {
-      schedule.innerHTML += data;
+      scheduleInfo.innerHTML += data;
       addEventtoBtns();
       popup.innerText = "";
     })
@@ -84,6 +86,7 @@ function addSchedule(e) {
 
 function addScheduleForm(e) {
   // let parentElement = e.target.parentElement;
+
   fetch("/schedule/add_schedule")
     .then((response) => {
       if (!response.ok) {
@@ -96,6 +99,14 @@ function addScheduleForm(e) {
       document
         .getElementById("add-schedule-form")
         .addEventListener("submit", addSchedule);
+      // get date
+      const datePicker = document.getElementById("datepicker");
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+      datePicker.value = `${year}-${month}-${day}`;
+      // end date
     })
     .catch((error) => {
       console.error("There was a problem with the fetch operation:", error);
@@ -139,7 +150,6 @@ function editSchedule(e) {
       }
     }
   }
-  console.log(formData);
   const scheduleVal = {
     formData,
   };
