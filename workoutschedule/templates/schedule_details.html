@@ -2,8 +2,37 @@
 block content %}
 <!-- start main  -->
 <div id="schedule-id" data-plan-id="{{schedule.id}}">
-  <p>schedule: {{schedule.name}}</p>
-  <p>description: {{schedule.description}}</p>
+  <h3>{{ schedule.name }}</h3>
+  <p>{{ schedule.description }}</p>
+  <p>Repeat: {{ schedule.repeat }}</p>
+  {% if schedule.repeat == "weekly" %}
+  <p>
+    <!-- S  -->
+    {% if schedule.sun %} S {% else %}
+    <span class="gray-out">S</span>
+    {% endif%}
+    <!-- M  -->
+    {% if schedule.mon %} M {% else %}
+    <span class="gray-out">M</span>{% endif%}
+    <!-- T  -->
+    {% if schedule.tue %} T {% else %}
+    <span class="gray-out">T</span>{% endif%}
+    <!-- W  -->
+    {% if schedule.wed %} W {% else %}
+    <span class="gray-out">W</span>{% endif%}
+    <!-- T  -->
+    {% if schedule.thur %} T {% else %}
+    <span class="gray-out">T</span>{% endif%}
+    <!-- F  -->
+    {% if schedule.fri %} F {% else %}
+    <span class="gray-out">F</span>{% endif%}
+    <!-- S -->
+    {% if schedule.sat %} S {% else %}
+    <span class="gray-out">S</span>{% endif%}
+  </p>
+  {% else %}
+  <p>{{ schedule.date }}</p>
+  {% endif %}
   <div>
     <div id="popup">
       <!-- make the below into popup  -->
