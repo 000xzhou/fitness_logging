@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, session
 from models import WorkoutPlan
 
 logging_workout_bp = Blueprint('logging_workout_bp', __name__,

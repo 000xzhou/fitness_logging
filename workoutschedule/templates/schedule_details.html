@@ -49,8 +49,8 @@ block content %}
             {% if exercise.repetitions %} {{exercise.repetitions}} Reps *{%
             endif %}
             <!--  -->
-            {% if session[weightunit] == "metric" %} {% if exercise.weight %}
-            {{exercise.weight}} KG {% endif %}
+            {% if session['weightunit']|trim == "metric" %} {% if
+            exercise.weight %} {{exercise.weight}} KG {% endif %}
             <!--  -->
             {% if exercise.cardio %} {{exercise.cardio}} KM {% endif %}
             <!--  -->

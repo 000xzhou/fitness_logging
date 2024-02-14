@@ -10,7 +10,7 @@
       <!--  -->
       {% if exercise.repetitions %} {{exercise.repetitions}} Reps *{% endif %}
       <!--  -->
-      {% if session[weightunit] == "metric" %} {% if exercise.weight %}
+      {% if session['weightunit']|trim == "metric" %} {% if exercise.weight %}
       {{exercise.weight}} KG {% endif %}
       <!--  -->
       {% if exercise.cardio %} {{exercise.cardio}} KM {% endif %}
@@ -28,7 +28,8 @@
 
   <div id="{{exercise.id}}">
     <h3>{{exercise.exercise_name}}</h3>
-    {% if session[weightunit] == "metric" %}
+    {% if session['weightunit']|trim == "metric" %}
+
     <div data-unit="metric">
       {% for _ in range(exercise.sets) %} {% if exercise.weight %}
       <li>
