@@ -47,12 +47,15 @@ class ExerciseLog(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Text, db.ForeignKey('users.email'))
     exercise_id = db.Column(db.Integer, nullable=False)
-    sets = db.Column(db.Integer, nullable=True)
+    set_num = db.Column(db.Integer, nullable=True)
     repetitions = db.Column(db.Integer, nullable=True)
     weight = db.Column(db.Integer, nullable=True)
     cardio = db.Column(db.Integer, nullable=True)
     notes = db.Column(db.Text, nullable=True)
     date_logged = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    exercise_name = db.Column(db.Text, nullable=False)
+    workout_id = db.Column(db.Integer, db.ForeignKey('exerciseinplans.id'))
+    
     
         
 @dataclass

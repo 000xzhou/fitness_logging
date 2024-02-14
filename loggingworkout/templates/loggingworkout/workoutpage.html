@@ -1,25 +1,103 @@
 {% extends "base.html" %} {% block title %}Workout{% endblock %}{% block content
 %}
-<!--  -->
-{% for exercise in plan.exerciseinplans %}
-<!--  -->
-<div class="set" id="{{exercise.id}}" onclick="startExercise()">
-  <h3>{{exercise.exercise_name}}</h3>
-  <p>
-    {% if exercise.sets %} {{exercise.sets}} SETS *{% endif %}
-    <!--  -->
-    {% if exercise.repetitions %} {{exercise.repetitions}} Reps *{% endif %}
-    <!--  -->
-    {% if session[weightunit] == "metric" %} {% if exercise.weight %}
-    {{exercise.weight}} KG {% endif %}
-    <!--  -->
-    {% if exercise.cardio %} {{exercise.cardio}} KM {% endif %}
-    <!--  -->
-    {% else %} {% if exercise.weight %} {{exercise.weight}} LB {% endif %}
-    <!--  -->
-    {% if exercise.cardio %} {{exercise.cardio}} MILES {% endif %} {% endif %}
-  </p>
+<div class="left">
+  {% for exercise in plan.exerciseinplans %}
+  <!--  -->
+  <div class="set" id="{{exercise.id}}" onclick="startExercise()">
+    <h3>{{exercise.exercise_name}}</h3>
+    <p>
+      {% if exercise.sets %} {{exercise.sets}} SETS *{% endif %}
+      <!--  -->
+      {% if exercise.repetitions %} {{exercise.repetitions}} Reps *{% endif %}
+      <!--  -->
+      {% if session[weightunit] == "metric" %} {% if exercise.weight %}
+      {{exercise.weight}} KG {% endif %}
+      <!--  -->
+      {% if exercise.cardio %} {{exercise.cardio}} KM {% endif %}
+      <!--  -->
+      {% else %} {% if exercise.weight %} {{exercise.weight}} LB {% endif %}
+      <!--  -->
+      {% if exercise.cardio %} {{exercise.cardio}} MILES {% endif %} {% endif %}
+    </p>
+  </div>
+  {% endfor %}
 </div>
 
-<!--  -->
-{% endfor %} {% endblock %}
+<div class="right" id="exercise-details">
+  {% for exercise in plan.exerciseinplans %}
+
+  <div id="{{exercise.id}}">
+    <h3>{{exercise.exercise_name}}</h3>
+    {% if session[weightunit] == "metric" %}
+    <div data-unit="metric">
+      {% for _ in range(exercise.sets) %} {% if exercise.weight %}
+      <li>
+        <span>SET {{_ + 1}} </span
+        ><input
+          type="text"
+          name="repetitions"
+          id="repetitions"
+          value="{{ exercise.repetitions }}"
+        />
+        REPS *
+        <input
+          type="text"
+          name="weight"
+          id="weight"
+          value="{{ exercise.weight }}"
+        />
+        KG
+      </li>
+      {% else %}
+      <li>
+        <span>SET {{_ + 1}} </span
+        ><input
+          type="text"
+          name="cardio"
+          id="cardio"
+          value="{{ exercise.cardio }}"
+        />
+        KM
+      </li>
+      {% endif %} {% endfor %}
+    </div>
+    {% else %}
+    <div data-unit="US">
+      {% for _ in range(exercise.sets) %} {% if exercise.weight %}
+      <li>
+        <span>SET {{_ + 1}} </span
+        ><input
+          type="text"
+          name="repetitions"
+          id="repetitions"
+          value="{{ exercise.repetitions }}"
+        />
+        REPS *
+        <input
+          type="text"
+          name="weight"
+          id="weight"
+          value="{{ exercise.weight }}"
+        />
+        LB
+      </li>
+      {% else %}
+      <li>
+        <span>SET {{_ + 1}} </span
+        ><input
+          type="text"
+          name="cardio"
+          id="cardio"
+          value="{{ exercise.cardio }}"
+        />
+        MILES
+      </li>
+      {% endif %} {% endfor %}
+    </div>
+    {% endif %}
+    <button type="button">Add Set</button>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

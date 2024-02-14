@@ -51,6 +51,8 @@ exercise libaray - just notice I forgot to either add page number to get next se
 
 schedule - I notice I am not able to assign a date to it. Incase I plan to use this plan only once. Also my repeat option was limited to weekly only. What if I want to use it daily? monthly? So I added that option in. I also added a bit more details into the schedule page so the user can see the info right away without going in for more details.
 
+logging - just notice I didn't give the user the option to order their workouts... I will need to add a drag and drop ordering feather in the schedule detail page. when I get to the end and still remember. It isn't too important since the loggin thing they can just pick what they want.
+
 ## using as reference:
 
 [Blueprint](https://realpython.com/flask-blueprint/)
