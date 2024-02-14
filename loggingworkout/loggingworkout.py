@@ -5,11 +5,11 @@ logging_workout_bp = Blueprint('logging_workout_bp', __name__,
     template_folder='templates', static_folder='static')
 
 @logging_workout_bp.route('/<plan_id>', methods=['GET', 'POST'])
-def logging_exercise(plan_id):
+def workout_page(plan_id):
     plan = WorkoutPlan.query.get_or_404(plan_id)
     return render_template("loggingworkout/workoutpage.html", plan = plan)
 
-@logging_workout_bp.route('/addsets', methods=['GET', 'POST'])
+@logging_workout_bp.route('/addsets', methods=['POST'])
 def add_sets():
     num = request.json.get('num')
     set_type = request.json.get('set_type')
@@ -20,8 +20,8 @@ def add_sets():
     return render_template("loggingworkout/addSet.html", set_num = set_num, set_type = set_type, weight=weight, cardio=cardio, reps = repetitions)
     
     
-@logging_workout_bp.route('/logexercise', methods=['GET', 'POST'])
-def add_exerciselog():
+@logging_workout_bp.route('/logworkout', methods=['GET', 'POST'])
+def logworkout():
     # in logging workout page. add finish workout in db
     # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # user_id = db.Column(db.Text, db.ForeignKey('users.email'))

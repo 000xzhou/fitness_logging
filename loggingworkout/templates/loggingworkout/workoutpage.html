@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block title %}Workout{% endblock %}{% block content
 %}
-<div class="left">
+<div class="left" id="exercise-left" data-unit="{{session['weightunit']|trim}}">
   {% for exercise in plan.exerciseinplans %}
   <!--  -->
   <div class="set" id="{{exercise.id}}" onclick="startExercise()">
@@ -23,7 +23,7 @@
   {% endfor %}
 </div>
 
-<div class="right" id="exercise-details">
+<div class="right" id="exercise-right">
   {% for exercise in plan.exerciseinplans %}
 
   <div id="{{exercise.id}}">
