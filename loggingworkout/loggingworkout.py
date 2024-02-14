@@ -34,4 +34,4 @@ def logworkout():
     # date_logged = db.Column(db.DateTime)) => the date they picked need ot change that in model. required   
     # exercise_name = db.Column(db.Text, nullable=False)
     # workout_id = db.Column(db.Integer, db.ForeignKey('exerciseinplans.id'))
-    return render_template("base.html")
+    return "Workout logged"

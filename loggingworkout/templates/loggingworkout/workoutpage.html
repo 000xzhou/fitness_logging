@@ -35,14 +35,18 @@
       <li data-set-id="{{_ + 1}}">
         <span>SET {{_ + 1}} </span
         ><input
-          type="text"
+          type="number"
+          pattern="[0-9]*"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
           name="repetitions"
           id="repetitions"
           value="{{ exercise.repetitions }}"
         />
         REPS *
         <input
-          type="text"
+          type="number"
+          pattern="[0-9]*"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
           name="weight"
           id="weight"
           value="{{ exercise.weight }}"
@@ -54,7 +58,9 @@
       <li data-set-id="{{_ + 1}}">
         <span>SET {{_ + 1}} </span
         ><input
-          type="text"
+          type="number"
+          pattern="[0-9]*"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
           name="cardio"
           id="cardio"
           value="{{ exercise.cardio }}"
@@ -70,14 +76,18 @@
       <li data-set-id="{{_ + 1}}">
         <span>SET {{_ + 1}} </span
         ><input
-          type="text"
+          type="number"
+          pattern="[0-9]*"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
           name="repetitions"
           id="repetitions"
           value="{{ exercise.repetitions }}"
         />
         REPS *
         <input
-          type="text"
+          type="number"
+          pattern="[0-9]*"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
           name="weight"
           id="weight"
           value="{{ exercise.weight }}"
@@ -89,7 +99,9 @@
       <li data-set-id="{{_ + 1}}">
         <span>SET {{_ + 1}} </span
         ><input
-          type="text"
+          type="number"
+          pattern="[0-9]*"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
           name="cardio"
           id="cardio"
           value="{{ exercise.cardio }}"

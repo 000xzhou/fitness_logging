@@ -55,6 +55,7 @@ class ExerciseLog(db.Model):
     date_logged = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     exercise_name = db.Column(db.Text, nullable=False)
     workout_id = db.Column(db.Integer, db.ForeignKey('exerciseinplans.id'))
+    plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
     
     
         

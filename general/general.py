@@ -25,6 +25,8 @@ def settings():
         user.reminder = form.reminder.data
         user.weightunit = form.weightunit.data
         db.session.commit()
+        session['weightunit'] = user.weightunit
+        
         return render_template("general/settings.html", form=form)
     
     return render_template("general/settings.html", form=form)

@@ -70,50 +70,61 @@ function logWorkout(event) {
     inputs.forEach((input) => (input.disabled = false));
     event.target.textContent = "Edit";
   } else {
-    inputs.forEach((input) => (input.disabled = true));
-    event.target.textContent = "Enable";
-
     const unit = unitItem.getAttribute("data-unit");
-    // get values
+
     let setValues = {};
+    // get values
     inputs.forEach((input) => {
       if (unit == "metric") {
         setValues[input.name] = input.value;
       } else {
         if (input.name == "weight") {
           setValues[input.name] = convertToKG(input.value);
-        } else if (input.name == repetitions) {
+        } else if (input.name == "repetitions") {
           setValues[input.name] = input.value;
         } else {
           setValues[input.name] = convertToKM(input.value);
         }
       }
     });
-    console.log(setValues);
-    // log the workout
-    // fetch(`/logging/logworkout`, {
-    //   method: "post",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(setValues),
-    // })
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error("Network response was not ok");
-    //     }
-    //     return response.text();
-    //   })
-    //   .then((data) => {
-    //     const placement = id.querySelector("#set-in-here");
-    //     placement.insertAdjacentHTML("beforeend", data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //   });
+
+    // checks value
+    for (const [key, value] of Object.entries(setValues)) {
+      console.log(`${key}: ${value}: ${value.length}`);
+      if (value == "" || isNaN(value)) {
+        // add error for user in LI
+        return console.error();
+      }
+    }
+    // send value
+    sendLog(setValues);
+    inputs.forEach((input) => (input.disabled = true));
+    event.target.textContent = "Enable";
   }
 }
 
 function deleteFinishSets() {}
 
 function switchExercise() {}
+
+function sendLog(setValues) {
+  fetch(`/logging/logworkout`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(setValues),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.text();
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
