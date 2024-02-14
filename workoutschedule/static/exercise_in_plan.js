@@ -27,7 +27,8 @@ function addToSchedule(event) {
       return response.text();
     })
     .then((data) => {
-      exercisesinplan.innerHTML += data;
+      // exercisesinplan.innerHTML += data;
+      exercisesinplan.insertAdjacentHTML("beforeend", data);
     })
     .catch((error) => {
       console.error("Error:", error);

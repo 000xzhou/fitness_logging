@@ -30,9 +30,9 @@
     <h3>{{exercise.exercise_name}}</h3>
     {% if session['weightunit']|trim == "metric" %}
 
-    <div data-unit="metric">
+    <div data-unit="metric" id="set-in-here">
       {% for _ in range(exercise.sets) %} {% if exercise.weight %}
-      <li>
+      <li data-set-id="{{_ + 1}}">
         <span>SET {{_ + 1}} </span
         ><input
           type="text"
@@ -48,9 +48,10 @@
           value="{{ exercise.weight }}"
         />
         KG
+        <button type="button" onclick="logWorkout(event)">Finish</button>
       </li>
       {% else %}
-      <li>
+      <li data-set-id="{{_ + 1}}">
         <span>SET {{_ + 1}} </span
         ><input
           type="text"
@@ -59,13 +60,14 @@
           value="{{ exercise.cardio }}"
         />
         KM
+        <button type="button" onclick="logWorkout(event)">Finish</button>
       </li>
       {% endif %} {% endfor %}
     </div>
     {% else %}
-    <div data-unit="US">
+    <div data-unit="US" id="set-in-here">
       {% for _ in range(exercise.sets) %} {% if exercise.weight %}
-      <li>
+      <li data-set-id="{{_ + 1}}">
         <span>SET {{_ + 1}} </span
         ><input
           type="text"
@@ -81,9 +83,10 @@
           value="{{ exercise.weight }}"
         />
         LB
+        <button type="button" onclick="logWorkout(event)">Finish</button>
       </li>
       {% else %}
-      <li>
+      <li data-set-id="{{_ + 1}}">
         <span>SET {{_ + 1}} </span
         ><input
           type="text"
@@ -92,13 +95,15 @@
           value="{{ exercise.cardio }}"
         />
         MILES
+        <button type="button" onclick="logWorkout(event)">Finish</button>
       </li>
       {% endif %} {% endfor %}
     </div>
     {% endif %}
-    <button type="button">Add Set</button>
+    <button type="button" onclick="addsets(event)">Add Set</button>
   </div>
   {% endfor %}
 </div>
 
+<script src="{{ url_for('logging_workout_bp.static', filename='logworkout.js') }}"></script>
 {% endblock %}

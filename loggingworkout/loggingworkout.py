@@ -4,28 +4,23 @@ from models import WorkoutPlan
 logging_workout_bp = Blueprint('logging_workout_bp', __name__,
     template_folder='templates', static_folder='static')
 
-@logging_workout_bp.route('/', methods=['GET', 'POST'])
-def logging_main_page():
-    # in logging workout page. after pressing start to start workout
-    return render_template("base.html")
-
 @logging_workout_bp.route('/<plan_id>', methods=['GET', 'POST'])
 def logging_exercise(plan_id):
-    # get WorkoutPlan (plan_id) then get all the ExerciseInPlan in it... one at a time
     plan = WorkoutPlan.query.get_or_404(plan_id)
     return render_template("loggingworkout/workoutpage.html", plan = plan)
 
-# @logging_workout_bp.route('/<exercise_id>', methods=['GET', 'POST'])
-# def get_exercise_api(exercise_id):
-#     return render_template("base.html")
+@logging_workout_bp.route('/addsets', methods=['GET', 'POST'])
+def add_sets():
+    num = request.json.get('num')
+    set_type = request.json.get('set_type')
+    set_num = int(num) + 1
+    weight = request.json.get('weightInput')
+    cardio = request.json.get('cardioInput')
+    repetitions = request.json.get('repetitionsInput')
+    return render_template("loggingworkout/addSet.html", set_num = set_num, set_type = set_type, weight=weight, cardio=cardio, reps = repetitions)
     
-@logging_workout_bp.route('/sets/<plan_id>', methods=['GET', 'POST'])
-def display_exercise_reps(plan_id):
-    plan = WorkoutPlan.query.get_or_404(plan_id)
-    return render_template("loggingworkout/logging_workout.html", exercise = plan)
     
-    
-@logging_workout_bp.route('/add', methods=['GET', 'POST'])
+@logging_workout_bp.route('/logexercise', methods=['GET', 'POST'])
 def add_exerciselog():
     # in logging workout page. add finish workout in db
     # id = db.Column(db.Integer, primary_key=True, autoincrement=True)

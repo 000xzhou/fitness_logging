@@ -1,0 +1,34 @@
+{% if session['weightunit']|trim == "metric" %} {% if set_type == "weight" %}
+<li data-set-id="{{ set_num }}">
+  <span>SET {{ set_num }} </span
+  ><input type="text" name="repetitions" id="repetitions" value="{{reps}}" />
+  REPS *
+  <input type="text" name="weight" id="weight" value="{{weight}}" />
+  KG
+  <button type="button" onclick="logWorkout(event)">Finish</button>
+</li>
+{% else %}
+<li data-set-id="{{ set_num }}">
+  <span>SET {{ set_num }} </span
+  ><input type="text" name="cardio" id="cardio" value="{{cardio}}" />
+  KM
+  <button type="button" onclick="logWorkout(event)">Finish</button>
+</li>
+{% endif %} {% else %} {% if set_type == "weight" %}
+
+<li data-set-id="{{ set_num }}">
+  <span>SET {{ set_num }} </span
+  ><input type="text" name="repetitions" id="repetitions" value="{{reps}}" />
+  REPS *
+  <input type="text" name="weight" id="weight" value="{{weight}}" />
+  LB
+  <button type="button" onclick="logWorkout(event)">Finish</button>
+</li>
+{% else %}
+<li data-set-id="{{ set_num }}">
+  <span>SET {{ set_num }} </span
+  ><input type="text" name="cardio" id="cardio" value="{{cardio}}" />
+  MILES
+  <button type="button" onclick="logWorkout(event)">Finish</button>
+</li>
+{% endif %} {% endif %}
