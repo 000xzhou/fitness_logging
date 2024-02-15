@@ -90,12 +90,19 @@ function logWorkout(event) {
 
     // checks value
     for (const [key, value] of Object.entries(setValues)) {
-      console.log(`${key}: ${value}: ${value.length}`);
       if (value == "" || isNaN(value)) {
         // add error for user in LI
         return console.error();
       }
     }
+    // getting plan id and set number and workout id
+    const currentUrl = window.location.href.split("/");
+    const workoutId = parent.parentElement.parentElement;
+    const name = parent.parentElement.previousElementSibling;
+    setValues["plan-id"] = currentUrl[currentUrl.length - 1];
+    setValues["set"] = parent.getAttribute("data-set-id");
+    setValues["workout-id"] = workoutId.id;
+    setValues["name"] = name.textContent;
     // send value
     sendLog(setValues);
     inputs.forEach((input) => (input.disabled = true));

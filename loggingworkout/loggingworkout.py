@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, session
-from models import WorkoutPlan
+from models import WorkoutPlan, ExerciseLog, db
+import json
 
 logging_workout_bp = Blueprint('logging_workout_bp', __name__,
     template_folder='templates', static_folder='static')
@@ -22,16 +23,23 @@ def add_sets():
     
 @logging_workout_bp.route('/logworkout', methods=['GET', 'POST'])
 def logworkout():
-    # in logging workout page. add finish workout in db
-    # id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    # user_id = db.Column(db.Text, db.ForeignKey('users.email'))
-    # exercise_name = db.Column(db.Text, unique=True, nullable=False)
-    # set_num = db.Column(db.Integer, nullable=True)
-    # repetitions = db.Column(db.Integer, nullable=True)
-    # weight = db.Column(db.Integer, nullable=True)
-    # cardio = db.Column(db.Integer, nullable=True)
-    # notes = db.Column(db.Text, nullable=True)
-    # date_logged = db.Column(db.DateTime)) => the date they picked need ot change that in model. required   
-    # exercise_name = db.Column(db.Text, nullable=False)
-    # workout_id = db.Column(db.Integer, db.ForeignKey('exerciseinplans.id'))
+    data = json.loads(request.data.decode('utf-8'))
+    set_num = data.get('set')
+    repetitions = data.get('repetitions')
+    weight = data.get('weight')
+    cardio = data.get('cardio')
+    exercise_name = data.get("name")
+    workout_id = data.get("workout-id")
+    plan_id = data.get("plan-id")
+    log = ExerciseLog(user_id = session['user'], 
+                      set_num=set_num, 
+                      repetitions=repetitions,
+                      weight=weight, 
+                      cardio=cardio, 
+                      exercise_name=exercise_name, 
+                      workout_id=workout_id,
+                      plan_id=plan_id)
+    
+    db.session.add(log)
+    db.session.commit()
     return "Workout logged"

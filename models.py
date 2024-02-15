@@ -46,7 +46,6 @@ class ExerciseLog(db.Model):
     #! everything will be in metric 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Text, db.ForeignKey('users.email'))
-    exercise_id = db.Column(db.Integer, nullable=False)
     set_num = db.Column(db.Integer, nullable=True)
     repetitions = db.Column(db.Integer, nullable=True)
     weight = db.Column(db.Integer, nullable=True)
@@ -57,8 +56,6 @@ class ExerciseLog(db.Model):
     workout_id = db.Column(db.Integer, db.ForeignKey('exerciseinplans.id'))
     plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
     
-    
-        
 @dataclass
 class WorkoutPlan(db.Model):
 # name of folder for the exerice 
