@@ -69,6 +69,7 @@ function logWorkout(event) {
   if (event.target.textContent == "Enable") {
     inputs.forEach((input) => (input.disabled = false));
     event.target.textContent = "Edit";
+    // !!!! Need to change this where it's edit go to a different route
   } else {
     const unit = unitItem.getAttribute("data-unit");
 

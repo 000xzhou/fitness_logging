@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, redirect
-from models import User, WorkoutPlan
+from models import User, WorkoutPlan, ExerciseLog
 from sqlalchemy import or_
 from datetime import datetime
 
@@ -41,8 +41,15 @@ def dashboard():
 # sub items inside main 
 @dashboard_bp.route('/recent_workouts/')
 def recent_workouts():
-
-    return render_template('dashboard/recent_workouts.html')
+    log = (
+        ExerciseLog.query
+          .join(User)
+          .filter(User.email == session['user'])
+          .filter(ExerciseLog.date_logged >= datetime.now().date())
+          .group_by(ExerciseLog.plan_id, ExerciseLog.id)
+          .order_by(ExerciseLog.workout_id)
+    )
+    return render_template('dashboard/recent_workouts.html', log=log)
     
 @dashboard_bp.route('/graphOfProgress')
 def graphOfProgress():

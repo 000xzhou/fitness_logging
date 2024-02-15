@@ -1,7 +1,9 @@
 <h3>Recent workout</h3>
 <ul>
-  <li>workout1 <span>set of 3</span> | <span>5kg</span></li>
-  <li>workout2 <span>set of 3</span> | <span>5kg</span></li>
-  <li>workout1</li>
-  <li>workout2</li>
+  {% for w in log %}
+  <li>
+    {{w.exercise_name}} <span>set:{{w.repetitions}} x {{w.weight}}</span>
+    <span>{{w.cardio}}</span>
+  </li>
+  {% endfor %}
 </ul>
