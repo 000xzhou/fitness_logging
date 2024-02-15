@@ -53,6 +53,13 @@ schedule - I notice I am not able to assign a date to it. Incase I plan to use t
 
 logging - just notice I didn't give the user the option to order their workouts... I will need to add a drag and drop ordering feather in the schedule detail page. when I get to the end and still remember. It isn't too important since the loggin thing they can just pick what they want.
 
+logging - since I added in new features. I need to make some debugging chances.
+// => do check on if it's daily, weekly, etc before submiting. sometimes I wonder if it's easiler to do this after sending it to server and let the server handle it. I think I might do that.
+// => daily everyday is checked in checkboxes
+// => weekly => checked in checkboxes
+// => monthly + date only no checkboxes checked.
+// => need to do so in edit too
+
 ## using as reference:
 
 [Blueprint](https://realpython.com/flask-blueprint/)
