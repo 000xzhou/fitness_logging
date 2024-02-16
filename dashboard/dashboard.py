@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, session, redirect
 from models import User, WorkoutPlan, ExerciseLog
 from sqlalchemy import or_
-from datetime import datetime
+from datetime import datetime, timedelta
 
 dashboard_bp = Blueprint('dashboard_bp', __name__,
     template_folder='templates',
@@ -45,11 +45,23 @@ def recent_workouts():
         ExerciseLog.query
           .join(User)
           .filter(User.email == session['user'])
-          .filter(ExerciseLog.date_logged >= datetime.now().date())
+          .filter(ExerciseLog.date_logged >= datetime.now().date()  - timedelta(days=1))
           .group_by(ExerciseLog.plan_id, ExerciseLog.id)
-          .order_by(ExerciseLog.workout_id)
+          .order_by(ExerciseLog.date_logged.desc())
     )
-    return render_template('dashboard/recent_workouts.html', log=log)
+    
+    groups = {}
+    date = {}
+    for e in log:
+        if e.plan_id not in groups:
+            groups[e.plan_id] = []
+            date[e.plan_id] = e.date_logged.date()
+        groups[e.plan_id].append(e)
+        
+    today = datetime.now().date()
+    # print(f"{groups=}")
+    # print(f"{date=}")
+    return render_template('dashboard/recent_workouts.html', log=groups, dates=date, today=today)
     
 @dashboard_bp.route('/graphOfProgress')
 def graphOfProgress():

@@ -65,7 +65,16 @@
           id="cardio"
           value="{{ exercise.cardio }}"
         />
-        KM
+        KM *
+        <input
+          type="number"
+          pattern="[0-9]*"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+          name="cardio_timer"
+          id="cardio_timer"
+          value="10"
+        />
+        MIN
         <button type="button" onclick="logWorkout(event)">Finish</button>
       </li>
       {% endif %} {% endfor %}
@@ -106,7 +115,16 @@
           id="cardio"
           value="{{ exercise.cardio }}"
         />
-        MILES
+        MILES *
+        <input
+          type="number"
+          pattern="[0-9]*"
+          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+          name="cardio_timer"
+          id="cardio_timer"
+          value="10"
+        />
+        MIN
         <button type="button" onclick="logWorkout(event)">Finish</button>
       </li>
       {% endif %} {% endfor %}

@@ -20,7 +20,7 @@
    - [x] Filter exercises by muscle group, equipment, or difficulty level.
    - [x] Detailed exercise descriptions, including proper form and tips. <sub>I will use w.e there is </sub>
 4. Workout Logging:
-   - [ ] Log individual exercises with sets, repetitions, and weights.
+   - [x] Log individual exercises with sets, repetitions, and weights.
    - [ ] Log duration and intensity for cardio workouts.
    - [ ] Option to add notes or comments for each exercise.
    - [ ] Timer during workout

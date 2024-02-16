@@ -1,9 +1,14 @@
 <h3>Recent workout</h3>
-<ul>
-  {% for w in log %}
+{% for id, date in dates.items() %} {% if date != today %}
+<h3>{{ date }}</h3>
+{% else %}
+<h3>Today</h3>
+{% endif %} {% for item in log[id] %}
+<ul id="{{ id }}">
   <li>
-    {{w.exercise_name}} <span>set:{{w.repetitions}} x {{w.weight}}</span>
-    <span>{{w.cardio}}</span>
+    {{item.exercise_name}}
+    <span>set:{{item.repetitions}} x {{item.weight}}</span>
+    <span>{{item.cardio}}</span>
   </li>
-  {% endfor %}
 </ul>
+{% endfor %} {% endfor %}
