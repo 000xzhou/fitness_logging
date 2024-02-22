@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, redirect
-from models import User, WorkoutPlan, ExerciseLog
+from models import User, WorkoutPlan, Workoutsession, ExerciseLog
 from sqlalchemy import or_
 from datetime import datetime, timedelta
 
@@ -12,6 +12,10 @@ dashboard_bp = Blueprint('dashboard_bp', __name__,
 def dashboard():
     if 'user' not in session:
         return redirect('/login')
+    
+    # if 'workoutSession' in session:
+    #     session.pop('workoutSession')
+    
     user = User.query.get_or_404(session['user'])
     
     today = datetime.now().weekday()
@@ -41,27 +45,28 @@ def dashboard():
 # sub items inside main 
 @dashboard_bp.route('/recent_workouts/')
 def recent_workouts():
-    log = (
-        ExerciseLog.query
-          .join(User)
-          .filter(User.email == session['user'])
-          .filter(ExerciseLog.date_logged >= datetime.now().date()  - timedelta(days=1))
-          .group_by(ExerciseLog.plan_id, ExerciseLog.id)
-          .order_by(ExerciseLog.date_logged.desc())
-    )
+    # log = (
+    #     Workoutsession.query
+    #       .join(User)
+    #       .filter(User.email == session['user'])
+    #       .order_by(Workoutsession.date_logged.desc())
+    #       .all()
+    # )
     
-    groups = {}
-    date = {}
-    for e in log:
-        if e.plan_id not in groups:
-            groups[e.plan_id] = []
-            date[e.plan_id] = e.date_logged.date()
-        groups[e.plan_id].append(e)
-        
+    names = (
+        Workoutsession.query
+          .join(User)
+          .join(ExerciseLog)
+          .filter(User.email == session['user'])
+          .group_by(ExerciseLog.exercise_name, Workoutsession.id)
+          .order_by(Workoutsession.date_logged.desc())
+          .all()
+    )
+
     today = datetime.now().date()
     # print(f"{groups=}")
     # print(f"{date=}")
-    return render_template('dashboard/recent_workouts.html', log=groups, dates=date, today=today)
+    return render_template('dashboard/recent_workouts.html', log=names, today=today)
     
 @dashboard_bp.route('/graphOfProgress')
 def graphOfProgress():

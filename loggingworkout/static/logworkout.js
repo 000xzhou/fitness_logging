@@ -66,50 +66,44 @@ function convertToKM(miles) {
 function logWorkout(event) {
   const parent = event.target.parentElement;
   const inputs = parent.querySelectorAll("input");
-  if (event.target.textContent == "Enable") {
-    inputs.forEach((input) => (input.disabled = false));
-    event.target.textContent = "Edit";
-    // !!!! Need to change this where it's edit go to a different route
-  } else {
-    const unit = unitItem.getAttribute("data-unit");
 
-    let setValues = {};
-    // get values
-    inputs.forEach((input) => {
-      if (unit == "metric") {
-        setValues[input.name] = input.value;
-      } else {
-        if (input.name == "weight") {
-          setValues[input.name] = convertToKG(input.value);
-        } else if (input.name == "repetitions") {
-          setValues[input.name] = input.value;
-        } else {
-          setValues[input.name] = convertToKM(input.value);
-        }
-      }
-    });
+  let setValues = {};
 
-    // checks value
-    for (const [key, value] of Object.entries(setValues)) {
-      if (value == "" || isNaN(value)) {
-        // add error for user in LI
-        return console.error();
-      }
+  // get input value
+  inputs.forEach((input) => {
+    setValues[input.name] = input.value;
+  });
+
+  // checks value
+  for (const [key, value] of Object.entries(setValues)) {
+    if (value == "" || isNaN(value)) {
+      return console.error();
     }
-    // getting plan id and set number and workout id
-    const currentUrl = window.location.href.split("/");
-    const workoutId = parent.parentElement.parentElement;
-    const name = parent.parentElement.previousElementSibling;
-    setValues["plan-id"] = currentUrl[currentUrl.length - 1];
-    setValues["set"] = parent.getAttribute("data-set-id");
-    setValues["workout-id"] = workoutId.id;
-    setValues["name"] = name.textContent;
-    // send value
+  }
+  // get ids and sets if no errors
+  const currentUrl = window.location.href.split("/");
+  const workoutId = parent.parentElement.parentElement;
+  const name = parent.parentElement.previousElementSibling;
+  setValues["plan-id"] = currentUrl[currentUrl.length - 1];
+  setValues["set"] = parent.getAttribute("data-set-id");
+  setValues["workout-id"] = workoutId.id;
+  setValues["name"] = name.textContent;
+
+  console.log(setValues);
+  if (event.target.textContent == "Finish") {
     sendLog(setValues);
     inputs.forEach((input) => (input.disabled = true));
     event.target.textContent = "Enable";
+  } else if (event.target.textContent == "Edit") {
+    sendEditLog(setValues);
+    inputs.forEach((input) => (input.disabled = false));
+    event.target.textContent = "Enable";
+  } else {
+    inputs.forEach((input) => (input.disabled = false));
+    event.target.textContent = "Edit";
   }
 }
+function getvalue() {}
 
 function deleteFinishSets() {}
 
@@ -117,6 +111,28 @@ function switchExercise() {}
 
 function sendLog(setValues) {
   fetch(`/logging/logworkout`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(setValues),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.text();
+    })
+    .then((data) => {
+      console.log(data);
+      parent.setAttribute("data-log_id", "your_log_id_value");
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+function sendEditLog(setValues) {
+  fetch(`/logging/editlogworkout`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",

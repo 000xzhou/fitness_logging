@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, session
-from models import WorkoutPlan, ExerciseLog, db
+from models import WorkoutPlan, ExerciseLog, db, Workoutsession, ExerciseName
 import json
+from datetime import datetime
+
 
 logging_workout_bp = Blueprint('logging_workout_bp', __name__,
     template_folder='templates', static_folder='static')
@@ -8,6 +10,12 @@ logging_workout_bp = Blueprint('logging_workout_bp', __name__,
 @logging_workout_bp.route('/<plan_id>', methods=['GET', 'POST'])
 def workout_page(plan_id):
     plan = WorkoutPlan.query.get_or_404(plan_id)
+    # if "workoutSession" not in session: 
+        # expiration_time = datetime.now().replace(hour=23, minute=59, second=59)
+        # session till they leave the page.
+
+        # session.permanent_session_lifetime = expiration_time - datetime.now()
+        
     return render_template("loggingworkout/workoutpage.html", plan = plan)
 
 @logging_workout_bp.route('/addsets', methods=['POST'])
@@ -29,17 +37,42 @@ def logworkout():
     weight = data.get('weight')
     cardio = data.get('cardio')
     exercise_name = data.get("name")
-    workout_id = data.get("workout-id")
-    plan_id = data.get("plan-id")
-    log = ExerciseLog(user_id = session['user'], 
-                      set_num=set_num, 
-                      repetitions=repetitions,
-                      weight=weight, 
-                      cardio=cardio, 
-                      exercise_name=exercise_name, 
-                      workout_id=workout_id,
-                      plan_id=plan_id)
+    exercise_id = data.get("workout-id")
+    cardio_time = data.get("cardio_timer")
+
+    # if they press the big save button
+    # need to array though each exercise
+    workoutsession = Workoutsession(
+                    user_id = session['user'],
+                    date_logged=datetime.now(),
+                    exercise_name=exercise_name, 
+                    exercise_id=exercise_id,
+                    )
     
+    db.session.add(workoutsession)
+    db.session.commit()
+    # log for each exercise 
+    log = ExerciseLog( 
+                    set_num=set_num, 
+                    repetitions=repetitions,
+                    weight=weight, 
+                    cardio=cardio, 
+                    cardio_time = cardio_time,
+                    )
     db.session.add(log)
     db.session.commit()
-    return "Workout logged"
+        
+    return log.id
+
+@logging_workout_bp.route('/editlogworkout', methods=['GET', 'POST'])
+def editlogworkout():
+    
+    log = ExerciseLog.query.get_or_404()
+    
+    data = json.loads(request.data.decode('utf-8'))
+    log.repetitions = data.get('repetitions')
+    log.weight = data.get('weight')
+    log.cardio = data.get('cardio')
+    log.cardio_time = data.get("cardio_timer")
+    db.session.commit()
+    return "Workout edited"

@@ -1,14 +1,15 @@
 <h3>Recent workout</h3>
-{% for id, date in dates.items() %} {% if date != today %}
-<h3>{{ date }}</h3>
-{% else %}
-<h3>Today</h3>
-{% endif %} {% for item in log[id] %}
-<ul id="{{ id }}">
-  <li>
-    {{item.exercise_name}}
-    <span>set:{{item.repetitions}} x {{item.weight}}</span>
-    <span>{{item.cardio}}</span>
-  </li>
-</ul>
-{% endfor %} {% endfor %}
+{% for logged in log %}
+<div id="{{logged.plan_id}}">
+  {% if logged.date_logged.date() == today %}
+  <h4>Today</h4>
+  {% else %}
+  <h4>{{logged.date_logged.date()}}</h4>
+  {% endif %}
+  <!-- log exerice  -->
+  {% for x in logged.log %}
+
+  <p>{{x.exercise_name}}</p>
+  {% endfor %}
+</div>
+{% endfor %}

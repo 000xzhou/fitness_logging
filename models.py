@@ -7,7 +7,6 @@ bcrypt = Bcrypt()
 db = SQLAlchemy()
 
 @dataclass
-    
 class User(db.Model):
     __tablename__ = "users"
 
@@ -37,24 +36,7 @@ class User(db.Model):
         return cls(email=email, password=hashed_utf8)
     
     workoutplans = db.relationship('WorkoutPlan', backref='user')
-    exerciseLogs = db.relationship('ExerciseLog', backref='user')
-    
-@dataclass
-class ExerciseLog(db.Model):
-# log for exericise + date + amount   (added after finish working out 1 exerice) 
-    __tablename__ = "exerciseLogs"
-    #! everything will be in metric 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Text, db.ForeignKey('users.email'))
-    set_num = db.Column(db.Integer, nullable=True)
-    repetitions = db.Column(db.Integer, nullable=True)
-    weight = db.Column(db.Integer, nullable=True)
-    cardio = db.Column(db.Integer, nullable=True)
-    notes = db.Column(db.Text, nullable=True)
-    date_logged = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
-    exercise_name = db.Column(db.Text, nullable=False)
-    workout_id = db.Column(db.Integer, db.ForeignKey('exerciseinplans.id'))
-    plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
+    workoutsessions = db.relationship('Workoutsession', backref='user')
     
 @dataclass
 class WorkoutPlan(db.Model):
@@ -76,9 +58,8 @@ class WorkoutPlan(db.Model):
     sat = db.Column(db.Boolean, default=False)
     sun = db.Column(db.Boolean, default=False)
     date = db.Column(db.Date, nullable=True)
- 
-    
     exerciseinplans = db.relationship('ExerciseInPlan', backref='workoutplan')
+    
         
 @dataclass
 class ExerciseInPlan(db.Model):
@@ -94,9 +75,51 @@ class ExerciseInPlan(db.Model):
     weight = db.Column(db.Integer, nullable=True)
     cardio = db.Column(db.Integer, nullable=True)
     
-# class Workoutsession(db.Model):
-#     __tablename__ = "workoutsessions"
     
+    
+@dataclass
+class Workoutsession(db.Model):
+    __tablename__ = "workoutsessions"
+    
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'), nullable=True)
+    user_id = db.Column(db.Text, db.ForeignKey('users.email'))
+    date_logged = db.Column(db.DateTime, nullable=False)
+    exercise_name = db.Column(db.Text, nullable=False)
+    exercise_id = db.Column(db.Integer, nullable=False)
+    # workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
+    # log_id = db.Column(db.Integer, db.ForeignKey('exerciselogs.id'))
+    
+    name = db.relationship('ExerciseName', backref='exerciselogs')
+    
+# @dataclass
+# class ExerciseName(db.Model):
+#     __tablename__ = "exercisenames"
 #     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
-#     date = db.Column(db.DateTime, nullable=False)
+#     exercise_name = db.Column(db.Text, nullable=False)
+#     exercise_id = db.Column(db.Integer, nullable=False)
+#     workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
+#     log_id = db.Column(db.Integer, db.ForeignKey('exerciselogs.id'))
+@dataclass
+class ExerciseLog(db.Model):
+# log for exericise + date + amount   (added after finish working out 1 exerice) 
+    __tablename__ = "exerciselogs"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    set_num = db.Column(db.Integer, nullable=True)
+    repetitions = db.Column(db.Integer, nullable=True)
+    weight = db.Column(db.Integer, nullable=True)
+    cardio = db.Column(db.Integer, nullable=True)
+    cardio_time = db.Column(db.Integer, nullable=True)
+    notes = db.Column(db.Text, nullable=True)
+    # exercise_id = db.Column(db.Integer, nullable=False)
+    # workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
+    # exercise_name_id = db.Column(db.Integer, db.ForeignKey('exercisenames.id'))
+    
+    # date_logged = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    # exercise_name = db.Column(db.Text, nullable=False)
+    # workout_id = db.Column(db.Integer, db.ForeignKey('exerciseinplans.id'))
+    # plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
+    
+    names = db.relationship('ExerciseName', backref='exerciselog')
+    
+    

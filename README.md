@@ -60,6 +60,8 @@ logging - since I added in new features. I need to make some debugging chances.
 // => monthly + date only no checkboxes checked.
 // => need to do so in edit too
 
+database => did a lot of remodeling. Try a few different ones that seems like it makes sense but it feels messy. This one makes the most logical sense. Since I decide to log only if they log the full workout. AKA when they are done with the workout for the time being. I now need to edit all my js and python to make sure my db is getting the full and right data.
+
 ## using as reference:
 
 [Blueprint](https://realpython.com/flask-blueprint/)
