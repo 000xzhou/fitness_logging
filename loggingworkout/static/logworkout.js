@@ -54,37 +54,78 @@ function addsets(event) {
       console.error("Error:", error);
     });
 }
-function convertToKG(lb) {
-  // for an approximate result, divide the mass value by 2.205
-  return parseInt(lb) / 2.205;
-}
-function convertToKM(miles) {
-  // for an approximate result, multiply the length value by 1.609
-  return parseInt(miles) * 1.609;
-}
 
 function setBtn(event) {
-  if (event.target.textContent == "Finish") {
-    // sendLog(setValues);
+  const btnText = event.target;
+  const parent = btnText.parentElement;
+  const inputs = parent.querySelectorAll("input");
+  if (btnText.textContent == "Done") {
     inputs.forEach((input) => (input.disabled = true));
-    event.target.textContent = "Enable";
-  } else if (event.target.textContent == "Edit") {
-    // sendEditLog(setValues);
-    inputs.forEach((input) => (input.disabled = false));
-    event.target.textContent = "Enable";
+    btnText.textContent = "Enable";
+  } else if (btnText.textContent == "Edit") {
+    inputs.forEach((input) => (input.disabled = true));
+    btnText.textContent = "Enable";
   } else {
     inputs.forEach((input) => (input.disabled = false));
-    event.target.textContent = "Edit";
+    btnText.textContent = "Edit";
   }
 }
-function getvalue(event) {
-  const parent = event.target.parentElement;
-  const inputs = parent.querySelectorAll("input");
 
+// TIMER ==========================================
+const timerDiv = document.getElementById("timer");
+timerDiv.addEventListener("click", toggleTimer);
+let timer;
+let startTime;
+let running = false;
+let elapsedTime = 0;
+
+function toggleTimer() {
+  if (!running) {
+    startTimer();
+    console.log("start");
+  } else {
+    pauseTimer();
+    console.log("stop");
+  }
+}
+
+function startTimer() {
+  running = true;
+  startTime = Date.now() - elapsedTime;
+  timer = setInterval(updateTimer, 1000);
+}
+
+function pauseTimer() {
+  running = false;
+  clearInterval(timer);
+  updateSpanTimer();
+  elapsedTime = Date.now() - startTime;
+}
+
+function updateTimer() {
+  elapsedTime = Date.now() - startTime;
+  timerDiv.innerHTML = `${formatTime(elapsedTime)} <span>stop icon</span>`;
+}
+function updateSpanTimer() {
+  elapsedTime = Date.now() - startTime;
+  timerDiv.innerHTML = `${formatTime(elapsedTime)} <span>start icon</span>`;
+}
+
+function formatTime(milliseconds) {
+  const totalSeconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
+
+// get value from form =================================================
+function getvalue() {
+  const inputform = document.getElementById("logging-info-form");
+  // stop timer to get value for it
+  stopTimer();
   let setValues = {};
-
   // get input value
-  inputs.forEach((input) => {
+  inputform.forEach((input) => {
     setValues[input.name] = input.value;
   });
 
@@ -100,6 +141,8 @@ function getvalue(event) {
   setValues["set"] = parent.getAttribute("data-set-id");
   setValues["workout-id"] = workoutId.id;
   setValues["name"] = name.textContent;
+
+  console.log(setValues);
 }
 
 function deleteFinishSets() {}
@@ -128,6 +171,7 @@ function sendLog(setValues) {
       console.error("Error:", error);
     });
 }
+
 function sendEditLog(setValues) {
   fetch(`/logging/editlogworkout`, {
     method: "post",
@@ -148,4 +192,14 @@ function sendEditLog(setValues) {
     .catch((error) => {
       console.error("Error:", error);
     });
+}
+
+function startExercise() {}
+function convertToKG(lb) {
+  // for an approximate result, divide the mass value by 2.205
+  return parseInt(lb) / 2.205;
+}
+function convertToKM(miles) {
+  // for an approximate result, multiply the length value by 1.609
+  return parseInt(miles) * 1.609;
 }

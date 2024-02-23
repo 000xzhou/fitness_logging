@@ -1,7 +1,10 @@
 {% extends "base.html" %} {% block title %}Workout{% endblock %}{% block content
 %}
 <div class="left" id="exercise-left" data-unit="{{session['weightunit']|trim}}">
-  <div id="timer">00:00:00</div>
+  <div id="timer">
+    0:00
+    <span class="ss-icon">start icon</span>
+  </div>
 
   {% for exercise in plan.exerciseinplans %}
   <!--  -->
@@ -23,118 +26,122 @@
     </p>
   </div>
   {% endfor %}
+
+  <button id="log-info">Finish Today's Exercise</button>
 </div>
 
 <div class="right" id="exercise-right">
-  {% for exercise in plan.exerciseinplans %}
+  <form method="post" id="logging-info-form">
+    {% for exercise in plan.exerciseinplans %}
 
-  <div id="{{exercise.id}}">
-    <h3>{{exercise.exercise_name}}</h3>
-    {% if session['weightunit']|trim == "metric" %}
+    <div id="{{exercise.id}}">
+      <h3>{{exercise.exercise_name}}</h3>
+      {% if session['weightunit']|trim == "metric" %}
 
-    <div data-unit="metric" id="set-in-here">
-      {% for _ in range(exercise.sets) %} {% if exercise.weight %}
-      <li data-set-id="{{_ + 1}}">
-        <span>SET {{_ + 1}} </span
-        ><input
-          type="number"
-          pattern="[0-9]*"
-          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-          name="repetitions"
-          id="repetitions"
-          value="{{ exercise.repetitions }}"
-        />
-        REPS *
-        <input
-          type="number"
-          pattern="[0-9]*"
-          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-          name="weight"
-          id="weight"
-          value="{{ exercise.weight }}"
-        />
-        KG
-        <button type="button" onclick="logWorkout(event)">Finish</button>
-      </li>
+      <div data-unit="metric" id="set-in-here">
+        {% for _ in range(exercise.sets) %} {% if exercise.weight %}
+        <li data-set-id="{{_ + 1}}">
+          <span>SET {{_ + 1}} </span
+          ><input
+            type="number"
+            pattern="[0-9]*"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            name="repetitions"
+            id="repetitions"
+            value="{{ exercise.repetitions }}"
+          />
+          REPS *
+          <input
+            type="number"
+            pattern="[0-9]*"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            name="weight"
+            id="weight"
+            value="{{ exercise.weight }}"
+          />
+          KG
+          <button type="button" onclick="setBtn(event)">Done</button>
+        </li>
+        {% else %}
+        <li data-set-id="{{_ + 1}}">
+          <span>SET {{_ + 1}} </span
+          ><input
+            type="number"
+            pattern="[0-9]*"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            name="cardio"
+            id="cardio"
+            value="{{ exercise.cardio }}"
+          />
+          KM *
+          <input
+            type="number"
+            pattern="[0-9]*"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            name="cardio_timer"
+            id="cardio_timer"
+            value="10"
+          />
+          MIN
+          <button type="button" onclick="setBtn(event)">Done</button>
+        </li>
+        {% endif %} {% endfor %}
+      </div>
       {% else %}
-      <li data-set-id="{{_ + 1}}">
-        <span>SET {{_ + 1}} </span
-        ><input
-          type="number"
-          pattern="[0-9]*"
-          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-          name="cardio"
-          id="cardio"
-          value="{{ exercise.cardio }}"
-        />
-        KM *
-        <input
-          type="number"
-          pattern="[0-9]*"
-          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-          name="cardio_timer"
-          id="cardio_timer"
-          value="10"
-        />
-        MIN
-        <button type="button" onclick="logWorkout(event)">Finish</button>
-      </li>
-      {% endif %} {% endfor %}
+      <div data-unit="US" id="set-in-here">
+        {% for _ in range(exercise.sets) %} {% if exercise.weight %}
+        <li data-set-id="{{_ + 1}}">
+          <span>SET {{_ + 1}} </span
+          ><input
+            type="number"
+            pattern="[0-9]*"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            name="repetitions"
+            id="repetitions"
+            value="{{ exercise.repetitions }}"
+          />
+          REPS *
+          <input
+            type="number"
+            pattern="[0-9]*"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            name="weight"
+            id="weight"
+            value="{{ exercise.weight }}"
+          />
+          LB
+          <button type="button" onclick="setBtn(event)">Done</button>
+        </li>
+        {% else %}
+        <li data-set-id="{{_ + 1}}">
+          <span>SET {{_ + 1}} </span
+          ><input
+            type="number"
+            pattern="[0-9]*"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            name="cardio"
+            id="cardio"
+            value="{{ exercise.cardio }}"
+          />
+          MILES *
+          <input
+            type="number"
+            pattern="[0-9]*"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            name="cardio_timer"
+            id="cardio_timer"
+            value="10"
+          />
+          MIN
+          <button type="button" onclick="setBtn(event)">Done</button>
+        </li>
+        {% endif %} {% endfor %}
+      </div>
+      {% endif %}
+      <button type="button" onclick="addsets(event)">Add Set</button>
     </div>
-    {% else %}
-    <div data-unit="US" id="set-in-here">
-      {% for _ in range(exercise.sets) %} {% if exercise.weight %}
-      <li data-set-id="{{_ + 1}}">
-        <span>SET {{_ + 1}} </span
-        ><input
-          type="number"
-          pattern="[0-9]*"
-          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-          name="repetitions"
-          id="repetitions"
-          value="{{ exercise.repetitions }}"
-        />
-        REPS *
-        <input
-          type="number"
-          pattern="[0-9]*"
-          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-          name="weight"
-          id="weight"
-          value="{{ exercise.weight }}"
-        />
-        LB
-        <button type="button" onclick="logWorkout(event)">Finish</button>
-      </li>
-      {% else %}
-      <li data-set-id="{{_ + 1}}">
-        <span>SET {{_ + 1}} </span
-        ><input
-          type="number"
-          pattern="[0-9]*"
-          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-          name="cardio"
-          id="cardio"
-          value="{{ exercise.cardio }}"
-        />
-        MILES *
-        <input
-          type="number"
-          pattern="[0-9]*"
-          oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-          name="cardio_timer"
-          id="cardio_timer"
-          value="10"
-        />
-        MIN
-        <button type="button" onclick="setBtn(event)">Finish</button>
-      </li>
-      {% endif %} {% endfor %}
-    </div>
-    {% endif %}
-    <button type="button" onclick="addsets(event)">Add Set</button>
-  </div>
-  {% endfor %}
+    {% endfor %}
+  </form>
 </div>
 
 <script src="{{ url_for('logging_workout_bp.static', filename='logworkout.js') }}"></script>

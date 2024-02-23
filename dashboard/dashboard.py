@@ -37,7 +37,7 @@ def dashboard():
         )
         .first()
     )
-    return render_template('dashboard.html',user=user)
+    return render_template('dashboard.html',user=user, workout = today_workout)
 
 # sub items inside main 
 @dashboard_bp.route('/recent_workouts/')
