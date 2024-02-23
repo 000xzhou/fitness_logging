@@ -1,6 +1,8 @@
 {% extends "base.html" %} {% block title %}Workout{% endblock %}{% block content
 %}
 <div class="left" id="exercise-left" data-unit="{{session['weightunit']|trim}}">
+  <div id="timer">00:00:00</div>
+
   {% for exercise in plan.exerciseinplans %}
   <!--  -->
   <div class="set" id="{{exercise.id}}" onclick="startExercise()">
@@ -125,7 +127,7 @@
           value="10"
         />
         MIN
-        <button type="button" onclick="logWorkout(event)">Finish</button>
+        <button type="button" onclick="setBtn(event)">Finish</button>
       </li>
       {% endif %} {% endfor %}
     </div>

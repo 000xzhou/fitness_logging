@@ -86,7 +86,7 @@ class Workoutsession(db.Model):
     user_id = db.Column(db.Text, db.ForeignKey('users.email'))
     date_logged = db.Column(db.DateTime, nullable=False)
     # duration in sec 
-    duration = db.Column(db.Interger, nullable=False)
+    duration = db.Column(db.Integer, nullable=False)
     # exercise_name = db.Column(db.Text, nullable=False)
     # exercise_id = db.Column(db.Integer, nullable=False)
     # workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
@@ -100,7 +100,7 @@ class ExerciseName(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     exercise_name = db.Column(db.Text, nullable=False)
     exercise_id = db.Column(db.Integer, nullable=False)
-#     workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
+    workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
 #     log_id = db.Column(db.Integer, db.ForeignKey('exerciselogs.id'))
     log = db.relationship('ExerciseLog', backref='exerciselogs')
 
@@ -117,7 +117,7 @@ class ExerciseLog(db.Model):
     notes = db.Column(db.Text, nullable=True)
     # exercise_id = db.Column(db.Integer, nullable=False)
     # workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
-    # exercise_name_id = db.Column(db.Integer, db.ForeignKey('exercisenames.id'))
+    exercise_name_id = db.Column(db.Integer, db.ForeignKey('exercisenames.id'))
     
     # date_logged = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     # exercise_name = db.Column(db.Text, nullable=False)

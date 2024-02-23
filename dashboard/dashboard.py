@@ -13,9 +13,6 @@ def dashboard():
     if 'user' not in session:
         return redirect('/login')
     
-    # if 'workoutSession' in session:
-    #     session.pop('workoutSession')
-    
     user = User.query.get_or_404(session['user'])
     
     today = datetime.now().weekday()
@@ -40,7 +37,7 @@ def dashboard():
         )
         .first()
     )
-    return render_template('dashboard.html',user=user, workout = today_workout)
+    return render_template('dashboard.html',user=user)
 
 # sub items inside main 
 @dashboard_bp.route('/recent_workouts/')
@@ -53,20 +50,20 @@ def recent_workouts():
     #       .all()
     # )
     
-    names = (
-        Workoutsession.query
-          .join(User)
-          .join(ExerciseLog)
-          .filter(User.email == session['user'])
-          .group_by(ExerciseLog.exercise_name, Workoutsession.id)
-          .order_by(Workoutsession.date_logged.desc())
-          .all()
-    )
+    # names = (
+    #     Workoutsession.query
+    #       .join(User)
+    #       .join(ExerciseLog)
+    #       .filter(User.email == session['user'])
+    #       .group_by(ExerciseLog.exercise_name, Workoutsession.id)
+    #       .order_by(Workoutsession.date_logged.desc())
+    #       .all()
+    # )
 
     today = datetime.now().date()
     # print(f"{groups=}")
     # print(f"{date=}")
-    return render_template('dashboard/recent_workouts.html', log=names, today=today)
+    return render_template('dashboard/recent_workouts.html',  today=today)
     
 @dashboard_bp.route('/graphOfProgress')
 def graphOfProgress():

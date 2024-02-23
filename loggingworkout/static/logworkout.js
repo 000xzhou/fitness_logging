@@ -63,7 +63,21 @@ function convertToKM(miles) {
   return parseInt(miles) * 1.609;
 }
 
-function logWorkout(event) {
+function setBtn(event) {
+  if (event.target.textContent == "Finish") {
+    // sendLog(setValues);
+    inputs.forEach((input) => (input.disabled = true));
+    event.target.textContent = "Enable";
+  } else if (event.target.textContent == "Edit") {
+    // sendEditLog(setValues);
+    inputs.forEach((input) => (input.disabled = false));
+    event.target.textContent = "Enable";
+  } else {
+    inputs.forEach((input) => (input.disabled = false));
+    event.target.textContent = "Edit";
+  }
+}
+function getvalue(event) {
   const parent = event.target.parentElement;
   const inputs = parent.querySelectorAll("input");
 
@@ -81,29 +95,12 @@ function logWorkout(event) {
     }
   }
   // get ids and sets if no errors
-  const currentUrl = window.location.href.split("/");
   const workoutId = parent.parentElement.parentElement;
   const name = parent.parentElement.previousElementSibling;
-  setValues["plan-id"] = currentUrl[currentUrl.length - 1];
   setValues["set"] = parent.getAttribute("data-set-id");
   setValues["workout-id"] = workoutId.id;
   setValues["name"] = name.textContent;
-
-  console.log(setValues);
-  if (event.target.textContent == "Finish") {
-    sendLog(setValues);
-    inputs.forEach((input) => (input.disabled = true));
-    event.target.textContent = "Enable";
-  } else if (event.target.textContent == "Edit") {
-    sendEditLog(setValues);
-    inputs.forEach((input) => (input.disabled = false));
-    event.target.textContent = "Enable";
-  } else {
-    inputs.forEach((input) => (input.disabled = false));
-    event.target.textContent = "Edit";
-  }
 }
-function getvalue() {}
 
 function deleteFinishSets() {}
 
