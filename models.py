@@ -85,21 +85,25 @@ class Workoutsession(db.Model):
     # plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'), nullable=True)
     user_id = db.Column(db.Text, db.ForeignKey('users.email'))
     date_logged = db.Column(db.DateTime, nullable=False)
-    exercise_name = db.Column(db.Text, nullable=False)
-    exercise_id = db.Column(db.Integer, nullable=False)
+    # duration in sec 
+    duration = db.Column(db.Interger, nullable=False)
+    # exercise_name = db.Column(db.Text, nullable=False)
+    # exercise_id = db.Column(db.Integer, nullable=False)
     # workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
     # log_id = db.Column(db.Integer, db.ForeignKey('exerciselogs.id'))
     
-    name = db.relationship('ExerciseName', backref='exerciselogs')
+    name = db.relationship('ExerciseName', backref='exercisenames')
     
-# @dataclass
-# class ExerciseName(db.Model):
-#     __tablename__ = "exercisenames"
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-#     exercise_name = db.Column(db.Text, nullable=False)
-#     exercise_id = db.Column(db.Integer, nullable=False)
+@dataclass
+class ExerciseName(db.Model):
+    __tablename__ = "exercisenames"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    exercise_name = db.Column(db.Text, nullable=False)
+    exercise_id = db.Column(db.Integer, nullable=False)
 #     workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
 #     log_id = db.Column(db.Integer, db.ForeignKey('exerciselogs.id'))
+    log = db.relationship('ExerciseLog', backref='exerciselogs')
+
 @dataclass
 class ExerciseLog(db.Model):
 # log for exericise + date + amount   (added after finish working out 1 exerice) 
@@ -120,6 +124,6 @@ class ExerciseLog(db.Model):
     # workout_id = db.Column(db.Integer, db.ForeignKey('exerciseinplans.id'))
     # plan_id = db.Column(db.Integer, db.ForeignKey('workoutplans.id'))
     
-    names = db.relationship('ExerciseName', backref='exerciselog')
+    # names = db.relationship('ExerciseName', backref='exerciselog')
     
     

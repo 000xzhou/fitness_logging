@@ -39,18 +39,23 @@ def logworkout():
     exercise_name = data.get("name")
     exercise_id = data.get("workout-id")
     cardio_time = data.get("cardio_timer")
+    duration = data.get("duration")
 
     # if they press the big save button
     # need to array though each exercise
+    #  if they workout for 24hrs. quesiton it.
     workoutsession = Workoutsession(
                     user_id = session['user'],
                     date_logged=datetime.now(),
+                    duration=duration
+                    
+                    )
+    name = ExerciseName(
                     exercise_name=exercise_name, 
                     exercise_id=exercise_id,
-                    )
-    
+    )
     db.session.add(workoutsession)
-    db.session.commit()
+    db.session.add(name)
     # log for each exercise 
     log = ExerciseLog( 
                     set_num=set_num, 
