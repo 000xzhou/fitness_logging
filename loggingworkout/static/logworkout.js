@@ -71,7 +71,7 @@ function setBtn(event) {
   }
 }
 
-// TIMER ==========================================
+// ======================= TIMER ==========================================
 const timerDiv = document.getElementById("timer");
 timerDiv.addEventListener("click", toggleTimer);
 let timer;
@@ -98,7 +98,7 @@ function startTimer() {
 function pauseTimer() {
   running = false;
   clearInterval(timer);
-  updateSpanTimer();
+  updateStopTimer();
   elapsedTime = Date.now() - startTime;
 }
 
@@ -106,7 +106,7 @@ function updateTimer() {
   elapsedTime = Date.now() - startTime;
   timerDiv.innerHTML = `${formatTime(elapsedTime)} <span>stop icon</span>`;
 }
-function updateSpanTimer() {
+function updateStopTimer() {
   elapsedTime = Date.now() - startTime;
   timerDiv.innerHTML = `${formatTime(elapsedTime)} <span>start icon</span>`;
 }
@@ -118,34 +118,35 @@ function formatTime(milliseconds) {
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 }
 
-// get value from form =================================================
+// ==================== get value from form =================================================
+const logBtn = document.getElementById("log-info");
+logBtn.addEventListener("click", getvalue);
+
 function getvalue() {
-  const inputform = document.getElementById("logging-info-form");
-  // stop timer to get value for it
-  stopTimer();
-  let setValues = {};
-  // get input value
-  inputform.forEach((input) => {
-    setValues[input.name] = input.value;
-  });
-
-  // checks value
-  for (const [key, value] of Object.entries(setValues)) {
-    if (value == "" || isNaN(value)) {
-      return console.error();
-    }
+  const inputform = new FormData(document.getElementById("logging-info-form"));
+  const form = document.getElementById("logging-info-form");
+  // stop timer if it's still running
+  if (running) {
+    updateStopTimer();
   }
-  // get ids and sets if no errors
-  const workoutId = parent.parentElement.parentElement;
-  const name = parent.parentElement.previousElementSibling;
-  setValues["set"] = parent.getAttribute("data-set-id");
-  setValues["workout-id"] = workoutId.id;
-  setValues["name"] = name.textContent;
+  let setValues = {};
+  let items = form.children;
+  for (let i = 0; i < items.length; i++) {
+    let name = items[i].querySelector("h3");
+    setValues[name.textContent] = {};
+    let lis = items[i].querySelectorAll("li");
+    lis.forEach((li) => {
+      const set = li.getAttribute("data-set-id");
+      setValues[name.textContent][set] = {};
 
-  console.log(setValues);
+      const inputs = li.querySelectorAll("input");
+      inputs.forEach((input) => {
+        setValues[name.textContent][set][input.name] = input.value;
+      });
+    });
+  }
+  sendLog(setValues);
 }
-
-function deleteFinishSets() {}
 
 function switchExercise() {}
 
@@ -166,28 +167,6 @@ function sendLog(setValues) {
     .then((data) => {
       console.log(data);
       parent.setAttribute("data-log_id", "your_log_id_value");
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-
-function sendEditLog(setValues) {
-  fetch(`/logging/editlogworkout`, {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(setValues),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.text();
-    })
-    .then((data) => {
-      console.log(data);
     })
     .catch((error) => {
       console.error("Error:", error);
