@@ -127,53 +127,59 @@ const logBtn = document.getElementById("log-info");
 logBtn.addEventListener("click", getvalue);
 
 function getvalue() {
-  const form = document.getElementById("logging-info-form");
-  // stop timer if it's still running
-  if (running) {
-    pauseTimer();
-  }
-  let setValues = {};
-  let exerciseId = {};
-  let notes;
-  let duration;
-  let items = form.children;
-  for (let i = 0; i < items.length; i++) {
-    let name = items[i].querySelector("h3");
-    let lis = items[i].querySelectorAll("li");
-    lis.forEach((li) => {
-      let btnName = li.querySelector("button");
-      if (btnName.textContent == "Enable") {
-        setValues[name.textContent] = {};
-        exerciseId[name.textContent] = items[i].id;
-      }
-    });
-    lis.forEach((li) => {
-      let btnName = li.querySelector("button");
-      if (btnName.textContent == "Enable") {
-        const set = li.getAttribute("data-set-id");
-        setValues[name.textContent][set] = {};
-
-        const inputs = li.querySelectorAll("input");
-        inputs.forEach((input) => {
-          setValues[name.textContent][set][input.name] = input.value;
-        });
-      }
-    });
-  }
-  if (Object.keys(setValues).length === 0) {
-    console.log("empty");
-  } else {
-    duration = formatTimeData(elapsedTime);
-    let note = window.prompt("Any additional notes: ", "");
-    if (note == null || note == "") {
-      console.log("No additional notes added.");
-    } else {
-      notes = note;
+  // confirming
+  if (confirm("Are you sure you want to finish this workout?")) {
+    // get value
+    const form = document.getElementById("logging-info-form");
+    // stop timer if it's still running
+    if (running) {
+      pauseTimer();
     }
-    // console.log(setValues);
-    // console.log(exerciseId);
-    // console.log(formatTimeData(elapsedTime));
-    sendLog(setValues, exerciseId, duration, notes);
+    let setValues = {};
+    let exerciseId = {};
+    let notes;
+    let duration;
+    let items = form.children;
+    for (let i = 0; i < items.length; i++) {
+      let name = items[i].querySelector("h3");
+      let lis = items[i].querySelectorAll("li");
+      lis.forEach((li) => {
+        let btnName = li.querySelector("button");
+        if (btnName.textContent == "Enable") {
+          setValues[name.textContent] = {};
+          exerciseId[name.textContent] = items[i].id;
+        }
+      });
+      lis.forEach((li) => {
+        let btnName = li.querySelector("button");
+        if (btnName.textContent == "Enable") {
+          const set = li.getAttribute("data-set-id");
+          setValues[name.textContent][set] = {};
+
+          const inputs = li.querySelectorAll("input");
+          inputs.forEach((input) => {
+            setValues[name.textContent][set][input.name] = input.value;
+          });
+        }
+      });
+    }
+    if (Object.keys(setValues).length === 0) {
+      console.log("empty");
+    } else {
+      duration = formatTimeData(elapsedTime);
+      let note = window.prompt("Any additional notes: ", "");
+      if (note == null || note == "") {
+        console.log("No additional notes added.");
+      } else {
+        notes = note;
+      }
+      // console.log(setValues);
+      // console.log(exerciseId);
+      // console.log(formatTimeData(elapsedTime));
+      sendLog(setValues, exerciseId, duration, notes);
+    }
+  } else {
+    console.log("nothing happend");
   }
 }
 
@@ -196,7 +202,8 @@ function sendLog(setValues, exerciseId, duration, notes) {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      return response.text();
+      window.location.href = "/dashboard";
+      // return response.text();
     })
     .then((data) => {
       console.log(data);
