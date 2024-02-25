@@ -87,6 +87,7 @@ class Workoutsession(db.Model):
     date_logged = db.Column(db.DateTime, nullable=False)
     # duration in sec 
     duration = db.Column(db.Integer, nullable=False)
+    notes = db.Column(db.Text, nullable=True)
     # exercise_name = db.Column(db.Text, nullable=False)
     # exercise_id = db.Column(db.Integer, nullable=False)
     # workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
@@ -114,7 +115,6 @@ class ExerciseLog(db.Model):
     weight = db.Column(db.Integer, nullable=True)
     cardio = db.Column(db.Integer, nullable=True)
     cardio_time = db.Column(db.Integer, nullable=True)
-    notes = db.Column(db.Text, nullable=True)
     # exercise_id = db.Column(db.Integer, nullable=False)
     # workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
     exercise_name_id = db.Column(db.Integer, db.ForeignKey('exercisenames.id'))

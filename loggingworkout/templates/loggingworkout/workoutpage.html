@@ -64,16 +64,7 @@
         </li>
         {% else %}
         <li data-set-id="{{_ + 1}}">
-          <span>SET {{_ + 1}} </span
-          ><input
-            type="number"
-            pattern="[0-9]*"
-            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-            name="cardio"
-            id="cardio"
-            value="{{ exercise.cardio }}"
-          />
-          KM *
+          <span>SET {{_ + 1}} </span>
           <input
             type="number"
             pattern="[0-9]*"
@@ -82,7 +73,17 @@
             id="cardio_timer"
             value="10"
           />
-          MIN
+          MIN *
+          <input
+            type="number"
+            pattern="[0-9]*"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            name="cardio"
+            id="cardio"
+            value="{{ exercise.cardio }}"
+          />
+          KM
+
           <button type="button" onclick="setBtn(event)">Done</button>
         </li>
         {% endif %} {% endfor %}
@@ -114,16 +115,7 @@
         </li>
         {% else %}
         <li data-set-id="{{_ + 1}}">
-          <span>SET {{_ + 1}} </span
-          ><input
-            type="number"
-            pattern="[0-9]*"
-            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-            name="cardio"
-            id="cardio"
-            value="{{ exercise.cardio }}"
-          />
-          MILES *
+          <span>SET {{_ + 1}} </span>
           <input
             type="number"
             pattern="[0-9]*"
@@ -132,7 +124,17 @@
             id="cardio_timer"
             value="10"
           />
-          MIN
+          MIN *
+          <input
+            type="number"
+            pattern="[0-9]*"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            name="cardio"
+            id="cardio"
+            value="{{ exercise.cardio }}"
+          />
+          MILES
+
           <button type="button" onclick="setBtn(event)">Done</button>
         </li>
         {% endif %} {% endfor %}

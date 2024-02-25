@@ -32,52 +32,49 @@ def add_sets():
 @logging_workout_bp.route('/logworkout', methods=['GET', 'POST'])
 def logworkout():
     data = json.loads(request.data.decode('utf-8'))
-    set_num = data.get('set')
-    repetitions = data.get('repetitions')
-    weight = data.get('weight')
-    cardio = data.get('cardio')
-    exercise_name = data.get("name")
-    exercise_id = data.get("workout-id")
-    cardio_time = data.get("cardio_timer")
-    duration = data.get("duration")
-
-    # if they press the big save button
-    # need to array though each exercise
-    #  if they workout for 24hrs. quesiton it.
-    workoutsession = Workoutsession(
-                    user_id = session['user'],
-                    date_logged=datetime.now(),
-                    duration=duration
-                    
-                    )
-    name = ExerciseName(
-                    exercise_name=exercise_name, 
-                    exercise_id=exercise_id,
-    )
-    db.session.add(workoutsession)
-    db.session.add(name)
-    # log for each exercise 
-    log = ExerciseLog( 
-                    set_num=set_num, 
-                    repetitions=repetitions,
-                    weight=weight, 
-                    cardio=cardio, 
-                    cardio_time = cardio_time,
-                    )
-    db.session.add(log)
-    db.session.commit()
+    set_values = data['setValues']
+    exercise_id = data['exerciseId']
+    duration = data['duration']
+    notes = data.get('notes')
+    workoutsession_params = {
+        'user_id': session['user'],
+        'date_logged': datetime.now(),
+        'duration': duration
+    }
+    # add notes if there is notes 
+    if notes:
+        workoutsession_params['notes'] = notes
         
-    return log.id
-
-@logging_workout_bp.route('/editlogworkout', methods=['GET', 'POST'])
-def editlogworkout():
-    
-    log = ExerciseLog.query.get_or_404()
-    
-    data = json.loads(request.data.decode('utf-8'))
-    log.repetitions = data.get('repetitions')
-    log.weight = data.get('weight')
-    log.cardio = data.get('cardio')
-    log.cardio_time = data.get("cardio_timer")
+    workoutsession = Workoutsession(**workoutsession_params)
+    db.session.add(workoutsession)
     db.session.commit()
-    return "Workout edited"
+    
+    for exercise_name, value in set_values.items():
+        name = ExerciseName(
+                exercise_name = exercise_name, 
+                exercise_id = exercise_id[exercise_name],
+                workout_id = workoutsession.id
+        )
+        db.session.add(name)
+        db.session.commit()
+    
+        for set, v in value.items():
+            (repsTimer, repsTimer_value), (weightCardio,weightCardio_value) = v.items()
+            if repsTimer == "repetitions":
+                log = ExerciseLog(
+                    set_num = int(set), 
+                    repetitions = int(repsTimer_value),
+                    weight = int(weightCardio_value),
+                    exercise_name_id = name.id
+                )
+            else:
+                log = ExerciseLog(
+                    set_num = int(set), 
+                    cardio_time = int(repsTimer_value),
+                    cardio = int(weightCardio_value),
+                    exercise_name_id = name.id
+                )
+            db.session.add(log)
+            db.session.commit()
+
+    return f'{workoutsession.id}'

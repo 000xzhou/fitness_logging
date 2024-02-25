@@ -117,46 +117,80 @@ function formatTime(milliseconds) {
   const seconds = totalSeconds % 60;
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 }
+function formatTimeData(milliseconds) {
+  const totalSeconds = Math.floor(milliseconds / 1000);
+  return totalSeconds;
+}
 
 // ==================== get value from form =================================================
 const logBtn = document.getElementById("log-info");
 logBtn.addEventListener("click", getvalue);
 
 function getvalue() {
-  const inputform = new FormData(document.getElementById("logging-info-form"));
   const form = document.getElementById("logging-info-form");
   // stop timer if it's still running
   if (running) {
-    updateStopTimer();
+    pauseTimer();
   }
   let setValues = {};
+  let exerciseId = {};
+  let notes;
+  let duration;
   let items = form.children;
   for (let i = 0; i < items.length; i++) {
     let name = items[i].querySelector("h3");
-    setValues[name.textContent] = {};
     let lis = items[i].querySelectorAll("li");
     lis.forEach((li) => {
-      const set = li.getAttribute("data-set-id");
-      setValues[name.textContent][set] = {};
+      let btnName = li.querySelector("button");
+      if (btnName.textContent == "Enable") {
+        setValues[name.textContent] = {};
+        exerciseId[name.textContent] = items[i].id;
+      }
+    });
+    lis.forEach((li) => {
+      let btnName = li.querySelector("button");
+      if (btnName.textContent == "Enable") {
+        const set = li.getAttribute("data-set-id");
+        setValues[name.textContent][set] = {};
 
-      const inputs = li.querySelectorAll("input");
-      inputs.forEach((input) => {
-        setValues[name.textContent][set][input.name] = input.value;
-      });
+        const inputs = li.querySelectorAll("input");
+        inputs.forEach((input) => {
+          setValues[name.textContent][set][input.name] = input.value;
+        });
+      }
     });
   }
-  sendLog(setValues);
+  if (Object.keys(setValues).length === 0) {
+    console.log("empty");
+  } else {
+    duration = formatTimeData(elapsedTime);
+    let note = window.prompt("Any additional notes: ", "");
+    if (note == null || note == "") {
+      console.log("No additional notes added.");
+    } else {
+      notes = note;
+    }
+    // console.log(setValues);
+    // console.log(exerciseId);
+    // console.log(formatTimeData(elapsedTime));
+    sendLog(setValues, exerciseId, duration, notes);
+  }
 }
 
 function switchExercise() {}
 
-function sendLog(setValues) {
+function sendLog(setValues, exerciseId, duration, notes) {
   fetch(`/logging/logworkout`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(setValues),
+    body: JSON.stringify({
+      setValues: setValues,
+      exerciseId: exerciseId,
+      duration: duration,
+      notes: notes,
+    }),
   })
     .then((response) => {
       if (!response.ok) {
@@ -166,7 +200,7 @@ function sendLog(setValues) {
     })
     .then((data) => {
       console.log(data);
-      parent.setAttribute("data-log_id", "your_log_id_value");
+      // parent.setAttribute("data-log_id", "your_log_id_value");
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -174,11 +208,3 @@ function sendLog(setValues) {
 }
 
 function startExercise() {}
-function convertToKG(lb) {
-  // for an approximate result, divide the mass value by 2.205
-  return parseInt(lb) / 2.205;
-}
-function convertToKM(miles) {
-  // for an approximate result, multiply the length value by 1.609
-  return parseInt(miles) * 1.609;
-}
