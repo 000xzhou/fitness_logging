@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, redirect
-from models import User, WorkoutPlan, Workoutsession, ExerciseLog
+from models import User, WorkoutPlan, Workoutsession, db
 from sqlalchemy import or_
 from datetime import datetime, timedelta
 
@@ -42,28 +42,27 @@ def dashboard():
 # sub items inside main 
 @dashboard_bp.route('/recent_workouts/')
 def recent_workouts():
-    # log = (
-    #     Workoutsession.query
-    #       .join(User)
-    #       .filter(User.email == session['user'])
-    #       .order_by(Workoutsession.date_logged.desc())
-    #       .all()
-    # )
-    
-    # names = (
-    #     Workoutsession.query
-    #       .join(User)
-    #       .join(ExerciseLog)
-    #       .filter(User.email == session['user'])
-    #       .group_by(ExerciseLog.exercise_name, Workoutsession.id)
-    #       .order_by(Workoutsession.date_logged.desc())
-    #       .all()
-    # )
+    log = (db.session.query(Workoutsession)
+           .filter(Workoutsession.user_id == session['user'])
+           .order_by(Workoutsession.date_logged.desc())
+           .first()
+           )
 
     today = datetime.now().date()
-    # print(f"{groups=}")
-    # print(f"{date=}")
-    return render_template('dashboard/recent_workouts.html',  today=today)
+
+    return render_template('dashboard/recent_workouts.html',  today=today, log=log)
+
+@dashboard_bp.route('/recent_workouts/all')
+def all_recent_workouts():
+    log = (db.session.query(Workoutsession)
+           .filter(Workoutsession.user_id == session['user'])
+           .order_by(Workoutsession.date_logged.desc())
+           .all()
+           )
+
+    today = datetime.now().date()
+
+    return render_template('dashboard/all_recent_workouts.html',  today=today, log=log)
     
 @dashboard_bp.route('/graphOfProgress')
 def graphOfProgress():

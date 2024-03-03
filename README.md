@@ -21,8 +21,8 @@
    - [x] Detailed exercise descriptions, including proper form and tips. <sub>I will use w.e there is </sub>
 4. Workout Logging:
    - [x] Log individual exercises with sets, repetitions, and weights.
-   - [ ] Log duration and intensity for cardio workouts.
-   - [ ] Option to add notes or comments for each exercise.
+   - [x] Log duration and intensity for cardio workouts.
+   - [x] Option to add notes or comments for each exercise.
    - [ ] Timer during workout
 5. Custom Workouts:
    - [x] Create and save custom workout plans.
@@ -66,3 +66,9 @@ database => did a lot of remodeling. Try a few different ones that seems like it
 
 [Blueprint](https://realpython.com/flask-blueprint/)
 [setting up postgres with config](https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/)
+
+https://jupyter.org/
+
+<!-- https://lessons.springboard.com/SQLAlchemy-Intro-4c9f8ec5901d470899957ef189cb0f98
+https://lessons.springboard.com/SQLAlchemy-Many-to-Many-686344561a4441089f59aed61544507b
+https://lessons.springboard.com/SQLAlchemy-Associations-b4399911366f488e848c28695376ca99 -->
