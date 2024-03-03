@@ -62,13 +62,9 @@ logging - since I added in new features. I need to make some debugging chances.
 
 database => did a lot of remodeling. Try a few different ones that seems like it makes sense but it feels messy. This one makes the most logical sense. Since I decide to log only if they log the full workout. AKA when they are done with the workout for the time being. I now need to edit all my js and python to make sure my db is getting the full and right data.
 
+dashboard => end up using chart.js
+
 ## using as reference:
 
 [Blueprint](https://realpython.com/flask-blueprint/)
 [setting up postgres with config](https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/)
-
-https://jupyter.org/
-
-<!-- https://lessons.springboard.com/SQLAlchemy-Intro-4c9f8ec5901d470899957ef189cb0f98
-https://lessons.springboard.com/SQLAlchemy-Many-to-Many-686344561a4441089f59aed61544507b
-https://lessons.springboard.com/SQLAlchemy-Associations-b4399911366f488e848c28695376ca99 -->
