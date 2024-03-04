@@ -48,28 +48,28 @@ fetch("/dashboard/chartofOveralls")
     console.error("There was a problem with the fetch operation:", error);
   });
 
-function circleGraph() {
+function circleGraph(data) {
   const ctx = document.getElementById("myChart");
+  fetch("/dashboard/chartofOveralls/data")
+    .then(function (response) {
+      return response.json();
+    })
+    .then((data) => {
+      let labelsData = Object.keys(data);
+      let dataData = Object.values(data);
 
-  new Chart(ctx, {
-    type: "pie",
-    data: {
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-      datasets: [
-        {
-          label: "# of Votes",
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            "red",
-            "blue",
-            "yellow",
-            "green",
-            "purple",
-            "orange",
+      new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: labelsData,
+          datasets: [
+            {
+              label: "exerice times",
+              data: dataData,
+              borderWidth: 1,
+            },
           ],
-          borderWidth: 1,
         },
-      ],
-    },
-  });
+      });
+    });
 }

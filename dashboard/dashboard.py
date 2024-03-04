@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, session, redirect
-from models import User, WorkoutPlan, Workoutsession, db
+from models import User, WorkoutPlan, Workoutsession, db, ExerciseName
 from sqlalchemy import or_
 from datetime import datetime, timedelta
+import json
 
 dashboard_bp = Blueprint('dashboard_bp', __name__,
     template_folder='templates',
@@ -72,3 +73,21 @@ def graphOfProgress():
 def chartofOveralls():
     return render_template('dashboard/chartofOveralls.html')
 
+@dashboard_bp.route('/chartofOveralls/data')
+def chartofOveralls_data():
+    log = (db.session.query(Workoutsession)
+           .filter(Workoutsession.user_id == session['user'])
+           .all()
+           )
+    overalls = {}
+    
+    for names in log:
+        for name in names.name:
+            if name.exercise_name in overalls:
+                overalls[name.exercise_name] += 1
+            else:
+                overalls[name.exercise_name] = 1
+    # print(overalls.keys())
+    # print(overalls.values())
+            
+    return json.dumps(overalls)
