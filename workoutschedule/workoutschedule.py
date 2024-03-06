@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for,jsonify
 from models import WorkoutPlan, db
 from workoutschedule.forms import ScheduleForm
+from sqlalchemy import desc
+
 
 workout_schedule_bp = Blueprint('workout_schedule_bp', __name__,
     template_folder='templates', static_folder='static', static_url_path='/schedule')
@@ -17,7 +19,7 @@ def user_schedule():
     if 'user' not in session:
         return redirect(url_for('auth_bp.login'))
     
-    schedules = WorkoutPlan.query.filter_by(user_id=session['user']).all()
+    schedules = WorkoutPlan.query.filter_by(user_id=session['user']).order_by(desc(WorkoutPlan.created_at)).all()
 
     return render_template("schedule.html", schedules=schedules)
 

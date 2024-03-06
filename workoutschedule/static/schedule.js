@@ -75,7 +75,9 @@ function addSchedule(e) {
       return response.text();
     })
     .then((data) => {
-      scheduleInfo.innerHTML += data;
+      // scheduleInfo.innerHTML += data;
+      scheduleInfo.insertAdjacentHTML("afterbegin", data);
+
       addEventtoBtns();
       popup.innerText = "";
     })

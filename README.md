@@ -12,9 +12,9 @@
    - [x] User registration and login. <sub>Note: should I add google login?</sub>
    - [ ] Password recovery/reset functionality.
 2. Dashboard:
-   - [ ] Personalized dashboard for each user.
-   - [ ] Overview of recent workouts and achievements.
-   - [ ] Progress tracking charts or graphs.
+   - [x] Personalized dashboard for each user.
+   - [x] Overview of recent workouts and achievements.
+   - [x] Progress tracking charts or graphs. (kinda of)
 3. Exercise Library:
    - [x] Browse and search functionality for a comprehensive exercise database. (only on schedule page atm)
    - [x] Filter exercises by muscle group, equipment, or difficulty level.
