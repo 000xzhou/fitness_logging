@@ -17,17 +17,20 @@ def main_page():
 def filter_overall():
 # search by filters
     parameters = {
-        "limit": 5,
-        "offset": 0
+        "limit": 20,
         }
     
     equipment = request.args.get('equipment')
     category = request.args.get('muscle')
+    offset = request.args.get('offset')
+    
     if equipment != "all":
         parameters['equipment'] = equipment
     if category != "all":
         parameters['category'] = category
-        
+    if offset:
+        parameters['offset'] = offset
+    
     try:
         response = requests.get(api_url + "exercisebaseinfo/", params=parameters)
         if response.status_code == 200:

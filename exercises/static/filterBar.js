@@ -12,6 +12,10 @@ function filterExerices() {
     muscle: selectedMuscle,
   };
   const queryString = new URLSearchParams(selectedValues).toString();
+  fetchData(queryString);
+}
+
+function fetchData(queryString) {
   fetch("/exercises/filter?" + queryString)
     .then((response) => {
       if (!response.ok) {
@@ -21,9 +25,35 @@ function filterExerices() {
     })
     .then((data) => {
       const exericesInfo = document.getElementById("exerices_info");
-      exericesInfo.innerHTML = data;
+      exericesInfo.insertAdjacentHTML("beforeend", data);
+      // exericesInfo.innerHTML = data;
     })
     .catch((error) => {
       console.error("There was a problem with the fetch operation:", error);
     });
 }
+
+// load more ==============>
+let count = 0;
+window.onscroll = function (ev) {
+  if (
+    window.innerHeight + Math.round(window.scrollY) >=
+    document.body.offsetHeight
+  ) {
+    console.log("here");
+    // you're at the bottom of the page
+    const selectEquipment = document.getElementById("select_equipment");
+    const selectMuscle = document.getElementById("select_muscle");
+
+    const selectedEquipment = selectEquipment.value;
+    const selectedMuscle = selectMuscle.value;
+    count++;
+    const selectedValues = {
+      equipment: selectedEquipment,
+      muscle: selectedMuscle,
+      offset: count * 20,
+    };
+    const queryString = new URLSearchParams(selectedValues).toString();
+    fetchData(queryString);
+  }
+};
