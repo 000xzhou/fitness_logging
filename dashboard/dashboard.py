@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, redirect
-from models import User, WorkoutPlan, Workoutsession, db, ExerciseName
+from models import User, WorkoutPlan, Workoutsession, db, ExerciseName, ExerciseLog
 from sqlalchemy import or_
 from datetime import datetime, timedelta
 import json
@@ -68,7 +68,32 @@ def all_recent_workouts():
 @dashboard_bp.route('/graphOfProgress')
 def graphOfProgress():
     return render_template('dashboard/graphOfProgress.html')
+
+@dashboard_bp.route('/graphOfProgress/data')
+def graphOfProgress_data():
+    data = (db.session.query(ExerciseName)
+           .filter(Workoutsession.user_id == session['user'])
+           .all()
+           )
     
+    formatted_data = {}
+
+    for entry in data:
+        exercise_name = entry.exercise_name
+        date_logged = entry.name.date_logged.date().isoformat()
+        max_weight = max(details.weight or details.cardio for details in entry.log)
+        # name : {date: weight} try this 
+        # formatted_data[date_logged] = [exercise_name, max_weight]
+        if exercise_name not in formatted_data:
+            formatted_data[exercise_name] = {}
+        if date_logged not in formatted_data[exercise_name]:
+            formatted_data[exercise_name][date_logged] = max_weight
+        else:
+            formatted_data[exercise_name][date_logged] = max(max_weight, formatted_data[exercise_name][date_logged])
+        # print(formatted_data)
+    return json.dumps(formatted_data)
+
+
 @dashboard_bp.route('/chartofOveralls')
 def chartofOveralls():
     return render_template('dashboard/chartofOveralls.html')
@@ -87,7 +112,5 @@ def chartofOveralls_data():
                 overalls[name.exercise_name] += 1
             else:
                 overalls[name.exercise_name] = 1
-    # print(overalls.keys())
-    # print(overalls.values())
-            
+
     return json.dumps(overalls)

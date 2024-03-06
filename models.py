@@ -104,6 +104,8 @@ class ExerciseName(db.Model):
     workout_id = db.Column(db.Integer, db.ForeignKey('workoutsessions.id'))
 #     log_id = db.Column(db.Integer, db.ForeignKey('exerciselogs.id'))
     log = db.relationship('ExerciseLog', backref='exerciselogs')
+    name = db.relationship('Workoutsession', backref='workoutsessions')
+    
 
 @dataclass
 class ExerciseLog(db.Model):
