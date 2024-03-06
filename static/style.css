@@ -1,0 +1,51 @@
+:root {
+  --fd-300: 1rem;
+  --bg-color: white;
+  --font-color: black;
+}
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: black;
+    --font-color: white;
+  }
+  .fa-bars {
+    color: white;
+  }
+} */
+/* ================= nav bar ================ */
+body {
+  background-color: var(--bg-color);
+  color: var(--font-color);
+}
+nav {
+  padding: 0.5rem;
+}
+.navIconBtn {
+  border: none;
+  padding: 1rem;
+  background-color: transparent;
+}
+button,
+a {
+  cursor: pointer;
+}
+
+#myNavLinks {
+  display: none;
+}
+
+@media (600px < width < 800px) {
+}
+
+@media (width >= 800px) {
+  :root {
+    /* font size  */
+    --fd-300: 1.25rem;
+  }
+  .navIconBtn {
+    display: none;
+  }
+  #myNavLinks {
+    display: block;
+  }
+}

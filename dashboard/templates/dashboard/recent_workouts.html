@@ -6,12 +6,17 @@
 {% endif %}
 <!-- log exerice  -->
 {% for exercise in log.name %}
-<p>{{exercise.exercise_name}}</p>
-{% for details in exercise.log %} {% if details.repetitions %}
-<p>{{details.repetitions}} x {{details.weight}}</p>
-{% endif %} {% if details.cardio %}
-<p>{{details.cardio}} x {{details.cardio_time}}min</p>
-{% endif %} {% endfor %} {% endfor %}
+<label for="hidejswarning">{{exercise.exercise_name}}</label>
+<input id="hidejswarning" type="checkbox" />
+<div class="jswarning">
+  {% for details in exercise.log %} {% if details.repetitions %}
+  <p>{{details.repetitions}} x {{details.weight}}</p>
+  {% endif %} {% if details.cardio %}
+  <p>{{details.cardio}} x {{details.cardio_time}}min</p>
+  {% endif %} {% endfor %}
+</div>
+
+{% endfor %}
 <a
   href="/dashboard/recent_workouts/all"
   target="_blank"
