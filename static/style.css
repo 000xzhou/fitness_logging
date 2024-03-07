@@ -75,11 +75,11 @@ nav a {
     z-index: 99;
     background-color: var(--accents-color-light);
     font-size: 20px;
+    margin-top: var(--nav-height);
   }
   #myNavLinks a {
     display: block;
     padding-block: 2rem;
-    margin-top: var(--nav-height);
     padding-left: 1rem;
   }
   #myNavLinks a:hover {
