@@ -29,8 +29,22 @@
 {% else %}
 <p>{{ schedule.date }}</p>
 {% endif %}
-<a href="/schedule/{{ schedule.id }}" target="_blank" rel="noopener noreferrer"
-  >Add Exerice</a
->
-<button class="edit-btn">Edit</button>
-<button type="button" class="delete-btn">Delete</button>
+<div class="edit-schedule-btns">
+  <a
+    href="/schedule/{{ schedule.id }}"
+    target="_blank"
+    rel="noopener noreferrer"
+    ><button class="small-btn align">
+      <span>Edit</span>
+      <span class="material-symbols-outlined"> exercise </span>
+    </button></a
+  >
+  <button class="edit-btn small-btn align">
+    <span>Edit</span>
+    <span class="material-symbols-outlined"> edit </span>
+  </button>
+  <button type="button" class="delete-btn small-btn align">
+    <span>Delete</span>
+    <span class="material-symbols-outlined"> <span>delete</span> </span>
+  </button>
+</div>

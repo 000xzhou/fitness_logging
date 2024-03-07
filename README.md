@@ -64,6 +64,8 @@ database => did a lot of remodeling. Try a few different ones that seems like it
 
 dashboard => end up using chart.js
 
+styling => adding some styling but notice some buttons like the edit button in schedule don't work anymore. Also notice that I need to convert between ib and kg. Which need to be added in. The exerice btn isn't link to anything. Still need to edit some styling in the exerice log area. i should check everything again. to make sure everything is still there.
+
 ## using as reference:
 
 [Blueprint](https://realpython.com/flask-blueprint/)

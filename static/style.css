@@ -8,6 +8,8 @@
   --nav-height: 3rem;
   --font-family-roboto: "Roboto", sans-serif;
   --font-family-oswald: "Oswald", sans-serif;
+  --fs-h2: 20px;
+  --fs-h1: 30px;
 }
 /* @media (prefers-color-scheme: dark) {
   :root {
@@ -48,16 +50,23 @@ a {
 }
 a {
   text-decoration: none;
+  color: var(--accents-color-light);
+  font-weight: 500;
+  font-style: italic;
+}
+a:hover {
+  color: var(--accents-color-dark);
 }
 nav {
   position: relative;
-  background-color: var(--accents-color-light);
+  background-color: var(--primary-color);
   height: var(--nav-height);
 }
 nav a {
   color: var(--font-color);
   font-family: var(--font-family-oswald);
   font-weight: 500;
+  font-style: unset;
 }
 
 @media (width < 600px) {
@@ -73,7 +82,7 @@ nav a {
     max-width: 100%;
     max-height: max-content;
     z-index: 99;
-    background-color: var(--accents-color-light);
+    background-color: var(--primary-color);
     font-size: 20px;
     margin-top: var(--nav-height);
   }
@@ -118,4 +127,75 @@ main {
   main {
     display: grid;
   }
+}
+
+.btn {
+  padding: 1rem 2rem;
+}
+input[type="submit"] {
+  padding: 5px 1rem;
+}
+.btn,
+input[type="submit"],
+.small-btn {
+  background-color: var(--primary-color);
+  border: transparent;
+  border-radius: 5px;
+  font-weight: 700;
+}
+.btn:hover,
+input[type="submit"]:hover,
+.small-btn:hover {
+  background-color: var(--yellow-color);
+}
+h1 {
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+h2 {
+  font-size: var(--fs-h2);
+  padding-bottom: 1rem;
+}
+.content {
+  display: block;
+}
+
+.content > * {
+  padding-block: 0.5em;
+}
+
+input:not([type="submit"]) {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+#register-form * {
+  display: block;
+}
+#register-form input {
+  margin-bottom: 1rem;
+}
+#login-form input {
+  margin-bottom: 1rem;
+}
+
+.align {
+  display: flex;
+  align-items: center;
+}
+.edit-schedule-btns {
+  display: flex;
+  gap: 1rem;
+}
+.small-btn {
+  padding: 0.25rem 0.5rem;
+}
+#add-schedule-form > input {
+  display: block;
+  margin-bottom: 1rem;
+}
+#add-schedule-form .repeat-weekly,
+#add-schedule-form .not-weekly,
+#add-schedule-form #repeat {
+  margin-bottom: 1rem;
 }

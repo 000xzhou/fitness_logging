@@ -61,8 +61,12 @@ block content %}
             endif %}
           </p>
         </div>
-        <button onclick="detailEditExerciseForm(event)">Edit</button>
-        <button onclick="deleteFromSchedule(event)">Delete</button>
+        <button class="small-btn" onclick="detailEditExerciseForm(event)">
+          Edit
+        </button>
+        <button class="small-btn" onclick="deleteFromSchedule(event)">
+          Delete
+        </button>
       </div>
       {% endfor %}
     </ul>
@@ -70,7 +74,7 @@ block content %}
 </div>
 <form action="POST" id="search-form">
   <input id="search-term" type="text" placeholder="Search Exercises" />
-  <button type="submit">Search</button>
+  <button class="small-btn" type="submit">Search</button>
 </form>
 <div class="container">
   <div id="exercises"></div>

@@ -10,7 +10,9 @@ content %}
 <div id="schedule">
   <h2>Schedule</h2>
   <div id="add-schedule">
-    <button type="button" id="add-schedule-btn">Add Schedule</button>
+    <button type="button" id="add-schedule-btn" class="btn">
+      Add Schedule
+    </button>
   </div>
   <div id="schedule_info">
     {% for schedule in schedules %}
@@ -46,14 +48,25 @@ content %}
       {% else %}
       <p>{{ schedule.date }}</p>
       {% endif %}
-      <a
-        href="/schedule/{{ schedule.id }}"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Add Exerice</a
-      >
-      <button class="edit-btn">Edit</button>
-      <button type="button" class="delete-btn">Delete</button>
+      <div class="edit-schedule-btns">
+        <a
+          href="/schedule/{{ schedule.id }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><button class="small-btn align">
+            <span>Edit</span>
+            <span class="material-symbols-outlined"> exercise </span>
+          </button></a
+        >
+        <button class="edit-btn small-btn align">
+          <span>Edit</span>
+          <span class="material-symbols-outlined"> edit </span>
+        </button>
+        <button type="button" class="delete-btn small-btn align">
+          <span>Delete</span>
+          <span class="material-symbols-outlined"> <span>delete</span> </span>
+        </button>
+      </div>
     </div>
     {% endfor %}
   </div>
