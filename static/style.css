@@ -1,51 +1,121 @@
 :root {
-  --fd-300: 1rem;
-  --bg-color: white;
+  --bg-color: #f5f5f5;
   --font-color: black;
+  --accents-color-light: #9f5f91;
+  --accents-color-dark: #572c57;
+  --primary-color: #e26972;
+  --yellow-color: #f6ea98;
+  --nav-height: 3rem;
+  --font-family-roboto: "Roboto", sans-serif;
+  --font-family-oswald: "Oswald", sans-serif;
 }
 /* @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: black;
-    --font-color: white;
+    --font-color: #f5f5f5;
   }
-  .fa-bars {
-    color: white;
+  .material-symbols-outlined {
+    color: #f5f5f5;
+  }
+  .btn {
+    background-color: var(--primary-color);
   }
 } */
+
 /* ================= nav bar ================ */
 body {
   background-color: var(--bg-color);
   color: var(--font-color);
+  font-family: var(--font-family-roboto);
 }
-nav {
-  padding: 0.5rem;
-}
-.navIconBtn {
-  border: none;
-  padding: 1rem;
+
+.navIconBtn,
+.navIconBtnClose {
+  border-color: transparent;
   background-color: transparent;
+  float: inline-end;
+  height: var(--nav-height);
 }
+
+.navIconBtn:hover .material-symbols-outlined,
+.navIconBtnClose:hover .material-symbols-outlined {
+  color: var(--yellow-color);
+}
+
 button,
 a {
   cursor: pointer;
 }
-
-#myNavLinks {
-  display: none;
+a {
+  text-decoration: none;
+}
+nav {
+  position: relative;
+  background-color: var(--accents-color-light);
+  height: var(--nav-height);
+}
+nav a {
+  color: var(--font-color);
+  font-family: var(--font-family-oswald);
+  font-weight: 500;
 }
 
-@media (600px < width < 800px) {
-}
-
-@media (width >= 800px) {
-  :root {
-    /* font size  */
-    --fd-300: 1.25rem;
-  }
-  .navIconBtn {
+@media (width < 600px) {
+  #desktop {
     display: none;
   }
+
   #myNavLinks {
+    display: none;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    max-width: 100%;
+    max-height: max-content;
+    z-index: 99;
+    background-color: var(--accents-color-light);
+    font-size: 20px;
+  }
+  #myNavLinks a {
     display: block;
+    padding-block: 2rem;
+    margin-top: var(--nav-height);
+    padding-left: 1rem;
+  }
+  #myNavLinks a:hover {
+    background-color: var(--yellow-color);
+    color: var(--font-color);
+    transition: 0.5s;
+  }
+}
+
+/* @media (600px < width < 800px) {
+} */
+
+@media (width >= 600px) {
+  #mobile {
+    display: none;
+  }
+  #desktop {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-inline: 1rem;
+  }
+  #desktop a:hover {
+    color: var(--yellow-color);
+  }
+}
+
+/* main ============================>  */
+main {
+  margin: 1em auto;
+  max-width: 50rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (width >= 600px) {
+  main {
+    display: grid;
   }
 }
