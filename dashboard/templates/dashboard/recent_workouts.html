@@ -6,9 +6,12 @@
 {% endif %}
 <!-- log exerice  -->
 {% for exercise in log.name %}
-<label for="hidejswarning">{{exercise.exercise_name}}</label>
-<input id="hidejswarning" type="checkbox" />
-<div class="jswarning">
+<label class="exerice-label-btn" for="{{exercise.exercise_name}}"
+  >{{exercise.exercise_name}}
+  <span class="material-symbols-outlined"> expand_more </span></label
+>
+<input id="{{exercise.exercise_name}}" type="checkbox" />
+<div class="exerice-label-details">
   {% for details in exercise.log %} {% if details.repetitions %}
   <p>{{details.repetitions}} x {{details.weight}}</p>
   {% endif %} {% if details.cardio %}

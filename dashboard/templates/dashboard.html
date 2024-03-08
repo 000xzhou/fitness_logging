@@ -13,8 +13,10 @@ content %} Your account: {{user.email}} <span><a href="/settings">Edit</a></span
       {% endfor %}
     </ul>
   </div>
-  <div>
-    <a href="/logging/{{workout.id}}">Start Workout</a>
+  <div class="start-workoutbtn">
+    <a href="/logging/{{workout.id}}"
+      ><button class="btn">Start Workout</button></a
+    >
   </div>
   <!-- else  -->
   {%else%} No workout schedule for today. {%endif%}
