@@ -14,7 +14,8 @@ if (editForm) {
 }
 
 function deleteSchedule(e) {
-  let parentElement = e.target.parentElement;
+  let parentElement = e.target.closest(".schedule-detalis");
+
   const scheduleId = {
     id: parentElement.id,
   };
@@ -117,7 +118,8 @@ function addScheduleForm(e) {
 
 function editScheduleForm(e) {
   // pop up for editting pop up or turn the post into an edit form
-  let parentElement = e.target.parentElement;
+  let parentElement = e.target.closest(".schedule-detalis");
+
   fetch("/schedule/edit_schedule/" + parentElement.id)
     .then((response) => {
       if (!response.ok) {

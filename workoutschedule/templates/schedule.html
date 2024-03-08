@@ -16,7 +16,7 @@ content %}
   </div>
   <div id="schedule_info">
     {% for schedule in schedules %}
-    <div id="{{ schedule.id }}">
+    <div id="{{ schedule.id }}" class="schedule-detalis">
       <h3>{{ schedule.name }}</h3>
       <p>{{ schedule.description }}</p>
       <p>Repeat: {{ schedule.repeat }}</p>
