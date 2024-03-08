@@ -40,7 +40,6 @@ window.onscroll = function (ev) {
     window.innerHeight + Math.round(window.scrollY) >=
     document.body.offsetHeight
   ) {
-    console.log("here");
     // you're at the bottom of the page
     const selectEquipment = document.getElementById("select_equipment");
     const selectMuscle = document.getElementById("select_muscle");
@@ -51,7 +50,7 @@ window.onscroll = function (ev) {
     const selectedValues = {
       equipment: selectedEquipment,
       muscle: selectedMuscle,
-      offset: count * 20,
+      offset: count * 21,
     };
     const queryString = new URLSearchParams(selectedValues).toString();
     fetchData(queryString);

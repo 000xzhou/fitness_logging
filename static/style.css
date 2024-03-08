@@ -261,6 +261,10 @@ main {
   line-height: 1.25rem;
 }
 
+.schedule-search-bar {
+  /* ! remember to do this search bar -======================== */
+}
+
 /* ============== dashboard ======================== */
 h4 {
   font-style: italic;
@@ -327,5 +331,24 @@ h4 {
   #component3 div {
     width: 40em;
     margin-inline: auto;
+  }
+}
+
+/* ============== exerices ======================== */
+#exerices_info {
+  margin-top: var(--nav-height);
+}
+.exercises_holder {
+  display: grid;
+  gap: 1.5rem;
+  place-items: center;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.exercises_holder > div {
+}
+@media (width >= 600px) {
+  .exercises_holder {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }

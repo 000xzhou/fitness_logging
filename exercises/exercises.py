@@ -17,7 +17,7 @@ def main_page():
 def filter_overall():
 # search by filters
     parameters = {
-        "limit": 20,
+        "limit": 21,
         }
     
     equipment = request.args.get('equipment')
