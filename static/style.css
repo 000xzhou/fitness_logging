@@ -190,12 +190,43 @@ input:not([type="submit"]) {
 .small-btn {
   padding: 0.25rem 0.5rem;
 }
-#add-schedule-form > input {
+#add-schedule-form > input,
+#edit-schedule-form > input {
   display: block;
   margin-bottom: 1rem;
 }
 #add-schedule-form .repeat-weekly,
+#edit-schedule-form .repeat-weekly,
 #add-schedule-form .not-weekly,
-#add-schedule-form #repeat {
+#edit-schedule-form .not-weekly,
+#add-schedule-form #repeat,
+#edit-schedule-form #repeat {
   margin-bottom: 1rem;
+}
+#add-schedule-form,
+#edit-schedule-form {
+  display: grid;
+}
+#popup-schedule {
+  margin: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--accents-color-light);
+  padding: 2rem 2rem 4rem 2rem;
+  z-index: 1000;
+  display: none;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--accents-color-dark);
+  opacity: 25%;
+  z-index: 999;
+  display: none;
 }

@@ -5,6 +5,7 @@ const addForm = document.getElementById("add-schedule-btn");
 const editBtn = document.querySelectorAll(".edit-btn");
 const editForm = document.getElementById("edit-schedule-form");
 const popup = document.getElementById("popup-schedule");
+const overlay = document.getElementById("overlay");
 
 deleteBtn.forEach((btn) => btn.addEventListener("click", deleteSchedule));
 addForm.addEventListener("click", addScheduleForm);
@@ -81,6 +82,8 @@ function addSchedule(e) {
 
       addEventtoBtns();
       popup.innerText = "";
+      popup.style.display = "none";
+      overlay.style.display = "none";
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -99,6 +102,8 @@ function addScheduleForm(e) {
     })
     .then((data) => {
       popup.innerHTML = data;
+      popup.style.display = "block";
+      overlay.style.display = "block";
       document
         .getElementById("add-schedule-form")
         .addEventListener("submit", addSchedule);
@@ -129,6 +134,8 @@ function editScheduleForm(e) {
     })
     .then((data) => {
       popup.innerHTML = data;
+      popup.style.display = "block";
+      overlay.style.display = "block";
       document
         .getElementById("edit-schedule-form")
         .addEventListener("submit", editSchedule);
@@ -176,6 +183,8 @@ function editSchedule(e) {
         data;
       addEventtoBtns();
       popup.innerText = "";
+      popup.style.display = "none";
+      overlay.style.display = "none";
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -188,3 +197,8 @@ function addEventtoBtns() {
   const editBtns = document.querySelectorAll(".edit-btn");
   editBtns.forEach((btn) => btn.addEventListener("click", editScheduleForm));
 }
+
+overlay.addEventListener("click", function () {
+  popup.style.display = "none";
+  overlay.style.display = "none";
+});

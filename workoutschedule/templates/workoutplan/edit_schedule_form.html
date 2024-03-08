@@ -15,7 +15,7 @@
     value="{{schedule.description}}"
   />
 
-  <label for="is_weekly">Repeat Weekly</label>
+  <label for="repeat">Repeat</label>
   <select name="repeat" id="repeat">
     {% if schedule.repeat == "no-repeat" %}
     <option value="no-repeat" selected>Don't repeat</option>
@@ -94,5 +94,5 @@
     {% endif%}
     <label for="sat">S</label>
   </div>
-  <button class="small-btn" type="submit" id="save_edit">Save</button>
+  <button class="btn" type="submit" id="save_edit">Save</button>
 </form>
