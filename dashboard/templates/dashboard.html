@@ -1,7 +1,19 @@
 {% extends "base.html" %} {% block title %}Dashboard{% endblock %}{% block
-content %} Your account: {{user.email}} <span><a href="/settings">Edit</a></span
-><span><a href="/delete">Delete</a></span>
-<div>Dashboard:</div>
+content %}
+<div class="dashboard-account">
+  <p>Account:</p>
+  <div>{{user.email}}</div>
+
+   <a href="/settings"
+      ><span class="material-symbols-outlined"> edit </span></a
+    ></span
+  >
+    <a href="/delete"
+      ><span class="material-symbols-outlined"> delete </span></a
+    ></span
+  >
+</div>
+<div class="dashboard-title">Dashboard:</div>
 <div id="workout_schedule">
   <h2>Today's Workout Schedule</h2>
   <div id="todayWorkout">

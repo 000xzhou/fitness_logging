@@ -170,6 +170,10 @@ h2 {
   padding-block: 0.5em;
 }
 
+.setting-items {
+  margin-bottom: 1rem;
+}
+
 /* ============== schedule ======================== */
 
 input:not([type="submit"]) {
@@ -235,6 +239,7 @@ h3 {
   transform: translate(-50%, -50%);
   background-color: var(--accents-color-light);
   padding: 2rem 2rem 4rem 2rem;
+  width: max-content;
   z-index: 1000;
   display: none;
 }
@@ -293,9 +298,34 @@ h4 {
 .exerice-label-btn + input[type="checkbox"] + .exerice-label-details {
   display: none;
 }
-
 #component3 {
-  width: min-content;
-  margin-inline: auto;
   margin-top: 2rem;
+}
+.dashboard-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 2rem;
+}
+.dashboard-account {
+  display: flex;
+  gap: 0.25rem;
+}
+.dashboard-account p {
+  font-weight: 500;
+}
+.dashboard-account div {
+  font-style: italic;
+}
+@media (width < 600px) {
+  #component3 div {
+    width: max-content;
+    margin-inline: auto;
+    margin-top: 2rem;
+  }
+}
+@media (width >= 600px) {
+  #component3 div {
+    width: 40em;
+    margin-inline: auto;
+  }
 }
