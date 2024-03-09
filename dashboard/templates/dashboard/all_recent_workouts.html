@@ -1,20 +1,29 @@
 {% extends "base.html" %} {% block title %}Dashboard{% endblock %}{% block
 content %}
-<h3>Recent workout</h3>
+<h3 class="recent-workout-h3">Recent workout</h3>
 {% for logged in log %}
-<div>
+<div class="recent_workouts">
   {% if logged.date_logged.date() == today %}
-  <h4>Today</h4>
+  <label class="exerice-label-btn" for="{{logged.date_logged.date()}}"><h4>Today</h4> <span class="material-symbols-outlined"> expand_more </span></label
+    ></label>
+  <input id="{{logged.date_logged.date()}}" type="checkbox" />
   {% else %}
-  <h4>{{logged.date_logged.date()}}</h4>
+  <label class="exerice-label-btn" for="{{logged.date_logged.date()}}"><h4>{{logged.date_logged.date()}}</h4> <span class="material-symbols-outlined"> expand_more </span></label
+    ></label>
+  <input id="{{logged.date_logged.date()}}" type="checkbox" />
+
   {% endif %}
   <!-- log exerice  -->
-  {% for exercise in logged.name %}
-  <p>{{exercise.exercise_name}}</p>
-  {% for details in exercise.log %} {% if details.repetitions %}
-  <p>{{details.repetitions}} x {{details.weight}}</p>
-  {% endif %} {% if details.cardio %}
-  <p>{{details.cardio}} x {{details.cardio_time}}min</p>
-  {% endif %} {% endfor %} {% endfor %}
+  <div class="exerice-label-details">
+    {% for exercise in logged.name %}
+    <div>{{exercise.exercise_name}}</div>
+    {% for details in exercise.log %} {% if details.repetitions %}
+    <p>{{details.repetitions}} x {{details.weight}}</p>
+    {% endif %} {% if details.cardio %}
+    <p>{{details.cardio}} x {{details.cardio_time}}min</p>
+    {% endif %} {% endfor %}
+    {% endfor %}
+  </div>
 </div>
+
 {% endfor %} {% endblock %}

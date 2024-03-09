@@ -385,6 +385,25 @@ h4 {
 #component1:empty {
   display: none;
 }
+.recent_workouts > .exerice-label-details {
+  margin-bottom: 1rem;
+}
+.recent_workouts input {
+  display: none;
+}
+.recent_workouts > .exerice-label-details > div {
+  color: var(--accents-color-light);
+}
+.recent-workout-h3 {
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+.recent_workouts:not(:last-of-type)::after {
+  content: "";
+  display: block;
+  border-bottom: 1px solid var(--accents-color-light);
+  margin-bottom: 0.5rem;
+}
 @media (width < 600px) {
   #component3 div {
     width: max-content;
