@@ -9,8 +9,8 @@
 ## Prograss
 
 1. User Authentication:
-   - [x] User registration and login. <sub>Note: should I add google login?</sub>
-   - [ ] Password recovery/reset functionality.
+   - [x] User registration and login. <sub>Note: should I add google login? maybe next project</sub>
+   - [x] Password recovery/reset functionality.
 2. Dashboard:
    - [x] Personalized dashboard for each user.
    - [x] Overview of recent workouts and achievements.
@@ -65,6 +65,8 @@ database => did a lot of remodeling. Try a few different ones that seems like it
 dashboard => end up using chart.js
 
 styling => adding some styling but notice some buttons like the edit button in schedule don't work anymore. Also notice that I need to convert between ib and kg. Which need to be added in. The exerice btn isn't link to anything. Still need to edit some styling in the exerice log area. i should check everything again. to make sure everything is still there.
+
+styling => everything looks good so far. I think the styling is mostly complete. Still need to call a calendar. also the exerice add to schedule thing. which suppose to dropdown a list of schedules you already own.
 
 ## using as reference:
 
