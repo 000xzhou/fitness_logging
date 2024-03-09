@@ -1,5 +1,5 @@
-{% extends "base.html" %} {% block title %}Dashboard{% endblock %}{% block
-content %}
+{% extends "base.html" %} {% block title %}Login{% endblock %}{% block content
+%}
 <h2>Login</h2>
 <form id="login-form" method="POST" action="/login">
   {{ form.hidden_tag() }}
@@ -11,9 +11,11 @@ content %}
   {% if error %}{{error}}{% endif %} {% endif %} {% endfor %}
 </form>
 <div>
-  <a href="" target="_blank" rel="noopener noreferrer">Forget Password?</a>
+  <a href="/resetpassword" target="_blank" rel="noopener noreferrer"
+    >Forget Password?</a
+  >
 </div>
 <div>
-  Need an account? <span><a href="">SIGN UP</a></span>
+  Need an account? <span><a href="/register">SIGN UP</a></span>
 </div>
 {% endblock %}

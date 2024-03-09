@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}Dashboard{% endblock %}{% block
+{% extends "base.html" %} {% block title %}Register{% endblock %}{% block
 content %}
 <h2>Register</h2>
 <form id="register-form" method="POST" action="/register">
@@ -11,6 +11,6 @@ content %}
   {% if error %}{{error}}{% endif %} {% endif %} {% endfor %}
 </form>
 <div>
-  Already have an account? <span><a href="">SIGN IN</a></span>
+  Already have an account? <span><a href="/login">SIGN IN</a></span>
 </div>
 {% endblock %}

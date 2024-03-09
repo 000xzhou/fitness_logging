@@ -1,11 +1,15 @@
-from flask import Blueprint, render_template, session, redirect, url_for
-from auth.forms import LoginForm, RegisterForm
+from flask import Blueprint, render_template, session, redirect, url_for, flash, request
+from auth.forms import LoginForm, RegisterForm, PasswordReset, NewPassword
 from models import db, User
 from sqlalchemy.exc import IntegrityError
+from flask_mail import Mail, Message
+import os
 
 
 auth_bp = Blueprint('auth_bp', __name__,
     template_folder='templates', static_folder='static')
+
+mail = Mail()
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -55,3 +59,38 @@ def logout():
     session.pop('user', None)
     return redirect("/")
     
+@auth_bp.route('/resetpassword', methods=['GET', 'POST'])
+def resetPassword():
+    form = PasswordReset()
+    if form.validate_on_submit():
+        user = User.query.get(form.email.data)
+        token = User.get_reset_token(user)
+        msg = Message()
+        msg.subject = "Reset your password"
+        msg.sender = os.getenv('MAIL_USERNAME')
+        msg.recipients = [form.email.data]
+        msg.html = render_template('auth/reset_email.html',
+                                    User=form.email.data, 
+                                    token=token)
+        mail.send(msg)
+
+        return render_template('auth/checkYourEmail.html')
+    return render_template('auth/forgot_password.html', form=form, action="/resetpassword")
+
+    
+@auth_bp.route('/newpassword/<token>', methods=['GET', 'POST'])
+def newPassword(token):
+    form = NewPassword()
+    if form.validate_on_submit():
+        email = token
+        new_password = form.password.data
+        if User.reset_password(email, new_password):
+            session['user'] = email
+            flash('Your password has been updated!', 'success')
+            return redirect(url_for("dashboard_bp.dashboard"))
+        else:
+            flash('Unable to update your password.', 'danger')
+            return redirect("/")
+        
+    user = User.verify_reset_token(token)
+    return render_template('auth/forgot_password.html', form=form, user_email=user.email, action=f'/newpassword/{user.email}')

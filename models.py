@@ -2,6 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from datetime import datetime, timezone
 from dataclasses import dataclass
+import jwt
+from time import time
+import os
 
 bcrypt = Bcrypt()
 db = SQLAlchemy()
@@ -34,6 +37,30 @@ class User(db.Model):
         hashed = bcrypt.generate_password_hash(password)
         hashed_utf8 = hashed.decode("utf8")
         return cls(email=email, password=hashed_utf8)
+    
+    def get_reset_token(self, expires=500):
+        return jwt.encode({'reset_password': self.email,
+                           'exp':    time() + expires},
+                           key=os.getenv('SECRET_KEY'))
+    def verify_reset_token(token):
+        try:
+            email = jwt.decode(token,
+                        key=os.getenv('SECRET_KEY'),
+                       algorithms=["HS256"])['reset_password']
+        except Exception as e:
+            print(e)
+            return
+        return User.query.filter_by(email=email).first()
+    
+    @classmethod
+    def reset_password(cls, user_id, new_password):
+        user = cls.query.get(user_id) 
+        if user:
+            hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8') 
+            user.password = hashed_password 
+            db.session.commit() 
+            return True
+        return False
     
     workoutplans = db.relationship('WorkoutPlan', backref='user')
     workoutsessions = db.relationship('Workoutsession', backref='user')

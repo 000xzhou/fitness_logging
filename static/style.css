@@ -320,6 +320,9 @@ h4 {
 .dashboard-account div {
   font-style: italic;
 }
+#component1:empty {
+  display: none;
+}
 @media (width < 600px) {
   #component3 div {
     width: max-content;
