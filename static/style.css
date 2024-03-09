@@ -11,7 +11,7 @@
   --fs-h2: 20px;
   --fs-h1: 30px;
 }
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #1b1b1b;
     --input-color: #4a4a4a;
@@ -20,8 +20,13 @@
   .material-symbols-outlined {
     color: var(--font-color);
   }
-} */
-
+  .btn:hover,
+  .small-btn:hover,
+  .small-btn:hover .material-symbols-outlined,
+  form input[type="submit"]:hover {
+    color: var(--bg-color);
+  }
+}
 /* ================= nav bar ================ */
 body {
   background-color: var(--bg-color);
@@ -261,13 +266,64 @@ main {
   line-height: 1.25rem;
 }
 
-.schedule-search-bar {
-  /* ! remember to do this search bar -======================== */
+#exercisesinplan {
+  background-color: #9f5f91;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  line-height: 1.5rem;
+}
+#exercisesinplan .exercise-title {
+  font-weight: 500;
+}
+.exercisesinplan-above-div {
+  margin-top: 1rem;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
+#exercisesinplan > div,
+.schedule-search-bar > div {
+  padding-block: 1rem;
+}
+
+#search-form {
+  display: flex;
+}
+#search-form input {
+  flex-grow: 1;
+  padding: 0.5rem;
+  text-indent: 1rem;
+  font-size: 1rem;
+}
+
+#search-form button {
+  flex-shrink: 0;
+}
+
+.container {
+  padding-inline: 1rem;
+  background: var(--accents-color-dark);
+  color: #f5f5f5;
+}
+.schedule-search-bar p {
+  font-weight: 300;
+  font-style: italic;
+  padding-bottom: 0.25rem;
+}
+.schedule-search-bar button {
+  background-color: var(--yellow-color);
+}
+.schedule-search-bar button:hover {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+}
 /* ============== dashboard ======================== */
 h4 {
   font-style: italic;
+}
+.dashboard-account .material-symbols-outlined:hover {
+  color: var(--yellow-color);
 }
 #workout_schedule {
   padding-block: 2rem;
@@ -288,6 +344,12 @@ h4 {
 #component1 {
   background-color: var(--accents-color-light);
   padding: 1rem;
+}
+#component1 a {
+  color: var(--accents-color-dark);
+}
+#component1 a:hover {
+  color: var(--yellow-color);
 }
 #component1 > h4 {
   margin-bottom: 1rem;

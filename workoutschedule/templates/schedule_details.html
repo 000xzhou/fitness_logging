@@ -37,12 +37,12 @@ block content %}
     <div id="popup">
       <!-- make the below into popup  -->
     </div>
-    exercises:
+    <div class="exercisesinplan-above-div">exercises:</div>
     <ul id="exercisesinplan">
       {% for exercise in schedule.exerciseinplans %}
       <div id="{{exercise.id}}">
         <div>
-          <div>{{exercise.exercise_name}}</div>
+          <div class="exercise-title">{{exercise.exercise_name}}</div>
           <p>
             {% if exercise.sets %} {{exercise.sets}} SETS *{% endif %}
             <!--  -->
