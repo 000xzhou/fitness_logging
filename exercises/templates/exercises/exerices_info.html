@@ -25,17 +25,9 @@
       {% endfor %}
     </div>
     <!-- end data  -->
-    <button class="small-btn">Save to schedule</button>
-
-    <!-- popup should not be in this file. Should be in js file.  -->
-    <div class="popup-container">
-      <form action="">
-        <!-- get list of templates user made get WorkoutPlan -->
-      </form>
-      <form action="schedule/add_schedule">
-        <!-- create template name+description -->
-      </form>
-    </div>
+    <button class="small-btn" onclick="openupScheduleOptions()">
+      Save to schedule
+    </button>
   </div>
   {% endfor %}
 </div>

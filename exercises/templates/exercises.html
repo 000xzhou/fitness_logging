@@ -10,6 +10,16 @@ content %}
   <div id="exerices_info"></div>
   <!-- side bar  -->
   <div id="schedule"></div>
+  <div class="popup-container">
+    <div class="schedule-popup-title">Select your schedule</div>
+    {% for schedule in schedules %}
+    <li>
+      <input type="checkbox" name="workout_plan_ids" id="{{schedule.id}}" />
+      <label for="{{schedule.id}}">{{schedule.name}}</label>
+    </li>
+    {% endfor %}
+  </div>
+  <div id="overlay"></div>
 </div>
 <script src="{{ url_for('exercises_bp.static', filename='filterOptions.js') }}"></script>
 <script src="{{ url_for('exercises_bp.static', filename='filterBar.js') }}"></script>

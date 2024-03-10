@@ -56,3 +56,21 @@ window.onscroll = function (ev) {
     fetchData(queryString);
   }
 };
+
+const popup = document.querySelector(".popup-container");
+const overlay = document.getElementById("overlay");
+
+function openupScheduleOptions() {
+  if ((popup.style.display = "none")) {
+    popup.style.display = "block";
+    overlay.style.display = "block";
+  } else {
+    popup.style.display = "none";
+    overlay.style.display = "none";
+  }
+}
+overlay.addEventListener("click", function () {
+  popup.style.display = "none";
+  overlay.style.display = "none";
+});
+function saveToSchedule(event) {}

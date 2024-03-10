@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for, jsonify, request
+from flask import Blueprint, render_template, session, url_for, jsonify, request
 import requests
-from models import ExerciseInPlan, db
+from models import ExerciseInPlan, db, WorkoutPlan
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -11,7 +11,8 @@ exercises_bp = Blueprint('exercises_bp', __name__,
 api_url = os.environ['WGER_BASE_URL']
 @exercises_bp.route('/')
 def main_page():
-    return render_template('exercises.html')
+    schedules = WorkoutPlan.query.filter(WorkoutPlan.user_id == session['user'])
+    return render_template('exercises.html', schedules=schedules)
 
 @exercises_bp.route('/filter')
 def filter_overall():

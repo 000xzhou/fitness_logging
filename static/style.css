@@ -235,18 +235,44 @@ input:not([type="submit"]) {
 h3 {
   font-weight: 500;
 }
-
-#popup-schedule {
+#popup-schedule,
+.popup-container {
   margin: 0;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--accents-color-light);
-  padding: 2rem 2rem 4rem 2rem;
   width: max-content;
   z-index: 1000;
+  border-radius: 1rem;
   display: none;
+}
+
+li {
+  list-style: none;
+}
+.popup-container li {
+  cursor: pointer;
+  display: flex;
+  padding-left: 1rem;
+}
+
+.popup-container label {
+  padding: 1rem;
+  width: 100%;
+}
+.schedule-popup-title {
+  padding-top: 1rem;
+  padding-inline: 1rem;
+}
+.popup-container label:hover {
+  color: var(--yellow-color);
+  font-weight: 700;
+}
+
+#popup-schedule {
+  padding: 2rem 2rem 4rem 2rem;
 }
 
 #overlay {
@@ -419,9 +445,7 @@ h4 {
 }
 
 /* ============== exerices ======================== */
-#exerices_info {
-  margin-top: var(--nav-height);
-}
+
 .exercises_holder {
   display: grid;
   gap: 1.5rem;
@@ -432,7 +456,12 @@ h4 {
 
 @media (width >= 600px) {
   .exercises_holder {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 300px;
+    align-items: end;
+  }
+  .exercises_holder > div {
+    padding: 1rem;
   }
 }
 
