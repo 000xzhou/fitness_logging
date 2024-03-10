@@ -165,32 +165,3 @@ function removefromschedule(exerciseInPlanId) {
     })
     .catch((error) => console.error("Error:", error));
 }
-
-function checkInSchedule(exericename, planid) {
-  fetch("/schedule/checkInSchedule", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      exericename: exericename,
-      planid: planid,
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      if (data.success) {
-        console.log("Success:", data.message);
-        ans = true;
-      } else {
-        console.log("Failure:", data.message);
-        ans = false;
-      }
-    })
-    .catch((error) => console.error("Error:", error));
-}
