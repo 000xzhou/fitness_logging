@@ -2,15 +2,36 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from models import WorkoutPlan, db
 from workoutschedule.forms import ScheduleForm
 from sqlalchemy import desc
+import calendar
+import datetime
 
 
 workout_schedule_bp = Blueprint('workout_schedule_bp', __name__,
     template_folder='templates', static_folder='static', static_url_path='/schedule')
 
+
+def generate_calendar(year, month, events):
+    calendar_data = []
+    cal = calendar.Calendar(calendar.SUNDAY)
+    for week in cal.monthdatescalendar(year, month):
+        week_data = []
+        for day in week:
+            day_events = events.get(day, [])
+            week_data.append({'date': day, 'events': day_events})
+        calendar_data.append(week_data)
+    return calendar_data
+
 @workout_schedule_bp.route('/calendar', methods=['GET', 'POST'])
 def user_calendar():
-    # show full calendar with the workouts and abilty to edit
-    return render_template("calendar.html")
+    events = {
+    datetime.date(2024, 3, 14): ["Event 1", "Event 2"],
+    datetime.date(2024, 3, 22): ["Event 3"],
+    }
+
+    today = datetime.date.today()
+    calendar_data = generate_calendar(today.year, today.month, events)
+
+    return render_template("calendar.html", calendar_data=calendar_data)
 
 # =========================== START add edit delete details schedule START ============================================
 @workout_schedule_bp.route('/', methods=['GET', 'POST'])

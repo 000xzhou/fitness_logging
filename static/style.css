@@ -429,10 +429,65 @@ h4 {
   text-align: center;
   margin-bottom: 2rem;
 }
-.exercises_holder > div {
-}
+
 @media (width >= 600px) {
   .exercises_holder {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* =============== calendar ============================== */
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+td,
+th {
+  text-align: center;
+}
+
+.calendar-events {
+  background-color: var(--accents-color-light);
+  border: 1px solid var(--accents-color-dark);
+}
+
+@media (width < 600px) {
+  .calendar-events {
+    display: none;
+  }
+  .calendar-day {
+    cursor: pointer;
+  }
+  .events {
+    display: block;
+  }
+  td,
+  th {
+    border: none;
+  }
+
+  .calendar-day-num {
+    border: 2px solid transparent;
+    padding: 1em;
+  }
+  .calendar-day-num:hover,
+  .clicked-day {
+    border-radius: 1rem;
+    border-color: var(--accents-color-dark);
+    background-color: var(--accents-color-dark);
+  }
+}
+@media (width >= 600px) {
+  #events {
+    display: none;
+  }
+  td,
+  th {
+    border: 2px solid var(--accents-color-dark);
+  }
+  .calendar-day {
+    padding-block: 1rem;
   }
 }

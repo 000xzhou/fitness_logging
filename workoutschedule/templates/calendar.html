@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block title %}Schedule{% endblock %} {% block
+content %}
+<table class="calendar">
+  <tr class="calendar-day-en">
+    <th>Su</th>
+    <th>Mo</th>
+    <th>Tu</th>
+    <th>We</th>
+    <th>Tu</th>
+    <th>Fr</th>
+    <th>Sa</th>
+  </tr>
+  {% for week in calendar_data %}
+  <tr class="calendar-week">
+    {% for day in week %}
+    <td class="calendar-day">
+      <div class="calendar-day-num">{{ day.date.day }}</div>
+      {% for event in day.events %}
+      <div class="calendar-events">{{ event }}</div>
+      {% endfor %}
+    </td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+<div id="events"></div>
+<script src="{{ url_for('workout_schedule_bp.static', filename='calendar.js') }}"></script>
+{% endblock %}
