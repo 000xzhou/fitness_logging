@@ -57,10 +57,51 @@ window.onscroll = function (ev) {
   }
 };
 
+//=============================== pop ups and checkboxes ====================================
 const popup = document.querySelector(".popup-container");
 const overlay = document.getElementById("overlay");
+const checkboxes = document.querySelectorAll('[name="workout_plan_ids"]');
 
-function openupScheduleOptions() {
+function openupScheduleOptions(event) {
+  let siblingDiv = event.target.previousElementSibling;
+  let name = siblingDiv.querySelector("h3");
+  let id = name.getAttribute("data-exercise-id");
+  popup.setAttribute("data-name", name.textContent);
+  popup.setAttribute("data-name-id", id);
+  let exericename = popup.getAttribute("data-name");
+  checkboxes.forEach((checkbox) => {
+    let planid = checkbox.id;
+    // start ===
+    fetch("/schedule/checkInSchedule", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        exericename: exericename,
+        planid: planid,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          console.log("Success:", data.message);
+          checkbox.checked = true;
+          checkbox.setAttribute("exerciseInPlan-id", data.message);
+        } else {
+          console.log("Failure:", data.message);
+          checkbox.checked = false;
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+    // end ===
+  });
+
   if ((popup.style.display = "none")) {
     popup.style.display = "block";
     overlay.style.display = "block";
@@ -73,4 +114,83 @@ overlay.addEventListener("click", function () {
   popup.style.display = "none";
   overlay.style.display = "none";
 });
-function saveToSchedule(event) {}
+
+checkboxes.forEach((checkbox) =>
+  checkbox.addEventListener("change", function () {
+    let ischecked = checkbox.checked;
+    if (ischecked) {
+      let workoutPlanId = checkbox.id;
+      let name = popup.getAttribute("data-name");
+      let exercise_id = popup.getAttribute("data-name-id");
+      addtoschedule(name, exercise_id, workoutPlanId);
+    } else {
+      let exerciseInPlanId = checkbox.getAttribute("exerciseInPlan-id");
+      removefromschedule(exerciseInPlanId);
+    }
+  })
+);
+function addtoschedule(name, exercise_id, workoutPlanId) {
+  fetch("/schedule/addExericeToSchedule", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      workoutPlanId: workoutPlanId,
+      name: name,
+      exercise_id: exercise_id,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.message);
+      // let numbers = data.message.match(/\d+/);
+      // popup.setAttribute("data-exerciseInPlan-id", numbers);
+    })
+    .catch((error) => console.error("Error:", error));
+}
+function removefromschedule(exerciseInPlanId) {
+  fetch("/schedule/removeExericeToSchedule", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      exerciseInPlanId: exerciseInPlanId,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.message);
+    })
+    .catch((error) => console.error("Error:", error));
+}
+
+function checkInSchedule(exericename, planid) {
+  fetch("/schedule/checkInSchedule", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      exericename: exericename,
+      planid: planid,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data.success) {
+        console.log("Success:", data.message);
+        ans = true;
+      } else {
+        console.log("Failure:", data.message);
+        ans = false;
+      }
+    })
+    .catch((error) => console.error("Error:", error));
+}

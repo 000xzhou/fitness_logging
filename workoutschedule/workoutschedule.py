@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for,jsonify
-from models import WorkoutPlan, db
+from models import WorkoutPlan, db,ExerciseInPlan
 from workoutschedule.forms import ScheduleForm
 from sqlalchemy import desc
 import calendar
@@ -116,3 +116,40 @@ def schedule_detail(id):
 def user_today_schedule(user_email):
     # return exerises for today (show up on dashboard)
     return render_template("today.html")
+
+
+@workout_schedule_bp.route('addExericeToSchedule', methods=['GET', 'POST'])
+def addExericeToSchedule():
+    plan_id = request.json['workoutPlanId']
+    name = request.json['name']
+    exercise_id = request.json['exercise_id']
+    new_exercise = ExerciseInPlan(plan_id=plan_id, 
+                                  exercise_id=exercise_id, 
+                                  exercise_name=name,
+                                  sets = 3,
+                                  repetitions = 3,
+                                  weight = 10
+                                  )
+    db.session.add(new_exercise)
+    db.session.commit()
+    return jsonify({'message': f'Workout plan {new_exercise.id} status added successfully'})
+
+
+
+@workout_schedule_bp.route('removeExericeToSchedule', methods=['GET', 'POST'])
+def removeExericeToSchedule():
+    id = request.json['exerciseInPlanId']
+    exercise_to_delete = ExerciseInPlan.query.get(id)
+    db.session.delete(exercise_to_delete)
+    db.session.commit()
+    return jsonify({'message': 'Workout plan status remove successfully'})
+
+@workout_schedule_bp.route('checkInSchedule', methods=['GET', 'POST'])
+def checkInSchedule():
+    planid = request.json['planid']
+    exericename = request.json['exericename']
+    existing_entry = ExerciseInPlan.query.filter_by(exercise_name=exericename, plan_id=planid).first()
+    if existing_entry:
+        return jsonify({'success': True, 'message': f'{existing_entry.id}'})
+    else:
+        return jsonify({'success': False})

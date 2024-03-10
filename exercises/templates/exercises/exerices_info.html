@@ -17,7 +17,7 @@
     {% endif %}
     <div class="exercise_info">
       <!-- Data exercise here -->
-      <h3>{{ exercise.name }}</h3>
+      <h3 data-exercise-id="{{exercise.id}}">{{ exercise.name }}</h3>
       {% endif %} {% endfor %}
       <!-- Data equipment here -->
       {% for equipment in result.equipment %}
@@ -25,7 +25,7 @@
       {% endfor %}
     </div>
     <!-- end data  -->
-    <button class="small-btn" onclick="openupScheduleOptions()">
+    <button class="small-btn" onclick="openupScheduleOptions(event)">
       Save to schedule
     </button>
   </div>
