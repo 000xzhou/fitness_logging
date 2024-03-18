@@ -10,7 +10,7 @@
 
   {% for exercise in plan.exerciseinplans %}
   <!--  -->
-  <div class="set" id="{{exercise.id}}" onclick="startExercise()">
+  <div class="set" id="{{exercise.id}}" onclick="startExercise(event)">
     <h3>{{exercise.exercise_name}}</h3>
     <p>
       {% if exercise.sets %} {{exercise.sets}} SETS *{% endif %}

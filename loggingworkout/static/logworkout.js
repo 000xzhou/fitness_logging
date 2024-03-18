@@ -130,12 +130,12 @@ function formatTimeData(milliseconds) {
 // ==================== get value from form =================================================
 const logBtn = document.getElementById("log-info");
 logBtn.addEventListener("click", getvalue);
+const form = document.getElementById("logging-info-form");
 
 function getvalue() {
   // confirming
   if (confirm("Are you sure you want to finish this workout?")) {
     // get value
-    const form = document.getElementById("logging-info-form");
     // stop timer if it's still running
     if (running) {
       pauseTimer();
@@ -219,4 +219,15 @@ function sendLog(setValues, exerciseId, duration, notes) {
     });
 }
 
-function startExercise() {}
+function startExercise(event) {
+  let parentID = event.target.parentNode;
+  let divElements = form.querySelectorAll("#logging-info-form > div");
+  console.log(parentID);
+  for (let i = 0; i < divElements.length; i++) {
+    if (divElements[i].id == parentID.id) {
+      divElements[i].style.display = "block";
+    } else {
+      divElements[i].style.display = "none";
+    }
+  }
+}

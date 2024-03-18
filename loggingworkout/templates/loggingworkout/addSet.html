@@ -5,14 +5,14 @@
   REPS *
   <input type="text" name="weight" id="weight" value="{{weight}}" />
   KG
-  <button type="button" onclick="setBtn(event)">Done</button>
+  <button type="button" class="small-btn" onclick="setBtn(event)">Done</button>
 </li>
 {% else %}
 <li data-set-id="{{ set_num }}">
   <span>SET {{ set_num }} </span
   ><input type="text" name="cardio" id="cardio" value="{{cardio}}" />
   KM
-  <button type="button" onclick="setBtn(event)">Done</button>
+  <button type="button" class="small-btn" onclick="setBtn(event)">Done</button>
 </li>
 {% endif %} {% else %} {% if set_type == "weight" %}
 
@@ -22,13 +22,13 @@
   REPS *
   <input type="text" name="weight" id="weight" value="{{weight}}" />
   LB
-  <button type="button" onclick="setBtn(event)">Done</button>
+  <button type="button" class="small-btn" onclick="setBtn(event)">Done</button>
 </li>
 {% else %}
 <li data-set-id="{{ set_num }}">
   <span>SET {{ set_num }} </span
   ><input type="text" name="cardio" id="cardio" value="{{cardio}}" />
   MILES
-  <button type="button" onclick="setBtn(event)">Done</button>
+  <button type="button" class="small-btn" onclick="setBtn(event)">Done</button>
 </li>
 {% endif %} {% endif %}

@@ -609,3 +609,6 @@ th {
 .set {
   padding-block: 0.5rem;
 }
+#logging-info-form > div {
+  display: none;
+}
