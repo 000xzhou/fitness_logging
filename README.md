@@ -35,7 +35,7 @@
 7. Social Features:
    - [ ] Share completed workouts or achievements.
 8. Workout History:
-   - [ ] Access a complete history of logged workouts.
+   - [x] Access a complete history of logged workouts.
 
 ## Thoughts
 
@@ -67,6 +67,16 @@ dashboard => end up using chart.js
 styling => adding some styling but notice some buttons like the edit button in schedule don't work anymore. Also notice that I need to convert between ib and kg. Which need to be added in. The exerice btn isn't link to anything. Still need to edit some styling in the exerice log area. i should check everything again. to make sure everything is still there.
 
 styling => everything looks good so far. I think the styling is mostly complete. Still need to call a calendar. also the exerice add to schedule thing. which suppose to dropdown a list of schedules you already own.
+
+still need to do:
+
+- conver between lb and kg
+- schedule smtwtfs style
+- add a break timer
+- add timer styling
+- add schedule to calender
+- delete account btn don't have an route
+- a sticky to show that your exerice been suessful save to schedule.
 
 ## using as reference:
 

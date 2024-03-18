@@ -1,6 +1,6 @@
 :root {
   --bg-color: #f5f5f5;
-  --font-color: black;
+  --font-color: #1b1b1b;
   --accents-color-light: #9f5f91;
   --accents-color-dark: #572c57;
   --primary-color: #e26972;
@@ -20,11 +20,14 @@
   .material-symbols-outlined {
     color: var(--font-color);
   }
-  .btn:hover,
-  .small-btn:hover,
-  .small-btn:hover .material-symbols-outlined,
-  form input[type="submit"]:hover {
+
+  .small-btn:hover .material-symbols-outlined {
     color: var(--bg-color);
+  }
+  input,
+  select {
+    background-color: var(--input-color);
+    color: var(--font-color);
   }
 } */
 /* ================= nav bar ================ */
@@ -93,10 +96,11 @@ nav a {
     display: block;
     padding-block: 2rem;
     padding-left: 1rem;
+    color: #f5f5f5;
   }
   #myNavLinks a:hover {
     background-color: var(--yellow-color);
-    color: var(--font-color);
+    color: #1b1b1b;
     transition: 0.5s;
   }
 }
@@ -138,7 +142,7 @@ main {
 button,
 .btn,
 input[type="submit"] {
-  color: var(--font-color);
+  color: #f5f5f5;
 }
 input[type="submit"] {
   padding: 5px 1rem;
@@ -155,6 +159,7 @@ input[type="submit"],
 input[type="submit"]:hover,
 .small-btn:hover {
   background-color: var(--yellow-color);
+  color: #1b1b1b;
 }
 h1 {
   font-size: var(--fs-h1);
@@ -339,10 +344,11 @@ main {
 }
 .schedule-search-bar button {
   background-color: var(--yellow-color);
+  color: #1b1b1b;
 }
 .schedule-search-bar button:hover {
   background-color: var(--primary-color);
-  color: var(--bg-color);
+  color: #f5f5f5;
 }
 /* ============== dashboard ======================== */
 h4 {
