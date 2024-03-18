@@ -76,6 +76,7 @@ still need to do:
 - add timer styling
 - add schedule to calender
 - delete account btn don't have an route
+- email reminder does nothing atm
 
 ## using as reference:
 

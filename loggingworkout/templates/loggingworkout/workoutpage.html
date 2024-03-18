@@ -1,9 +1,11 @@
 {% extends "base.html" %} {% block title %}Workout{% endblock %}{% block content
 %}
 <div class="left" id="exercise-left" data-unit="{{session['weightunit']|trim}}">
-  <div id="timer">
-    0:00
-    <span class="ss-icon">start icon</span>
+  <div id="timer" class="big-timer">
+    <div id="timer-text">0:00</div>
+    <div id="google-icon">
+      <span class="material-symbols-outlined"> play_arrow </span>
+    </div>
   </div>
 
   {% for exercise in plan.exerciseinplans %}
@@ -27,7 +29,7 @@
   </div>
   {% endfor %}
 
-  <button id="log-info">Finish Today's Exercise</button>
+  <button id="log-info" class="btn">Finish Today's Exercise</button>
 </div>
 
 <div class="right" id="exercise-right">
@@ -60,7 +62,9 @@
             value="{{ exercise.weight }}"
           />
           KG
-          <button type="button" onclick="setBtn(event)">Done</button>
+          <button type="button" class="small-btn" onclick="setBtn(event)">
+            Done
+          </button>
         </li>
         {% else %}
         <li data-set-id="{{_ + 1}}">
@@ -84,7 +88,9 @@
           />
           KM
 
-          <button type="button" onclick="setBtn(event)">Done</button>
+          <button type="button" class="small-btn" onclick="setBtn(event)">
+            Done
+          </button>
         </li>
         {% endif %} {% endfor %}
       </div>
@@ -111,7 +117,9 @@
             value="{{ exercise.weight }}"
           />
           LB
-          <button type="button" onclick="setBtn(event)">Done</button>
+          <button type="button" class="small-btn" onclick="setBtn(event)">
+            Done
+          </button>
         </li>
         {% else %}
         <li data-set-id="{{_ + 1}}">
@@ -135,12 +143,16 @@
           />
           MILES
 
-          <button type="button" onclick="setBtn(event)">Done</button>
+          <button type="button" class="small-btn" onclick="setBtn(event)">
+            Done
+          </button>
         </li>
         {% endif %} {% endfor %}
       </div>
       {% endif %}
-      <button type="button" onclick="addsets(event)">Add Set</button>
+      <button type="button" class="small-btn" onclick="addsets(event)">
+        Add Set
+      </button>
     </div>
     {% endfor %}
   </form>

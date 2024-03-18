@@ -73,6 +73,8 @@ function setBtn(event) {
 
 // ======================= TIMER ==========================================
 const timerDiv = document.getElementById("timer");
+const timerText = document.getElementById("timer-text");
+const icondiv = document.getElementById("google-icon");
 timerDiv.addEventListener("click", toggleTimer);
 let timer;
 let startTime;
@@ -104,11 +106,14 @@ function pauseTimer() {
 
 function updateTimer() {
   elapsedTime = Date.now() - startTime;
-  timerDiv.innerHTML = `${formatTime(elapsedTime)} <span>stop icon</span>`;
+  timerText.textContent = `${formatTime(elapsedTime)} `;
+  icondiv.innerHTML = '<span class="material-symbols-outlined">pause</span>';
 }
 function updateStopTimer() {
   elapsedTime = Date.now() - startTime;
-  timerDiv.innerHTML = `${formatTime(elapsedTime)} <span>start icon</span>`;
+  timerText.textContent = `${formatTime(elapsedTime)} `;
+  icondiv.innerHTML =
+    '<span class="material-symbols-outlined">play_arrow</span>';
 }
 
 function formatTime(milliseconds) {
