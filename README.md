@@ -76,7 +76,6 @@ still need to do:
 - add timer styling
 - add schedule to calender
 - delete account btn don't have an route
-- a sticky to show that your exerice been suessful save to schedule.
 
 ## using as reference:
 

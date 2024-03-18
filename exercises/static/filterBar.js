@@ -61,6 +61,7 @@ window.onscroll = function (ev) {
 const popup = document.querySelector(".popup-container");
 const overlay = document.getElementById("overlay");
 const checkboxes = document.querySelectorAll('[name="workout_plan_ids"]');
+const saveInfo = document.querySelector(".save-info");
 
 function openupScheduleOptions(event) {
   let siblingDiv = event.target.previousElementSibling;
@@ -144,8 +145,8 @@ function addtoschedule(name, exercise_id, workoutPlanId) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data.message);
-      // let numbers = data.message.match(/\d+/);
-      // popup.setAttribute("data-exerciseInPlan-id", numbers);
+      showSaveInfo("added successfully");
+      setTimeout(hideSaveInfo, 2000);
     })
     .catch((error) => console.error("Error:", error));
 }
@@ -162,6 +163,20 @@ function removefromschedule(exerciseInPlanId) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data.message);
+      showSaveInfo("remove successfully");
+      setTimeout(hideSaveInfo, 2000);
     })
     .catch((error) => console.error("Error:", error));
+}
+function showSaveInfo(text) {
+  saveInfo.textContent = text;
+  saveInfo.style.animationName = "saveInfoIn";
+  saveInfo.style.animationDuration = "1s";
+  saveInfo.style.bottom = "1rem";
+}
+
+function hideSaveInfo() {
+  saveInfo.style.animationName = "saveInfoOut";
+  saveInfo.style.animationDuration = "1s";
+  saveInfo.style.bottom = "-5rem";
 }

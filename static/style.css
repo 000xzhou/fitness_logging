@@ -471,6 +471,37 @@ h4 {
   }
 }
 
+.save-info {
+  position: fixed;
+  bottom: -5rem;
+  left: 1rem;
+  padding: 1rem;
+  font-weight: 500;
+  background-color: var(--font-color);
+  color: var(--bg-color);
+  z-index: 1000;
+  border-radius: 1rem;
+  /* animation-name: saveInfo;
+  animation-duration: 1s;
+  transition: bottom 1s; */
+}
+@keyframes saveInfoIn {
+  from {
+    bottom: -5rem;
+  }
+  to {
+    bottom: 1rem;
+  }
+}
+
+@keyframes saveInfoOut {
+  from {
+    bottom: 1rem;
+  }
+  to {
+    bottom: -5rem;
+  }
+}
 /* =============== calendar ============================== */
 
 table {
