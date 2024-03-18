@@ -48,6 +48,7 @@ function addsets(event) {
     })
     .then((data) => {
       const placement = id.querySelector("#set-in-here");
+      console.log("placement", placement.parentNode);
       placement.insertAdjacentHTML("beforeend", data);
     })
     .catch((error) => {
@@ -59,10 +60,10 @@ function setBtn(event) {
   const btnText = event.target;
   const parent = btnText.parentElement;
   const inputs = parent.querySelectorAll("input");
-  if (btnText.textContent == "Done") {
+  if (btnText.textContent.trim() == "Done") {
     inputs.forEach((input) => (input.disabled = true));
     btnText.textContent = "Enable";
-  } else if (btnText.textContent == "Edit") {
+  } else if (btnText.textContent.trim() == "Edit") {
     inputs.forEach((input) => (input.disabled = true));
     btnText.textContent = "Enable";
   } else {
@@ -219,15 +220,14 @@ function sendLog(setValues, exerciseId, duration, notes) {
     });
 }
 
-function startExercise(event) {
-  let parentID = event.target.parentNode;
-  let divElements = form.querySelectorAll("#logging-info-form > div");
-  console.log(parentID);
-  for (let i = 0; i < divElements.length; i++) {
-    if (divElements[i].id == parentID.id) {
-      divElements[i].style.display = "block";
-    } else {
-      divElements[i].style.display = "none";
-    }
-  }
-}
+// function startExercise(event) {
+//   let parentID = event.target.parentNode;
+//   let divElements = form.querySelectorAll("#logging-info-form > div");
+//   for (let i = 0; i < divElements.length; i++) {
+//     if (divElements[i].id == parentID.id) {
+//       divElements[i].style.display = "block";
+//     } else {
+//       divElements[i].style.display = "none";
+//     }
+//   }
+// }

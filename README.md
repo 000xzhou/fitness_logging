@@ -73,10 +73,10 @@ still need to do:
 - conver between lb and kg
 - schedule smtwtfs style
 - add a break timer
-- add timer styling
 - add schedule to calender
 - delete account btn don't have an route
 - email reminder does nothing atm
+- in logging... set # under title need to be changed anytime a new set is added
 
 ## using as reference:
 

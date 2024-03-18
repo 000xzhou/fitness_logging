@@ -609,6 +609,15 @@ th {
 .set {
   padding-block: 0.5rem;
 }
-#logging-info-form > div {
+/* .set:hover {
+  border: 1px solid var(--accents-color-dark);
+} */
+/* #logging-info-form > div {
   display: none;
+  padding-block: 1rem;
 }
+@media (width < 600px) {
+  #logging-info-form > div {
+    display: none;
+  }
+} */
